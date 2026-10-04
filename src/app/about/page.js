@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import Team from '@/components/Team';
 
 export default function About() {
   const [content, setContent] = useState({});
@@ -57,6 +58,8 @@ export default function About() {
       <motion.p {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-gray-600 leading-relaxed">
         {content.who_serve_text || 'Clinical and research laboratories, hospitals, diagnostic centres and research institutes.'}
       </motion.p>
+
+      <Team />
 
       <motion.div {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="mt-16 pt-10 border-t border-gray-100">
         <p className="text-sm text-gray-500 mb-6 text-center">Developed With & Funded By</p>

@@ -6,10 +6,10 @@ const TABS = [
   { id: 'services', label: 'Services' },
   { id: 'content', label: 'Homepage & About' },
   { id: 'faqs', label: 'FAQs' },
+  { id: 'team', label: 'Team' },
   { id: 'settings', label: 'Contact Info' },
   { id: 'images', label: 'Images' },
 ];
-
 export default function AdminDashboard() {
   const [tab, setTab] = useState('services');
   const [msg, setMsg] = useState('');
@@ -59,6 +59,8 @@ export default function AdminDashboard() {
         {tab === 'services' && <ServicesTab flash={flash} />}
         {tab === 'content' && <ContentTab flash={flash} />}
         {tab === 'faqs' && <FaqsTab flash={flash} />}
+        {tab === 'faqs' && <FaqsTab flash={flash} />}
+        {tab === 'team' && <TeamTab flash={flash} />}
         {tab === 'settings' && <SettingsTab flash={flash} />}
         {tab === 'images' && <ImagesTab flash={flash} />}
       </div>
@@ -419,6 +421,59 @@ function ImagesTab({ flash }) {
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+/* ---------- TEAM TAB ---------- */
+function TeamTab({ flash }) {
+  const [team, setTeam] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/team').then(r => r.json()).then(setTeam);
+  }, []);
+
+  const update = (id, field, value) => {
+    setTeam(team.map(m => m.id === id ? { ...m, [field]: value } : m));
+  };
+
+  const save = async (m) => {
+    await fetch('/api/team', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(m),
+    });
+    flash(`${m.name} saved`);
+  };
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold text-navy mb-1">Leadership Team</h2>
+      <p className="text-sm text-gray-500 mb-6">Edit names, roles and bios shown on the About page.</p>
+      {team.map((m) => (
+        <div key={m.id} className="bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm">
+          <label className="text-xs font-bold text-gray-400 uppercase">Name</label>
+          <input
+            value={m.name}
+            onChange={(e) => update(m.id, 'name', e.target.value)}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 mb-3 font-semibold text-navy"
+          />
+          <label className="text-xs font-bold text-gray-400 uppercase">Role / Title</label>
+          <input
+            value={m.role}
+            onChange={(e) => update(m.id, 'role', e.target.value)}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 mb-3"
+          />
+          <label className="text-xs font-bold text-gray-400 uppercase">Bio</label>
+          <textarea
+            value={m.bio}
+            onChange={(e) => update(m.id, 'bio', e.target.value)}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 mb-4 min-h-[70px]"
+          />
+          <button onClick={() => save(m)} className="bg-cyan text-white px-5 py-2 rounded-lg font-semibold hover:opacity-90">
+            Save
+          </button>
+        </div>
+      ))}
     </div>
   );
 }
