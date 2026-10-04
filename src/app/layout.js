@@ -1,11 +1,12 @@
-import { Inter } from 'next/font/google';
+import { Inter, Sora } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { supabase } from '@/lib/supabase';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const sora = Sora({ subsets: ['latin'], weight: ['600', '700', '800'], variable: '--font-sora' });
 
 export const metadata = {
   title: 'Precision Life Sciences | Mugen-Plex Molecular Diagnostics',
@@ -17,7 +18,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${sora.variable}`}>
         <Navbar settings={settings} />
         {children}
         <Footer />

@@ -40,9 +40,15 @@ export default function Home() {
     <main className="overflow-hidden">
       {/* HERO */}
       <section className="relative bg-navy text-white pt-28 pb-32 px-4 text-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy to-navylight opacity-95" />
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-cyan/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-hiv/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-navy" />
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
+            backgroundSize: '26px 26px',
+          }}
+        />
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-hbv via-hcv to-cchf" />
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
