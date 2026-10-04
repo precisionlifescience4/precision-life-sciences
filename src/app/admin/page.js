@@ -7,9 +7,11 @@ const TABS = [
   { id: 'content', label: 'Homepage & About' },
   { id: 'faqs', label: 'FAQs' },
   { id: 'team', label: 'Team' },
+  { id: 'badges', label: 'Trust Badges' },
   { id: 'settings', label: 'Contact Info' },
   { id: 'images', label: 'Images' },
 ];
+
 export default function AdminDashboard() {
   const [tab, setTab] = useState('services');
   const [msg, setMsg] = useState('');
@@ -61,6 +63,8 @@ export default function AdminDashboard() {
         {tab === 'faqs' && <FaqsTab flash={flash} />}
         {tab === 'faqs' && <FaqsTab flash={flash} />}
         {tab === 'team' && <TeamTab flash={flash} />}
+        {tab === 'team' && <TeamTab flash={flash} />}
+        {tab === 'badges' && <BadgesTab flash={flash} />}
         {tab === 'settings' && <SettingsTab flash={flash} />}
         {tab === 'images' && <ImagesTab flash={flash} />}
       </div>
@@ -470,6 +474,53 @@ function TeamTab({ flash }) {
             className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 mb-4 min-h-[70px]"
           />
           <button onClick={() => save(m)} className="bg-cyan text-white px-5 py-2 rounded-lg font-semibold hover:opacity-90">
+            Save
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+/* ---------- BADGES TAB ---------- */
+function BadgesTab({ flash }) {
+  const [badges, setBadges] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/trust-badges').then(r => r.json()).then(setBadges);
+  }, []);
+
+  const update = (id, field, value) => {
+    setBadges(badges.map(b => b.id === id ? { ...b, [field]: value } : b));
+  };
+
+  const save = async (b) => {
+    await fetch('/api/trust-badges', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(b),
+    });
+    flash(`${b.title} saved`);
+  };
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold text-navy mb-1">Trust Badges</h2>
+      <p className="text-sm text-gray-500 mb-6">These credibility points appear on the Home page.</p>
+      {badges.map((b) => (
+        <div key={b.id} className="bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm">
+          <label className="text-xs font-bold text-gray-400 uppercase">Title</label>
+          <input
+            value={b.title}
+            onChange={(e) => update(b.id, 'title', e.target.value)}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 mb-3 font-semibold text-navy"
+          />
+          <label className="text-xs font-bold text-gray-400 uppercase">Description</label>
+          <textarea
+            value={b.description}
+            onChange={(e) => update(b.id, 'description', e.target.value)}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 mb-4 min-h-[60px]"
+          />
+          <button onClick={() => save(b)} className="bg-cyan text-white px-5 py-2 rounded-lg font-semibold hover:opacity-90">
             Save
           </button>
         </div>

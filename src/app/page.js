@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-
+import TrustBadges from '@/components/TrustBadges';
 export default function Home() {
   const [services, setServices] = useState([]);
   const [content, setContent] = useState({});
@@ -191,6 +191,7 @@ export default function Home() {
           })}
         </div>
       </section>
+      <TrustBadges />
 
       {/* CAPABILITIES */}
       <section className="bg-graybg py-24 px-4">
