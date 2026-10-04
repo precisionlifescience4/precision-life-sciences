@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const TABS = [
+  { id: 'inquiries', label: 'Enquiries' },
   { id: 'services', label: 'Services' },
   { id: 'content', label: 'Homepage & About' },
   { id: 'faqs', label: 'FAQs' },
@@ -58,6 +59,8 @@ export default function AdminDashboard() {
           </div>
         )}
 
+        {tab === 'inquiries' && <InquiriesTab flash={flash} />}
+        {tab === 'services' && <ServicesTab flash={flash} />}
         {tab === 'services' && <ServicesTab flash={flash} />}
         {tab === 'content' && <ContentTab flash={flash} />}
         {tab === 'faqs' && <FaqsTab flash={flash} />}
@@ -523,6 +526,84 @@ function BadgesTab({ flash }) {
           <button onClick={() => save(b)} className="bg-cyan text-white px-5 py-2 rounded-lg font-semibold hover:opacity-90">
             Save
           </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+/* ---------- INQUIRIES TAB ---------- */
+function InquiriesTab({ flash }) {
+  const [inquiries, setInquiries] = useState([]);
+
+  const load = () => fetch('/api/inquiries').then(r => r.json()).then(setInquiries);
+  useEffect(() => { load(); }, []);
+
+  const updateStatus = async (id, status) => {
+    await fetch('/api/inquiries', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, status }),
+    });
+    flash('Status updated');
+    load();
+  };
+
+  const remove = async (id) => {
+    await fetch('/api/inquiries', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    });
+    flash('Enquiry deleted');
+    load();
+  };
+
+  const statusColors = {
+    New: 'bg-cyan/10 text-cyan',
+    'In Progress': 'bg-hbv/10 text-hbv',
+    Closed: 'bg-gray-200 text-gray-500',
+  };
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold text-navy mb-1">Website Enquiries</h2>
+      <p className="text-sm text-gray-500 mb-6">Messages submitted through the Contact page form.</p>
+
+      {inquiries.length === 0 && (
+        <p className="text-gray-400 text-sm bg-white border border-gray-200 rounded-xl p-6 text-center">No enquiries yet.</p>
+      )}
+
+      {inquiries.map((inq) => (
+        <div key={inq.id} className="bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm">
+          <div className="flex justify-between items-start flex-wrap gap-2 mb-3">
+            <div>
+              <p className="font-bold text-navy">{inq.name} {inq.organization && <span className="text-gray-400 font-normal">— {inq.organization}</span>}</p>
+              <p className="text-xs text-gray-400">{new Date(inq.created_at).toLocaleString()}</p>
+            </div>
+            <span className={`text-xs font-bold px-3 py-1 rounded-full ${statusColors[inq.status] || statusColors.New}`}>
+              {inq.status}
+            </span>
+          </div>
+          <div className="text-sm text-gray-600 space-y-1 mb-3">
+            <p><span className="font-semibold text-navy">Type:</span> {inq.inquiry_type}</p>
+            <p><span className="font-semibold text-navy">Email:</span> {inq.email}</p>
+            {inq.phone && <p><span className="font-semibold text-navy">Phone:</span> {inq.phone}</p>}
+            <p className="pt-2 border-t border-gray-100 mt-2">{inq.message}</p>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            <select
+              value={inq.status}
+              onChange={(e) => updateStatus(inq.id, e.target.value)}
+              className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm"
+            >
+              <option>New</option>
+              <option>In Progress</option>
+              <option>Closed</option>
+            </select>
+            <button onClick={() => remove(inq.id)} className="text-cchf text-sm font-semibold hover:underline">
+              Delete
+            </button>
+          </div>
         </div>
       ))}
     </div>
