@@ -43,8 +43,21 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="border-t border-white/10 text-center py-4 text-xs text-gray-400">
-        © {new Date().getFullYear()} {content.company_legal_name || 'Precision Life Sciences'}. For Research Use Only.
+      <div className="border-t border-white/10 py-4 px-4">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-gray-400">
+          <p>© {new Date().getFullYear()} {content.company_legal_name || 'Precision Life Sciences'}. For Research Use Only.</p>
+          <p>
+            Developed by{' '}
+            <a
+              href="https://share.google/XP6L5VgALEooH6F9v"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan hover:underline font-medium"
+            >
+              Ibadullah
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
