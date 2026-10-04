@@ -6,9 +6,11 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [services, setServices] = useState([]);
+  const [content, setContent] = useState({});
 
   useEffect(() => {
     fetch('/api/services').then(r => r.json()).then(setServices);
+    fetch('/api/content').then(r => r.json()).then(setContent);
   }, []);
 
   const colorMap = {
@@ -48,16 +50,17 @@ export default function Home() {
           transition={{ duration: 1.1, ease: 'easeOut' }}
           className="relative z-10"
         >
-      
+          <span className="inline-block bg-white/10 border border-white/20 text-cyan text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full mb-6">
+            For Research Use Only
+          </span>
           <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
-            Mugen-<span className="text-cyan">Plex</span>
+            {content.hero_title || 'Mugen-Plex'}
           </h1>
           <p className="text-cyan text-lg md:text-xl font-semibold mb-3 tracking-wide">
-            REAL-TIME PCR ASSAY PORTFOLIO
+            {content.hero_subtitle || 'REAL-TIME PCR ASSAY PORTFOLIO'}
           </p>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
-            Precision-engineered real-time PCR assays — trusted by laboratories across Pakistan for
-            accurate, consistent molecular diagnostics.
+            {content.hero_description || 'Precision-engineered real-time PCR assays for laboratories.'}
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-10">
             <Link
@@ -75,7 +78,6 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Assay color strip */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -107,11 +109,12 @@ export default function Home() {
           className="max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-gray-100"
         >
           <Image
-            src="/images/product-lineup.png"
-            alt="Mugen-Plex Real-Time PCR Assay Lineup — HBV, HCV, HIV, Influenza A&B, CCHF"
+            src={content.img_product_lineup || '/images/product-lineup.png'}
+            alt="Mugen-Plex Real-Time PCR Assay Lineup"
             width={1536}
             height={670}
             className="w-full h-auto"
+            unoptimized
           />
         </motion.div>
       </section>
@@ -142,7 +145,7 @@ export default function Home() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-        
+          <span className="text-cyan font-semibold text-sm tracking-widest uppercase">Product Portfolio</span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
             One Family. Five Assays. Total Consistency.
           </h2>
@@ -192,7 +195,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-        
+            <span className="text-cyan font-semibold text-sm tracking-widest uppercase">Beyond the Kit</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
               Full-Cycle Diagnostic Capability
             </h2>
@@ -233,13 +236,12 @@ export default function Home() {
             Practical Science. Reliable Support.
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            A clear five-assay product portfolio, consistent kit presentation, distinct colour coding,
-            complete control sets, locally developed solutions and accessible technical support.
+            {content.why_choose_text || 'A clear five-assay product portfolio with accessible technical support.'}
           </p>
           <div className="flex items-center justify-center gap-10 mt-10 flex-wrap opacity-80">
-            <Image src="/images/partner-kmu.png" alt="KMU" width={90} height={45} className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-            <Image src="/images/partner-bq.png" alt="BQ Pharma" width={100} height={45} className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-            <Image src="/images/partner-dgst.png" alt="DGST" width={90} height={90} className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+            <Image src={content.img_partner_kmu || '/images/partner-kmu.png'} alt="KMU" width={90} height={45} unoptimized className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+            <Image src={content.img_partner_bq || '/images/partner-bq.png'} alt="BQ Pharma" width={100} height={45} unoptimized className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+            <Image src={content.img_partner_dgst || '/images/partner-dgst.png'} alt="DGST" width={90} height={90} unoptimized className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
           </div>
         </motion.div>
       </section>
@@ -251,9 +253,9 @@ export default function Home() {
         viewport={{ once: true }}
         className="bg-navy text-white text-center py-20 px-4"
       >
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to bring Mugen-Plex to your lab?</h2>
+        <h2 className="text-3xl md:text-4xl font-extrabold mb-4">{content.cta_title || 'Ready to bring Mugen-Plex to your lab?'}</h2>
         <p className="text-gray-300 max-w-xl mx-auto mb-8">
-          Get in touch for pricing, distribution enquiries or technical collaboration.
+          {content.cta_description || 'Get in touch for pricing and technical collaboration.'}
         </p>
         <Link
           href="/contact"

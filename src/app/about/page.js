@@ -1,8 +1,15 @@
 'use client';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 export default function About() {
+  const [content, setContent] = useState({});
+
+  useEffect(() => {
+    fetch('/api/content').then(r => r.json()).then(setContent);
+  }, []);
+
   const fadeUp = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -15,10 +22,7 @@ export default function About() {
         About Precision Life Sciences
       </motion.h1>
       <motion.p {...fadeUp} transition={{ delay: 0.12, duration: 0.6, ease: 'easeOut' }} className="text-gray-600 mb-6 leading-relaxed">
-        Precision Life Sciences is a life-sciences company focused on practical molecular diagnostics.
-        Its flagship Mugen-Plex portfolio includes real-time PCR assays for HBV, HCV, HIV, Influenza A&B and CCHF.
-        Capabilities include molecular assay development, diagnostic product development, laboratory implementation
-        guidance, product support and local technical assistance.
+        {content.about_intro || 'Precision Life Sciences is a life-sciences company focused on practical molecular diagnostics.'}
       </motion.p>
 
       <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-2xl font-bold text-navy mt-10 mb-4">
@@ -51,16 +55,15 @@ export default function About() {
         Who We Serve
       </motion.h2>
       <motion.p {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-gray-600 leading-relaxed">
-        Clinical and research laboratories, hospitals, diagnostic centres, universities, public-health programmes,
-        research institutes, distributors and outbreak-response organisations.
+        {content.who_serve_text || 'Clinical and research laboratories, hospitals, diagnostic centres and research institutes.'}
       </motion.p>
 
       <motion.div {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="mt-16 pt-10 border-t border-gray-100">
         <p className="text-sm text-gray-500 mb-6 text-center">Developed With & Funded By</p>
         <div className="flex items-center justify-center gap-12 flex-wrap">
-          <Image src="/images/partner-kmu.png" alt="KMU" width={90} height={45} className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-          <Image src="/images/partner-bq.png" alt="BQ Pharma" width={100} height={45} className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-          <Image src="/images/partner-dgst.png" alt="DGST" width={90} height={90} className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+          <Image src={content.img_partner_kmu || '/images/partner-kmu.png'} alt="KMU" width={90} height={45} unoptimized className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+          <Image src={content.img_partner_bq || '/images/partner-bq.png'} alt="BQ Pharma" width={100} height={45} unoptimized className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+          <Image src={content.img_partner_dgst || '/images/partner-dgst.png'} alt="DGST" width={90} height={90} unoptimized className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
         </div>
       </motion.div>
     </main>
