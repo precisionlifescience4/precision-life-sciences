@@ -23,17 +23,17 @@ export default function Home() {
   };
 
   const stats = [
-    { value: '5', label: 'PCR Assays' },
-    { value: '100%', label: 'Locally Developed' },
-    { value: '3+', label: 'Institutional Partners' },
-    { value: '24/7', label: 'Technical Support' },
+    { value: content.stat1_value || '5', label: content.stat1_label || 'PCR Assays' },
+    { value: content.stat2_value || '100%', label: content.stat2_label || 'Locally Developed' },
+    { value: content.stat3_value || '3+', label: content.stat3_label || 'Institutional Partners' },
+    { value: content.stat4_value || '24/7', label: content.stat4_label || 'Technical Support' },
   ];
 
   const capabilities = [
-    { title: 'Molecular Assay Development', desc: 'End-to-end design and validation of real-time PCR assays.' },
-    { title: 'Diagnostic Product Development', desc: 'From concept to a manufactured, field-ready kit.' },
-    { title: 'Laboratory Implementation', desc: 'Hands-on guidance to bring assays into routine use.' },
-    { title: 'Local Technical Support', desc: 'Direct, accessible support for laboratories and partners.' },
+    { title: content.cap1_title || 'Molecular Assay Development', desc: content.cap1_desc || '' },
+    { title: content.cap2_title || 'Diagnostic Product Development', desc: content.cap2_desc || '' },
+    { title: content.cap3_title || 'Laboratory Implementation', desc: content.cap3_desc || '' },
+    { title: content.cap4_title || 'Local Technical Support', desc: content.cap4_desc || '' },
   ];
 
   return (
@@ -124,7 +124,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {stats.map((s, i) => (
             <motion.div
-              key={s.label}
+              key={i}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -204,7 +204,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-6">
             {capabilities.map((cap, i) => (
               <motion.div
-                key={cap.title}
+                key={i}
                 initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}

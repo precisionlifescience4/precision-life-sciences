@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react';
 
 export default function Footer() {
   const [settings, setSettings] = useState(null);
+  const [content, setContent] = useState({});
 
   useEffect(() => {
     fetch('/api/settings').then(r => r.json()).then(setSettings);
+    fetch('/api/content').then(r => r.json()).then(setContent);
   }, []);
 
   return (
@@ -15,7 +17,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
         <div>
           <Image src="/images/logo-dark.svg" alt="Precision Life Sciences" width={180} height={45} className="mb-4" />
-          <p className="text-gray-300 text-sm">Molecular diagnostic products for laboratory use — the Mugen-Plex real-time PCR assay portfolio.</p>
+          <p className="text-gray-300 text-sm">
+            {content.footer_about || 'Molecular diagnostic products for laboratory use.'}
+          </p>
         </div>
         <div>
           <h4 className="font-semibold mb-3">Quick Links</h4>
@@ -40,7 +44,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 text-center py-4 text-xs text-gray-400">
-        © {new Date().getFullYear()} Precision Life Sciences. For Research Use Only.
+        © {new Date().getFullYear()} {content.company_legal_name || 'Precision Life Sciences'}. For Research Use Only.
       </div>
     </footer>
   );

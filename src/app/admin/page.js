@@ -128,13 +128,25 @@ function ContentTab({ flash }) {
     fetch('/api/content').then(r => r.json()).then(setContent);
   }, []);
 
-  const fields = [
+   const fields = [
     { key: 'hero_title', label: 'Hero Title (Home page big heading)' },
     { key: 'hero_subtitle', label: 'Hero Subtitle' },
     { key: 'hero_description', label: 'Hero Description', long: true },
+    { key: 'stat1_value', label: 'Stat 1 — Value' }, { key: 'stat1_label', label: 'Stat 1 — Label' },
+    { key: 'stat2_value', label: 'Stat 2 — Value' }, { key: 'stat2_label', label: 'Stat 2 — Label' },
+    { key: 'stat3_value', label: 'Stat 3 — Value' }, { key: 'stat3_label', label: 'Stat 3 — Label' },
+    { key: 'stat4_value', label: 'Stat 4 — Value' }, { key: 'stat4_label', label: 'Stat 4 — Label' },
+    { key: 'cap1_title', label: 'Capability 1 — Title' }, { key: 'cap1_desc', label: 'Capability 1 — Description', long: true },
+    { key: 'cap2_title', label: 'Capability 2 — Title' }, { key: 'cap2_desc', label: 'Capability 2 — Description', long: true },
+    { key: 'cap3_title', label: 'Capability 3 — Title' }, { key: 'cap3_desc', label: 'Capability 3 — Description', long: true },
+    { key: 'cap4_title', label: 'Capability 4 — Title' }, { key: 'cap4_desc', label: 'Capability 4 — Description', long: true },
+    { key: 'why_choose_text', label: 'Home Page — "Why Choose Us" Text', long: true },
     { key: 'about_intro', label: 'About Page — Introduction Paragraph', long: true },
     { key: 'who_serve_text', label: 'About Page — "Who We Serve" Text', long: true },
-    { key: 'why_choose_text', label: 'Home Page — "Why Choose Us" Text', long: true },
+    { key: 'services_title', label: 'Services Page — Heading' },
+    { key: 'services_subtitle', label: 'Services Page — Subheading' },
+    { key: 'footer_about', label: 'Footer — About Text', long: true },
+    { key: 'company_legal_name', label: 'Company Legal Name (copyright line)' },
     { key: 'cta_title', label: 'Bottom CTA Title' },
     { key: 'cta_description', label: 'Bottom CTA Description', long: true },
   ];
