@@ -87,10 +87,19 @@ function ServicesTab({ flash }) {
     flash(`${s.name} saved`);
   };
 
+  const specFields = [
+    { key: 'target_gene', label: 'Target Gene/Pathogen' },
+    { key: 'sample_type', label: 'Sample Type' },
+    { key: 'turnaround_time', label: 'Turnaround Time' },
+    { key: 'reaction_volume', label: 'Reaction Volume' },
+    { key: 'storage_condition', label: 'Storage Condition' },
+    { key: 'shelf_life', label: 'Shelf Life' },
+  ];
+
   return (
     <div>
       <h2 className="text-xl font-bold text-navy mb-1">Products & Services</h2>
-      <p className="text-sm text-gray-500 mb-6">Edit the name, description and price of each assay/service shown on the Services page.</p>
+      <p className="text-sm text-gray-500 mb-6">Edit name, description, price and technical specs for each assay.</p>
       {services.map((s) => (
         <div key={s.id} className="bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm">
           <label className="text-xs font-bold text-gray-400 uppercase">Name</label>
@@ -111,6 +120,21 @@ function ServicesTab({ flash }) {
             onChange={(e) => update(s.id, 'price', e.target.value)}
             className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 mb-4"
           />
+
+          <p className="text-xs font-bold text-navy uppercase mb-2 pt-2 border-t border-gray-100">Technical Specifications</p>
+          <div className="grid md:grid-cols-2 gap-3 mb-4">
+            {specFields.map((f) => (
+              <div key={f.key}>
+                <label className="text-xs text-gray-400">{f.label}</label>
+                <input
+                  value={s[f.key] || ''}
+                  onChange={(e) => update(s.id, f.key, e.target.value)}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 text-sm"
+                />
+              </div>
+            ))}
+          </div>
+
           <button onClick={() => save(s)} className="bg-cyan text-white px-5 py-2 rounded-lg font-semibold hover:opacity-90">
             Save
           </button>
@@ -119,7 +143,6 @@ function ServicesTab({ flash }) {
     </div>
   );
 }
-
 /* ---------- CONTENT TAB ---------- */
 function ContentTab({ flash }) {
   const [content, setContent] = useState({});
