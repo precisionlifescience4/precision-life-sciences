@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const TABS = [
+  { id: 'overview', label: 'Overview' },
   { id: 'inquiries', label: 'Enquiries' },
   { id: 'services', label: 'Services' },
   { id: 'content', label: 'Homepage & About' },
@@ -14,7 +15,7 @@ const TABS = [
 ];
 
 export default function AdminDashboard() {
-  const [tab, setTab] = useState('services');
+  const [tab, setTab] = useState('overview');
   const [msg, setMsg] = useState('');
   const router = useRouter();
 
@@ -59,6 +60,8 @@ export default function AdminDashboard() {
           </div>
         )}
 
+        {tab === 'overview' && <OverviewTab setTab={setTab} />}
+        {tab === 'inquiries' && <InquiriesTab flash={flash} />}
         {tab === 'inquiries' && <InquiriesTab flash={flash} />}
         {tab === 'services' && <ServicesTab flash={flash} />}
         {tab === 'services' && <ServicesTab flash={flash} />}
@@ -736,6 +739,77 @@ function InquiriesTab({ flash }) {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+/* ---------- OVERVIEW TAB ---------- */
+function OverviewTab({ setTab }) {
+  const [stats, setStats] = useState({ inquiries: [], services: 0, faqs: 0, team: 0 });
+
+  useEffect(() => {
+    Promise.all([
+      fetch('/api/inquiries').then(r => r.json()),
+      fetch('/api/services').then(r => r.json()),
+      fetch('/api/faqs').then(r => r.json()),
+      fetch('/api/team').then(r => r.json()),
+    ]).then(([inquiries, services, faqs, team]) => {
+      setStats({ inquiries, services: services.length, faqs: faqs.length, team: team.length });
+    });
+  }, []);
+
+  const newCount = stats.inquiries.filter(i => i.status === 'New').length;
+  const recent = stats.inquiries.slice(0, 5);
+
+  const cards = [
+    { label: 'New Enquiries', value: newCount, color: 'text-cchf', bg: 'bg-cchf/10', tab: 'inquiries' },
+    { label: 'Total Enquiries', value: stats.inquiries.length, color: 'text-cyan', bg: 'bg-cyan/10', tab: 'inquiries' },
+    { label: 'Services Listed', value: stats.services, color: 'text-hiv', bg: 'bg-hiv/10', tab: 'services' },
+    { label: 'FAQs Published', value: stats.faqs, color: 'text-flu', bg: 'bg-flu/10', tab: 'faqs' },
+  ];
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold text-navy mb-1">Dashboard Overview</h2>
+      <p className="text-sm text-gray-500 mb-6">Quick snapshot of your website activity.</p>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        {cards.map((c) => (
+          <button
+            key={c.label}
+            onClick={() => setTab(c.tab)}
+            className={`${c.bg} rounded-xl p-5 text-left hover:scale-[1.02] transition-transform`}
+          >
+            <p className={`text-3xl font-extrabold ${c.color}`}>{c.value}</p>
+            <p className="text-xs text-gray-500 mt-1 font-medium">{c.label}</p>
+          </button>
+        ))}
+      </div>
+
+      <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="font-bold text-navy">Recent Enquiries</h3>
+          <button onClick={() => setTab('inquiries')} className="text-cyan text-sm font-semibold hover:underline">
+            View all →
+          </button>
+        </div>
+        {recent.length === 0 ? (
+          <p className="text-gray-400 text-sm">No enquiries yet.</p>
+        ) : (
+          <div className="space-y-3">
+            {recent.map((inq) => (
+              <div key={inq.id} className="flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0">
+                <div>
+                  <p className="font-semibold text-navy text-sm">{inq.name}</p>
+                  <p className="text-xs text-gray-400">{inq.inquiry_type} — {new Date(inq.created_at).toLocaleDateString()}</p>
+                </div>
+                <span className={`text-xs font-bold px-2 py-1 rounded-full ${inq.status === 'New' ? 'bg-cyan/10 text-cyan' : 'bg-gray-100 text-gray-500'}`}>
+                  {inq.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
