@@ -418,12 +418,24 @@ function ImagesTab({ flash }) {
               // eslint-disable-next-line @next/next/no-img-element
               <img src={content[s.key]} alt={s.label} className="w-full h-32 object-contain bg-graybg rounded-lg mb-3" />
             )}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleUpload(s.key, e.target.files[0])}
-              className="text-sm"
-            />
+            <label
+              htmlFor={`img-${s.key}`}
+              className="inline-flex items-center gap-2 bg-navy text-white text-xs font-semibold px-4 py-2 rounded-lg cursor-pointer hover:bg-navylight transition-colors"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+              {content[s.key] ? 'Replace Image' : 'Upload Image'}
+              <input
+                id={`img-${s.key}`}
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleUpload(s.key, e.target.files[0])}
+                className="hidden"
+              />
+            </label>
             {uploading === s.key && <p className="text-xs text-cyan mt-2">Uploading...</p>}
           </div>
         ))}
@@ -434,10 +446,11 @@ function ImagesTab({ flash }) {
 /* ---------- TEAM TAB ---------- */
 function TeamTab({ flash }) {
   const [team, setTeam] = useState([]);
+  const [newMember, setNewMember] = useState({ name: '', role: '', bio: '', photo_url: '' });
+  const [uploading, setUploading] = useState(null);
 
-  useEffect(() => {
-    fetch('/api/team').then(r => r.json()).then(setTeam);
-  }, []);
+  const load = () => fetch('/api/team').then(r => r.json()).then(setTeam);
+  useEffect(() => { load(); }, []);
 
   const update = (id, field, value) => {
     setTeam(team.map(m => m.id === id ? { ...m, [field]: value } : m));
@@ -452,12 +465,84 @@ function TeamTab({ flash }) {
     flash(`${m.name} saved`);
   };
 
+  const remove = async (id) => {
+    await fetch('/api/team', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    });
+    flash('Team member removed');
+    load();
+  };
+
+  const add = async () => {
+    if (!newMember.name || !newMember.role) return;
+    await fetch('/api/team', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...newMember, sort_order: team.length + 1 }),
+    });
+    setNewMember({ name: '', role: '', bio: '', photo_url: '' });
+    flash('Team member added');
+    load();
+  };
+
+  const uploadPhoto = async (file, onDone) => {
+    if (!file) return;
+    setUploading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await fetch('/api/upload', { method: 'POST', body: formData });
+    const data = await res.json();
+    setUploading(false);
+    if (data.url) {
+      onDone(data.url);
+      flash('Photo uploaded');
+    } else {
+      flash('Upload failed: ' + (data.error || 'unknown error'));
+    }
+  };
+
+  const UploadButton = ({ id, onChange }) => (
+    <label
+      htmlFor={id}
+      className="inline-flex items-center gap-2 bg-navy text-white text-xs font-semibold px-4 py-2 rounded-lg cursor-pointer hover:bg-navylight transition-colors"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+        <polyline points="17 8 12 3 7 8" />
+        <line x1="12" y1="3" x2="12" y2="15" />
+      </svg>
+      Upload Photo
+      <input id={id} type="file" accept="image/*" onChange={onChange} className="hidden" />
+    </label>
+  );
+
   return (
     <div>
       <h2 className="text-xl font-bold text-navy mb-1">Leadership Team</h2>
-      <p className="text-sm text-gray-500 mb-6">Edit names, roles and bios shown on the About page.</p>
+      <p className="text-sm text-gray-500 mb-6">Add, edit or remove team members shown on the About page.</p>
+
       {team.map((m) => (
         <div key={m.id} className="bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm">
+          <div className="flex items-center gap-4 mb-4">
+            {m.photo_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={m.photo_url} alt={m.name} className="w-16 h-16 rounded-full object-cover border-2 border-cyan flex-shrink-0" />
+            ) : (
+              <div className="w-16 h-16 rounded-full bg-graybg flex items-center justify-center text-gray-400 text-[10px] text-center flex-shrink-0">
+                No Photo
+              </div>
+            )}
+            <UploadButton
+              id={`photo-${m.id}`}
+              onChange={(e) => uploadPhoto(e.target.files[0], (url) => {
+                update(m.id, 'photo_url', url);
+                save({ ...m, photo_url: url });
+              })}
+            />
+          </div>
+
           <label className="text-xs font-bold text-gray-400 uppercase">Name</label>
           <input
             value={m.name}
@@ -476,11 +561,56 @@ function TeamTab({ flash }) {
             onChange={(e) => update(m.id, 'bio', e.target.value)}
             className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 mb-4 min-h-[70px]"
           />
-          <button onClick={() => save(m)} className="bg-cyan text-white px-5 py-2 rounded-lg font-semibold hover:opacity-90">
-            Save
-          </button>
+          <div className="flex gap-3">
+            <button onClick={() => save(m)} className="bg-cyan text-white px-5 py-2 rounded-lg font-semibold hover:opacity-90">
+              Save
+            </button>
+            <button onClick={() => remove(m.id)} className="bg-white border border-cchf text-cchf px-5 py-2 rounded-lg font-semibold hover:bg-cchf hover:text-white transition-colors">
+              Delete
+            </button>
+          </div>
         </div>
       ))}
+
+      <div className="bg-white border-2 border-dashed border-cyan rounded-xl p-5">
+        <h3 className="font-bold text-navy mb-3">Add New Team Member</h3>
+        <div className="flex items-center gap-4 mb-4">
+          {newMember.photo_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={newMember.photo_url} alt="" className="w-16 h-16 rounded-full object-cover border-2 border-cyan flex-shrink-0" />
+          ) : (
+            <div className="w-16 h-16 rounded-full bg-graybg flex items-center justify-center text-gray-400 text-[10px] text-center flex-shrink-0">
+              No Photo
+            </div>
+          )}
+          <UploadButton
+            id="photo-new"
+            onChange={(e) => uploadPhoto(e.target.files[0], (url) => setNewMember({ ...newMember, photo_url: url }))}
+          />
+        </div>
+        <input
+          placeholder="Name"
+          value={newMember.name}
+          onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2 mb-3"
+        />
+        <input
+          placeholder="Role / Title"
+          value={newMember.role}
+          onChange={(e) => setNewMember({ ...newMember, role: e.target.value })}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2 mb-3"
+        />
+        <textarea
+          placeholder="Bio"
+          value={newMember.bio}
+          onChange={(e) => setNewMember({ ...newMember, bio: e.target.value })}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2 mb-3 min-h-[70px]"
+        />
+        <button onClick={add} className="bg-navy text-white px-5 py-2 rounded-lg font-semibold hover:opacity-90">
+          + Add Team Member
+        </button>
+        {uploading && <p className="text-xs text-cyan mt-2">Uploading photo...</p>}
+      </div>
     </div>
   );
 }
