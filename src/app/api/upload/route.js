@@ -4,7 +4,12 @@ import { cookies } from 'next/headers';
 
 export async function POST(request) {
   const cookieStore = await cookies();
-  const isLoggedIn = cookieStore.get('admin_session')?.value === 'true';
+    const crypto = require('crypto');
+  const expectedToken = crypto
+    .createHmac('sha256', process.env.ADMIN_SESSION_SECRET)
+    .update('admin-authenticated')
+    .digest('hex');
+  const isLoggedIn = cookieStore.get('admin_session')?.value === expectedToken;
   if (!isLoggedIn) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const formData = await request.formData();

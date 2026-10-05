@@ -1,7 +1,14 @@
 import { NextResponse } from 'next/server';
+import crypto from 'crypto';
 
 export function middleware(request) {
-  const isLoggedIn = request.cookies.get('admin_session')?.value === 'true';
+  const cookie = request.cookies.get('admin_session')?.value;
+  const expectedToken = crypto
+    .createHmac('sha256', process.env.ADMIN_SESSION_SECRET)
+    .update('admin-authenticated')
+    .digest('hex');
+
+  const isLoggedIn = cookie === expectedToken;
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith('/admin') && pathname !== '/admin/login' && !isLoggedIn) {
