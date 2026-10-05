@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import TrustBadges from '@/components/TrustBadges';
+import Gallery from '@/components/Gallery';
 export default function Home() {
   const [services, setServices] = useState([]);
   const [content, setContent] = useState({});
@@ -252,6 +253,8 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
+ 
+       <Gallery />
 
       {/* CTA BANNER */}
       <motion.section

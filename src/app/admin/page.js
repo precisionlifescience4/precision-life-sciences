@@ -10,6 +10,7 @@ const TABS = [
   { id: 'faqs', label: 'FAQs' },
   { id: 'team', label: 'Team' },
   { id: 'badges', label: 'Trust Badges' },
+  { id: 'gallery', label: 'Gallery' },
   { id: 'settings', label: 'Contact Info' },
   { id: 'images', label: 'Images' },
 ];
@@ -71,6 +72,8 @@ export default function AdminDashboard() {
         {tab === 'team' && <TeamTab flash={flash} />}
         {tab === 'team' && <TeamTab flash={flash} />}
         {tab === 'badges' && <BadgesTab flash={flash} />}
+        {tab === 'badges' && <BadgesTab flash={flash} />}
+        {tab === 'gallery' && <GalleryTab flash={flash} />}
         {tab === 'settings' && <SettingsTab flash={flash} />}
         {tab === 'images' && <ImagesTab flash={flash} />}
       </div>
@@ -809,6 +812,98 @@ function OverviewTab({ setTab }) {
             ))}
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+/* ---------- GALLERY TAB ---------- */
+function GalleryTab({ flash }) {
+  const [images, setImages] = useState([]);
+  const [caption, setCaption] = useState('');
+  const [uploading, setUploading] = useState(false);
+
+  const load = () => fetch('/api/gallery').then(r => r.json()).then(setImages);
+  useEffect(() => { load(); }, []);
+
+  const upload = async (file) => {
+    if (!file) return;
+    setUploading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await fetch('/api/upload', { method: 'POST', body: formData });
+    const data = await res.json();
+
+    if (data.url) {
+      const galleryRes = await fetch('/api/gallery', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image_url: data.url, caption, sort_order: images.length + 1 }),
+      });
+      const galleryData = await galleryRes.json();
+      if (galleryRes.ok) {
+        setCaption('');
+        flash('Image added to gallery');
+        load();
+      } else {
+        flash('Gallery save failed: ' + (galleryData.error || 'unknown error'));
+      }
+    } else {
+      flash('Upload failed: ' + (data.error || 'unknown error'));
+    }
+    setUploading(false);
+  };
+
+  const remove = async (id) => {
+    await fetch('/api/gallery', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    });
+    flash('Image removed');
+    load();
+  };
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold text-navy mb-1">Image Gallery</h2>
+      <p className="text-sm text-gray-500 mb-6">Add or remove photos shown in the Home page gallery.</p>
+
+      <div className="bg-white border-2 border-dashed border-cyan rounded-xl p-5 mb-6">
+        <h3 className="font-bold text-navy mb-3">Add New Image</h3>
+        <input
+          placeholder="Caption (optional)"
+          value={caption}
+          onChange={(e) => setCaption(e.target.value)}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2 mb-3"
+        />
+        <label
+          htmlFor="gallery-upload"
+          className="inline-flex items-center gap-2 bg-navy text-white text-xs font-semibold px-4 py-2 rounded-lg cursor-pointer hover:bg-navylight transition-colors"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" y1="3" x2="12" y2="15" />
+          </svg>
+          Upload Image
+          <input id="gallery-upload" type="file" accept="image/*" onChange={(e) => upload(e.target.files[0])} className="hidden" />
+        </label>
+        {uploading && <p className="text-xs text-cyan mt-2">Uploading...</p>}
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {images.map((img) => (
+          <div key={img.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={img.image_url} alt={img.caption} className="w-full h-28 object-cover" />
+            <div className="p-2">
+              <p className="text-xs text-gray-500 truncate mb-2">{img.caption || 'No caption'}</p>
+              <button onClick={() => remove(img.id)} className="text-cchf text-xs font-semibold hover:underline">
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
