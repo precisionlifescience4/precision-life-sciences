@@ -29,12 +29,26 @@ export default function Footer() {
             <li><Link href="/contact" className="hover:text-cyan transition-colors">Contact</Link></li>
           </ul>
         </div>
-        <div>
+             <div>
           <h4 className="font-semibold mb-3">Contact</h4>
           <ul className="space-y-2 text-sm text-gray-300">
-            <li>{settings?.email || 'Email coming soon'}</li>
-            <li>{settings?.phone || 'Phone coming soon'}</li>
-            <li>{settings?.address || 'Address coming soon'}</li>
+            <li>
+              {settings?.email ? (
+                <a href={`mailto:${settings.email}`} className="hover:text-cyan transition-colors">{settings.email}</a>
+              ) : 'Email coming soon'}
+            </li>
+            <li>
+              {settings?.phone ? (
+                <a href={`tel:${settings.phone}`} className="hover:text-cyan transition-colors">{settings.phone}</a>
+              ) : 'Phone coming soon'}
+            </li>
+            <li>
+              {settings?.address ? (
+                settings?.maps_link ? (
+                  <a href={settings.maps_link} target="_blank" rel="noopener noreferrer" className="hover:text-cyan transition-colors">{settings.address}</a>
+                ) : settings.address
+              ) : 'Address coming soon'}
+            </li>
           </ul>
           <div className="flex gap-4 mt-4 text-sm">
             {settings?.facebook && <a href={settings.facebook} target="_blank" className="hover:text-cyan">Facebook</a>}

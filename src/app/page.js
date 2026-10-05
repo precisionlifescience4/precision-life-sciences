@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <main className="overflow-hidden">
       {/* HERO */}
-      <section className="relative bg-navy text-white pt-28 pb-32 px-4 text-center">
+        <section className="relative bg-navy text-white pt-16 pb-32 px-4 text-center">
         <div className="absolute inset-0 bg-navy" />
         <div
           className="absolute inset-0 opacity-[0.06]"
@@ -51,24 +51,22 @@ export default function Home() {
         />
         <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-hbv via-hcv to-cchf" />
 
-        <motion.div
+               <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, ease: 'easeOut' }}
           className="relative z-10"
         >
-          <span className="inline-block bg-white/10 border border-white/20 text-cyan text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full mb-6">
-            For Research Use Only
-          </span>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
+          <p className="text-cyan text-sm md:text-base font-bold tracking-[0.25em] uppercase mb-5">
+            {content.hero_subtitle || 'Real-Time PCR Assay Portfolio'}
+          </p>
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
             {content.hero_title || 'Mugen-Plex'}
           </h1>
-          <p className="text-cyan text-lg md:text-xl font-semibold mb-3 tracking-wide">
-            {content.hero_subtitle || 'REAL-TIME PCR ASSAY PORTFOLIO'}
-          </p>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
-            {content.hero_description || 'Precision-engineered real-time PCR assays for laboratories.'}
+            {content.hero_description || 'Five real-time PCR assays. One Pakistani-made diagnostic standard, built for laboratories that cannot afford to guess.'}
           </p>
+
           <div className="flex flex-wrap justify-center gap-4 mt-10">
             <Link
               href="/services"
