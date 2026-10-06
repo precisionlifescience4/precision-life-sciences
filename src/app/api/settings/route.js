@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { requireAdmin } from '@/lib/adminAuth';
 
 export async function GET() {
   const { data, error } = await supabase.from('settings').select('*').eq('id', 1).single();
@@ -8,8 +10,10 @@ export async function GET() {
 }
 
 export async function PUT(request) {
-  const body = await request.json();
-  const { error } = await supabase.from('settings').update(body).eq('id', 1);
+  const denied = await requireAdmin();
+  if (denied) return denied;
+  const { id: _id, ...fields } = await request.json();
+  const { error } = await supabaseAdmin.from('settings').update(fields).eq('id', 1);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ success: true });
 }

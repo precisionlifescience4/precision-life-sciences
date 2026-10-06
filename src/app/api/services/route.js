@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { requireAdmin } from '@/lib/adminAuth';
 
 export async function GET() {
   const { data, error } = await supabase.from('services').select('*').order('sort_order');
@@ -8,10 +10,11 @@ export async function GET() {
 }
 
 export async function PUT(request) {
-  const body = await request.json();
-  const { id, name, description, price, target_gene, sample_type, turnaround_time, reaction_volume, storage_condition, shelf_life } = body;
+  const denied = await requireAdmin();
+  if (denied) return denied;
+  const { id, name, description, price, target_gene, sample_type, turnaround_time, reaction_volume, storage_condition, shelf_life } = await request.json();
 
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('services')
     .update({ name, description, price, target_gene, sample_type, turnaround_time, reaction_volume, storage_condition, shelf_life })
     .eq('id', id);

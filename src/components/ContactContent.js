@@ -23,28 +23,31 @@ export default function ContactContent() {
       >
         Get In Touch
       </motion.h1>
-      <p className="text-center text-gray-600 mb-12">Commercial & Research Enquiries</p>
+      <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Questions about pricing, bulk orders, distribution, technical support or research collaboration?
+        Send us a message and our team will reply, usually within one working day.
+      </p>
 
       <div className="grid md:grid-cols-2 gap-8">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
           <div className="bg-graybg rounded-xl p-6 space-y-5 mb-6">
             <div>
               <p className="font-semibold text-navy mb-1">Phone</p>
-              <a href={`tel:${settings?.phone}`} className="text-gray-600 hover:text-cyan">{settings?.phone || 'Coming soon'}</a>
+              {settings?.phone ? <a href={`tel:${settings.phone}`} className="text-gray-600 hover:text-cyan">{settings.phone}</a> : <span className="text-gray-500">{settings ? 'Please use the form' : '…'}</span>}
             </div>
             <div>
               <p className="font-semibold text-navy mb-1">WhatsApp</p>
               {settings?.whatsapp ? (
                 <a href={`https://wa.me/${settings.whatsapp}`} className="text-cyan font-medium" target="_blank">Chat on WhatsApp →</a>
-              ) : <span className="text-gray-500">Coming soon</span>}
+              ) : <span className="text-gray-500">{settings ? 'Not available' : '…'}</span>}
             </div>
             <div>
               <p className="font-semibold text-navy mb-1">Email</p>
-              <a href={`mailto:${settings?.email}`} className="text-gray-600 hover:text-cyan break-all">{settings?.email || 'Coming soon'}</a>
+              {settings?.email ? <a href={`mailto:${settings.email}`} className="text-gray-600 hover:text-cyan break-all">{settings.email}</a> : <span className="text-gray-500">{settings ? 'Please use the form' : '…'}</span>}
             </div>
             <div>
               <p className="font-semibold text-navy mb-1">Address</p>
-              <p className="text-gray-600">{settings?.address || 'Coming soon'}</p>
+              <p className="text-gray-600">{settings?.address || (settings ? 'Peshawar, Khyber Pakhtunkhwa, Pakistan' : '…')}</p>
               {settings?.maps_link && (
                 <a href={settings.maps_link} target="_blank" className="text-cyan text-sm font-medium inline-block mt-1">
                   Open in Google Maps →

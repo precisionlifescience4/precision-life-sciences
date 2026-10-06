@@ -1,8 +1,8 @@
 import ServicesContent from '@/components/ServicesContent';
 
 export const metadata = {
-  title: 'Mugen-Plex Real-Time PCR Assays | Precision Life Sciences',
-  description: 'Explore the Mugen-Plex real-time PCR assay portfolio — HBV, HCV, HIV, Influenza A&B and CCHF — complete with technical specifications, sample requirements and turnaround times.',
+  title: 'Mugen-Plex Real-Time PCR Assays',
+  description: 'Mugen-Plex real-time PCR assays for HBV, HCV, HIV-1, Influenza A&B, CCHF and Dengue/Chikungunya, with target genes, sample types, turnaround times and storage conditions. For research use only.',
   alternates: { canonical: 'https://precisionlifesciences.com.pk/services' },
   openGraph: {
     title: 'Mugen-Plex Real-Time PCR Assay Portfolio',

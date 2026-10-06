@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { requireAdmin } from '@/lib/adminAuth';
 
 export async function GET() {
   const { data, error } = await supabase.from('team_members').select('*').order('sort_order');
@@ -8,23 +10,28 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const body = await request.json();
-  const { error } = await supabase.from('team_members').insert(body);
+  const denied = await requireAdmin();
+  if (denied) return denied;
+  const { name, role, bio, photo_url, sort_order } = await request.json();
+  const { error } = await supabaseAdmin.from('team_members').insert({ name, role, bio, photo_url, sort_order });
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ success: true });
 }
 
 export async function PUT(request) {
-  const body = await request.json();
-  const { id, name, role, bio, photo_url } = body;
-  const { error } = await supabase.from('team_members').update({ name, role, bio, photo_url }).eq('id', id);
+  const denied = await requireAdmin();
+  if (denied) return denied;
+  const { id, name, role, bio, photo_url } = await request.json();
+  const { error } = await supabaseAdmin.from('team_members').update({ name, role, bio, photo_url }).eq('id', id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ success: true });
 }
 
 export async function DELETE(request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
   const { id } = await request.json();
-  const { error } = await supabase.from('team_members').delete().eq('id', id);
+  const { error } = await supabaseAdmin.from('team_members').delete().eq('id', id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ success: true });
 }
