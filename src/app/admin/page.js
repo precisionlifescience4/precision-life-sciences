@@ -107,6 +107,25 @@ function ServicesTab({ flash }) {
     }
   };
 
+  const emptyProduct = { name: '', slug: '', color: 'navy', description: '', price: 'On request' };
+  const [newProduct, setNewProduct] = useState(emptyProduct);
+
+  const addProduct = async () => {
+    const res = await fetch('/api/services', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newProduct),
+    });
+    if (res.ok) {
+      setNewProduct(emptyProduct);
+      flash('Product added');
+      fetch('/api/services').then(r => r.json()).then(setServices);
+    } else {
+      const data = await res.json().catch(() => ({}));
+      flash('Could not add: ' + (data.error || 'unknown error'));
+    }
+  };
+
   const colorOptions = [
     { value: 'hbv', label: 'Gold' },
     { value: 'hcv', label: 'Pink' },
@@ -129,6 +148,50 @@ function ServicesTab({ flash }) {
     <div>
       <h2 className="text-xl font-bold text-navy mb-1">Products & Services</h2>
       <p className="text-sm text-gray-500 mb-6">Edit name, card label, colour, description, price and technical specs for each assay.</p>
+      <div className="bg-white border-2 border-dashed border-cyan rounded-xl p-5 mb-6">
+        <h3 className="font-bold text-navy mb-3">Add a new product</h3>
+        <div className="grid md:grid-cols-2 gap-3 mb-3">
+          <input
+            placeholder="Product name"
+            value={newProduct.name}
+            onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+            className="border border-gray-200 rounded-lg px-3 py-2"
+          />
+          <input
+            placeholder="Home page card label (e.g. BLOOD CANCER)"
+            value={newProduct.slug}
+            maxLength={24}
+            onChange={(e) => setNewProduct({ ...newProduct, slug: e.target.value })}
+            className="border border-gray-200 rounded-lg px-3 py-2"
+          />
+          <select
+            value={newProduct.color}
+            onChange={(e) => setNewProduct({ ...newProduct, color: e.target.value })}
+            className="border border-gray-200 rounded-lg px-3 py-2 bg-white"
+          >
+            {colorOptions.map((c) => (
+              <option key={c.value} value={c.value}>{c.label}</option>
+            ))}
+          </select>
+          <input
+            placeholder="Price text (e.g. On request)"
+            value={newProduct.price}
+            onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+            className="border border-gray-200 rounded-lg px-3 py-2"
+          />
+        </div>
+        <textarea
+          placeholder="Description"
+          value={newProduct.description}
+          onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2 mb-3 min-h-[70px]"
+        />
+        <button onClick={addProduct} className="bg-navy text-white text-sm font-semibold px-5 py-2 rounded-lg hover:bg-navylight transition-colors">
+          Add Product
+        </button>
+        <p className="text-xs text-gray-400 mt-2">It appears on the Services page and the home page. Fill in its technical specs below after adding it.</p>
+      </div>
+
       {services.map((s) => (
         <div key={s.id} className="bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm">
           <label className="text-xs font-bold text-gray-400 uppercase">Name</label>

@@ -152,7 +152,7 @@ export default function Home() {
         >
           <span className="text-cyan font-semibold text-sm tracking-widest uppercase">Product Portfolio</span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
-            One Family. Five Assays. Total Consistency.
+            One Family. Many Assays. Total Consistency.
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto mt-4">
             Every Mugen-Plex kit shares the same reagent structure, control sets and packaging —
