@@ -11,6 +11,38 @@ export async function GET() {
 
 const COLORS = ['hbv', 'hcv', 'hiv', 'flu', 'cchf', 'navy'];
 
+export async function POST(request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+  const { name, slug, color, description, price } = await request.json();
+
+  const label = String(slug || '').trim().slice(0, 24);
+  const title = String(name || '').trim().slice(0, 160);
+  if (!title || !label) return NextResponse.json({ error: 'A product name and card label are required' }, { status: 400 });
+  if (label.toLowerCase() === 'support') return NextResponse.json({ error: 'The label "support" is reserved' }, { status: 400 });
+  if (!COLORS.includes(color)) return NextResponse.json({ error: 'Unknown colour' }, { status: 400 });
+
+  // Put the new product just before the research-services row, which stays last.
+  const { data: rows } = await supabaseAdmin.from('services').select('id, slug, sort_order').order('sort_order');
+  const support = (rows || []).find((r) => r.slug === 'support');
+  const lastProduct = Math.max(0, ...(rows || []).filter((r) => r.slug !== 'support').map((r) => r.sort_order || 0));
+  const sortOrder = lastProduct + 1;
+  if (support && (support.sort_order || 0) <= sortOrder) {
+    await supabaseAdmin.from('services').update({ sort_order: sortOrder + 1 }).eq('id', support.id);
+  }
+
+  const { error } = await supabaseAdmin.from('services').insert({
+    name: title,
+    slug: label,
+    color,
+    description: String(description || '').slice(0, 2000),
+    price: String(price || 'On request').slice(0, 80),
+    sort_order: sortOrder,
+  });
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  return NextResponse.json({ success: true });
+}
+
 export async function PUT(request) {
   const denied = await requireAdmin();
   if (denied) return denied;
