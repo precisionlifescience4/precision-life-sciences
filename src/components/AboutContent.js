@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Team from '@/components/Team';
+import CeoSection, { DEFAULT_CEO } from '@/components/CeoSection';
 
 export default function AboutContent() {
   const [content, setContent] = useState({});
@@ -59,7 +60,9 @@ export default function AboutContent() {
         {content.who_serve_text || 'Clinical and research laboratories, hospitals, diagnostic centres, universities and research institutes that need dependable real-time PCR reagents, supplied and supported locally.'}
       </motion.p>
 
-      <Team />
+      <CeoSection content={content} />
+
+      <Team excludeName={content.ceo_name || DEFAULT_CEO.name} />
 
       <motion.div {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="mt-16 pt-10 border-t border-gray-100">
         <p className="text-sm text-gray-500 mb-6 text-center">Developed With & Funded By</p>
