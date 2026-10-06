@@ -1,5 +1,7 @@
+import { SITE_URL } from '@/lib/site';
+
 export default function sitemap() {
-  const base = 'https://precisionlifesciences.com.pk';
+  const base = SITE_URL;
   const routes = ['', '/about', '/services', '/resources', '/contact'];
 
   return routes.map((route) => ({
