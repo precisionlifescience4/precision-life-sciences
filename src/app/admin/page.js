@@ -94,13 +94,27 @@ function ServicesTab({ flash }) {
   };
 
   const save = async (s) => {
-    await fetch('/api/services', {
+    const res = await fetch('/api/services', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(s),
     });
-    flash(`${s.name} saved`);
+    if (res.ok) {
+      flash(`${s.name} saved`);
+    } else {
+      const data = await res.json().catch(() => ({}));
+      flash('Save failed: ' + (data.error || 'unknown error'));
+    }
   };
+
+  const colorOptions = [
+    { value: 'hbv', label: 'Gold' },
+    { value: 'hcv', label: 'Pink' },
+    { value: 'hiv', label: 'Purple' },
+    { value: 'flu', label: 'Teal' },
+    { value: 'cchf', label: 'Orange' },
+    { value: 'navy', label: 'Navy' },
+  ];
 
   const specFields = [
     { key: 'target_gene', label: 'Target Gene/Pathogen' },
@@ -114,7 +128,7 @@ function ServicesTab({ flash }) {
   return (
     <div>
       <h2 className="text-xl font-bold text-navy mb-1">Products & Services</h2>
-      <p className="text-sm text-gray-500 mb-6">Edit name, description, price and technical specs for each assay.</p>
+      <p className="text-sm text-gray-500 mb-6">Edit name, card label, colour, description, price and technical specs for each assay.</p>
       {services.map((s) => (
         <div key={s.id} className="bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm">
           <label className="text-xs font-bold text-gray-400 uppercase">Name</label>
@@ -123,6 +137,31 @@ function ServicesTab({ flash }) {
             onChange={(e) => update(s.id, 'name', e.target.value)}
             className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 mb-3 font-semibold text-navy"
           />
+          <div className="grid md:grid-cols-2 gap-3 mb-3">
+            <div>
+              <label className="text-xs font-bold text-gray-400 uppercase">Home page card label</label>
+              <input
+                value={s.slug || ''}
+                maxLength={24}
+                disabled={s.slug === 'support'}
+                onChange={(e) => update(s.id, 'slug', e.target.value)}
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 disabled:bg-gray-50 disabled:text-gray-400"
+              />
+              <p className="text-xs text-gray-400 mt-1">Small tag above the product name, e.g. HBV &amp; HCV or DENGUE.</p>
+            </div>
+            <div>
+              <label className="text-xs font-bold text-gray-400 uppercase">Card colour</label>
+              <select
+                value={s.color || 'navy'}
+                onChange={(e) => update(s.id, 'color', e.target.value)}
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 bg-white"
+              >
+                {colorOptions.map((c) => (
+                  <option key={c.value} value={c.value}>{c.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
           <label className="text-xs font-bold text-gray-400 uppercase">Description</label>
           <textarea
             value={s.description}
