@@ -10,12 +10,19 @@ export default function Team({ excludeName = '' }) {
   }, []);
 
   // The CEO has a featured section above, so leave them out of this grid.
-  const norm = (s) => String(s || '').toLowerCase().replace(/\b(prof|dr|mr|ms|mrs)\b\.?/g, '').replace(/[^a-z]/g, '');
-  const others = team.filter((m) => !excludeName || !(norm(m.name) === norm(excludeName) || norm(excludeName).includes(norm(m.name)) || norm(m.name).includes(norm(excludeName))));
+  // Two names are the same person when their first and last words match,
+  // so a middle name or an honorific (Prof., Dr.) does not matter.
+  const words = (s) => String(s || '').toLowerCase().replace(/\b(prof|dr|mr|ms|mrs)\b\.?/g, '').split(/[^a-z]+/).filter(Boolean);
+  const samePerson = (a, b) => {
+    const x = words(a);
+    const y = words(b);
+    return x.length > 0 && y.length > 0 && x[0] === y[0] && x[x.length - 1] === y[y.length - 1];
+  };
+  const others = team.filter((m) => !excludeName || !samePerson(m.name, excludeName));
   if (!others.length) return null;
 
   const initials = (name) =>
-    name.split(' ').filter(w => w.length > 2 || /^[A-Z]/.test(w)).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+    name.replace(/\b(Prof|Dr|Mr|Ms|Mrs)\.?\s/gi, '').split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
 
   return (
     <section className="mt-16 pt-10 border-t border-gray-100">
