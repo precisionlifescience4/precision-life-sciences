@@ -1,9 +1,10 @@
+import { SITE_URL } from '@/lib/site';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Resources',
-  description: 'Educational PCR video tutorials, protocols and product downloads from Precision Life Sciences. Coming soon.',
-  alternates: { canonical: 'https://precisionlifesciences.com.pk/resources' },
+  title: 'PCR Learning Resources',
+  description: 'Educational PCR video tutorials, protocols and product datasheets from Precision Life Sciences. Coming soon.',
+  alternates: { canonical: '/resources' },
 };
 
 const SECTIONS = [

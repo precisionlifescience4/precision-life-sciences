@@ -1,13 +1,14 @@
+import { SITE_URL } from '@/lib/site';
 import ContactContent from '@/components/ContactContent';
 
 export const metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with Precision Life Sciences for commercial and research enquiries about the Mugen-Plex real-time PCR assay portfolio. Reach us by phone, WhatsApp or email.',
-  alternates: { canonical: 'https://precisionlifesciences.com.pk/contact' },
+  title: 'Contact & Enquiries – Peshawar',
+  description: 'Contact Precision Life Sciences in Peshawar for pricing, bulk orders, distribution, technical support or research collaboration.',
+  alternates: { canonical: '/contact' },
   openGraph: {
-    title: 'Contact Precision Life Sciences',
-    description: 'Commercial and research enquiries for the Mugen-Plex real-time PCR assay portfolio.',
-    url: 'https://precisionlifesciences.com.pk/contact',
+    title: 'Contact Precision Life Sciences, Peshawar',
+    description: 'Pricing, bulk orders, distribution and technical support for Mugen-Plex real-time PCR assays.',
+    url: `${SITE_URL}/contact`,
   },
 };
 
