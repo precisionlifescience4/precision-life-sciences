@@ -2,14 +2,17 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-export default function Team() {
+export default function Team({ excludeName = '' }) {
   const [team, setTeam] = useState([]);
 
   useEffect(() => {
-    fetch('/api/team').then(r => r.json()).then(setTeam);
+    fetch('/api/team').then(r => r.json()).then(d => setTeam(Array.isArray(d) ? d : [])).catch(() => setTeam([]));
   }, []);
 
-  if (!team.length) return null;
+  // The CEO has a featured section above, so leave them out of this grid.
+  const norm = (s) => String(s || '').toLowerCase().replace(/\b(prof|dr|mr|ms|mrs)\b\.?/g, '').replace(/[^a-z]/g, '');
+  const others = team.filter((m) => !excludeName || !(norm(m.name) === norm(excludeName) || norm(excludeName).includes(norm(m.name)) || norm(m.name).includes(norm(excludeName))));
+  if (!others.length) return null;
 
   const initials = (name) =>
     name.split(' ').filter(w => w.length > 2 || /^[A-Z]/.test(w)).slice(0, 2).map(w => w[0]).join('').toUpperCase();
@@ -19,15 +22,15 @@ export default function Team() {
       <h2 className="text-2xl font-bold text-navy mb-2 text-center">Leadership</h2>
       <p className="text-gray-500 text-center mb-10 text-sm">The people behind Precision Life Sciences</p>
 
-      <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-        {team.map((member, i) => (
+      <div className="flex flex-wrap justify-center gap-6 max-w-3xl mx-auto">
+        {others.map((member, i) => (
           <motion.div
             key={member.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.15, duration: 0.6, ease: 'easeOut' }}
-            className="bg-graybg rounded-xl p-6 text-center"
+            className="bg-graybg rounded-xl p-6 text-center w-full md:w-[calc(50%-0.75rem)]"
           >
             {member.photo_url ? (
               // eslint-disable-next-line @next/next/no-img-element

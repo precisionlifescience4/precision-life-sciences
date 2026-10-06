@@ -222,6 +222,11 @@ function ContentTab({ flash }) {
     { key: 'who_serve_text', label: 'About Page — "Who We Serve" Text', long: true },
     { key: 'services_title', label: 'Services Page — Heading' },
     { key: 'services_subtitle', label: 'Services Page — Subheading' },
+    { key: 'ceo_name', label: 'CEO Section — Name' },
+    { key: 'ceo_title', label: 'CEO Section — Job Title' },
+    { key: 'ceo_credentials', label: 'CEO Section — Qualifications line (optional, shown under the title)' },
+    { key: 'ceo_bio', label: 'CEO Section — Profile (leave a blank line between paragraphs)', long: true },
+    { key: 'ceo_message', label: 'CEO Section — Message from the CEO (blank line between paragraphs)', long: true },
     { key: 'footer_about', label: 'Footer — About Text', long: true },
     { key: 'company_legal_name', label: 'Company Legal Name (copyright line)' },
     { key: 'cta_title', label: 'Bottom CTA Title' },
@@ -424,6 +429,7 @@ function ImagesTab({ flash }) {
 
   const slots = [
     { key: 'img_product_lineup', label: 'Product Lineup Photo (Home page)' },
+    { key: 'ceo_photo', label: 'CEO Photo (About page; square portrait works best)' },
     { key: 'img_partner_kmu', label: 'KMU Logo' },
     { key: 'img_partner_bq', label: 'BQ Pharma Logo' },
     { key: 'img_partner_dgst', label: 'DGST Logo' },
