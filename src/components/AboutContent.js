@@ -32,10 +32,10 @@ export default function AboutContent() {
       </motion.h2>
       <div className="grid md:grid-cols-2 gap-4 text-gray-600">
         {[
-          'A clear five-assay product portfolio',
+          'A growing portfolio of molecular diagnostics',
           'Consistent kit presentation & colour coding',
           'Complete control sets',
-          'Locally developed solutions',
+          'Locally developed diagnostics and research services',
           'Accessible technical support',
           'Collaboration with KMU, BQ Pharma & DGST',
         ].map((item, i) => (

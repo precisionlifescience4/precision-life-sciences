@@ -24,7 +24,7 @@ export default function Home() {
   };
 
   const stats = [
-    { value: content.stat1_value || '5', label: content.stat1_label || 'PCR Assays' },
+    { value: content.stat1_value || '6+', label: content.stat1_label || 'Molecular Diagnostics' },
     { value: content.stat2_value || '100%', label: content.stat2_label || 'Locally Developed' },
     { value: content.stat3_value || '3+', label: content.stat3_label || 'Institutional Partners' },
     { value: content.stat4_value || '24/7', label: content.stat4_label || 'Technical Support' },
@@ -64,7 +64,7 @@ export default function Home() {
             {content.hero_title || 'Mugen-Plex'}
           </h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
-            {content.hero_description || 'Five real-time PCR assays. One Pakistani-made diagnostic standard, built for laboratories that cannot afford to guess.'}
+            {content.hero_description || 'Real-time PCR assays developed in Pakistan, built for laboratories that cannot afford to guess.'}
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mt-10">
@@ -242,7 +242,7 @@ export default function Home() {
             Practical Science. Reliable Support.
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            {content.why_choose_text || 'A clear five-assay product portfolio with accessible technical support.'}
+            {content.why_choose_text || 'A growing portfolio of molecular diagnostics and research services, with accessible technical support.'}
           </p>
           <div className="flex items-center justify-center gap-10 mt-10 flex-wrap opacity-80">
             <Image src={content.img_partner_kmu || '/images/partner-kmu.png'} alt="KMU" width={90} height={45} unoptimized className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
