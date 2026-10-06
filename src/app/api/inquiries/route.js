@@ -4,7 +4,6 @@ import { requireAdmin } from '@/lib/adminAuth';
 import { rateLimited, clientIp } from '@/lib/rateLimit';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const clip = (s, n) => String(s ?? '').trim().slice(0, n);
 
@@ -40,6 +39,8 @@ export async function POST(request) {
   if (error) return NextResponse.json({ error: 'Could not save your enquiry. Please try again.' }, { status: 500 });
 
   try {
+    if (!process.env.RESEND_API_KEY || !process.env.NOTIFY_EMAIL) throw new Error('Email notifications are not configured');
+    const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
       from: process.env.EMAIL_FROM || 'Precision Life Sciences Website <onboarding@resend.dev>',
       to: process.env.NOTIFY_EMAIL,
