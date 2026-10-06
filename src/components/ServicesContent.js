@@ -75,8 +75,9 @@ export default function ServicesContent() {
       </div>
 
       <p className="text-center text-xs text-gray-400 mt-12">
-        Product images and specifications are currently presented for research use only.
-        Final regulatory wording must be confirmed before publication.
+        All Mugen-Plex products are supplied for Research Use Only (RUO) and are not intended for use in
+        diagnostic procedures. Specifications may change as products are developed; contact us to confirm
+        current details before ordering.
       </p>
 
       <FAQ />

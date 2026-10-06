@@ -21,6 +21,7 @@ export default function Navbar({ settings }) {
           <Link href="/" className="hover:text-cyan transition-colors">Home</Link>
           <Link href="/about" className="hover:text-cyan transition-colors">About Us</Link>
           <Link href="/services" className="hover:text-cyan transition-colors">Services</Link>
+          <Link href="/resources" className="hover:text-cyan transition-colors">Resources</Link>
           <Link href="/contact" className="hover:text-cyan transition-colors">Contact</Link>
         </nav>
         <div className="hidden md:flex gap-3">

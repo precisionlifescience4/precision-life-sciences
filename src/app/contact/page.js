@@ -1,7 +1,7 @@
 import ContactContent from '@/components/ContactContent';
 
 export const metadata = {
-  title: 'Contact Us | Precision Life Sciences',
+  title: 'Contact Us',
   description: 'Get in touch with Precision Life Sciences for commercial and research enquiries about the Mugen-Plex real-time PCR assay portfolio. Reach us by phone, WhatsApp or email.',
   alternates: { canonical: 'https://precisionlifesciences.com.pk/contact' },
   openGraph: {

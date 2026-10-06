@@ -17,9 +17,9 @@ async function getExpectedToken(secret) {
 
 export async function middleware(request) {
   const cookie = request.cookies.get('admin_session')?.value;
-  const expectedToken = await getExpectedToken(process.env.ADMIN_SESSION_SECRET);
-
-  const isLoggedIn = cookie === expectedToken;
+  const secret = process.env.ADMIN_SESSION_SECRET;
+  // Fail closed: with no secret configured nobody is treated as logged in.
+  const isLoggedIn = Boolean(secret && cookie && cookie === (await getExpectedToken(secret)));
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith('/admin') && pathname !== '/admin/login' && !isLoggedIn) {

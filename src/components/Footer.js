@@ -18,7 +18,7 @@ export default function Footer() {
         <div>
           <Image src="/images/logo-dark.svg" alt="Precision Life Sciences" width={180} height={45} className="mb-4" />
           <p className="text-gray-300 text-sm">
-            {content.footer_about || 'Molecular diagnostic products for laboratory use.'}
+            {content.footer_about || 'Peshawar-based developer of Mugen-Plex real-time PCR assays for laboratory use. Research Use Only.'}
           </p>
         </div>
         <div>
@@ -26,6 +26,7 @@ export default function Footer() {
           <ul className="space-y-2 text-sm text-gray-300">
             <li><Link href="/about" className="hover:text-cyan transition-colors">About Us</Link></li>
             <li><Link href="/services" className="hover:text-cyan transition-colors">Services</Link></li>
+            <li><Link href="/resources" className="hover:text-cyan transition-colors">Resources</Link></li>
             <li><Link href="/contact" className="hover:text-cyan transition-colors">Contact</Link></li>
           </ul>
         </div>

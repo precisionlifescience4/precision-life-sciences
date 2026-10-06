@@ -23,7 +23,7 @@ export default function AboutContent() {
         About Precision Life Sciences
       </motion.h1>
       <motion.p {...fadeUp} transition={{ delay: 0.12, duration: 0.6, ease: 'easeOut' }} className="text-gray-600 mb-6 leading-relaxed">
-        {content.about_intro || 'Precision Life Sciences is a life-sciences company focused on practical molecular diagnostics.'}
+        {content.about_intro || 'Precision Life Sciences (Private) Limited is a Peshawar-based life-sciences company developing practical molecular diagnostics. Our Mugen-Plex real-time PCR assays were developed in Pakistan in collaboration with Khyber Medical University, BQ Pharma and DGST, and are designed so that laboratories can run reliable viral testing with a consistent kit format, complete controls and local technical support.'}
       </motion.p>
 
       <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-2xl font-bold text-navy mt-10 mb-4">
@@ -56,7 +56,7 @@ export default function AboutContent() {
         Who We Serve
       </motion.h2>
       <motion.p {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-gray-600 leading-relaxed">
-        {content.who_serve_text || 'Clinical and research laboratories, hospitals, diagnostic centres and research institutes.'}
+        {content.who_serve_text || 'Clinical and research laboratories, hospitals, diagnostic centres, universities and research institutes that need dependable real-time PCR reagents, supplied and supported locally.'}
       </motion.p>
 
       <Team />

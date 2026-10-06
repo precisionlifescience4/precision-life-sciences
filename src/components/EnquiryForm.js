@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function EnquiryForm() {
-  const [form, setForm] = useState({ name: '', organization: '', email: '', phone: '', inquiry_type: 'General', message: '' });
+  const [form, setForm] = useState({ name: '', organization: '', email: '', phone: '', inquiry_type: 'General', message: '', website: '' });
   const [status, setStatus] = useState('idle');
 
   const set = (field, value) => setForm({ ...form, [field]: value });
@@ -18,7 +18,7 @@ export default function EnquiryForm() {
     });
     if (res.ok) {
       setStatus('sent');
-      setForm({ name: '', organization: '', email: '', phone: '', inquiry_type: 'General', message: '' });
+      setForm({ name: '', organization: '', email: '', phone: '', inquiry_type: 'General', message: '', website: '' });
     } else {
       setStatus('error');
     }
@@ -39,6 +39,16 @@ export default function EnquiryForm() {
 
   return (
     <form onSubmit={submit} className="bg-white border border-gray-200 rounded-xl p-6 space-y-4 shadow-sm">
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        value={form.website}
+        onChange={(e) => set('website', e.target.value)}
+        className="hidden"
+      />
       <div className="grid md:grid-cols-2 gap-4">
         <div>
           <label className="text-xs font-bold text-gray-400 uppercase">Full Name *</label>

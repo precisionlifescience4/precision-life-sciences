@@ -1,6 +1,6 @@
 export default function sitemap() {
   const base = 'https://precisionlifesciences.com.pk';
-  const routes = ['', '/about', '/services', '/contact'];
+  const routes = ['', '/about', '/services', '/resources', '/contact'];
 
   return routes.map((route) => ({
     url: `${base}${route}`,
