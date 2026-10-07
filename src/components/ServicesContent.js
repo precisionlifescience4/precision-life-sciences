@@ -36,9 +36,12 @@ export default function ServicesContent() {
   }, []);
 
   const colorMap = {
-    hbv: { border: 'border-hbv', text: 'text-hbv', bg: 'bg-hbv' },
-    hcv: { border: 'border-hcv', text: 'text-hcv', bg: 'bg-hcv' },
+    hbv: { border: 'border-hbv', text: 'text-cyandark', bg: 'bg-hbv' },
+    hcv: { border: 'border-hcv', text: 'text-hcvdark', bg: 'bg-hcv' },
     hiv: { border: 'border-hiv', text: 'text-hiv', bg: 'bg-hiv' },
+    dengue: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
+    denv: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
+    chikv: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
     flu: { border: 'border-flu', text: 'text-flu', bg: 'bg-flu' },
     cchf: { border: 'border-cchf', text: 'text-cchf', bg: 'bg-cchf' },
     navy: { border: 'border-navy', text: 'text-navy', bg: 'bg-navy' },

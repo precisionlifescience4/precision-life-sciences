@@ -6,11 +6,14 @@
   --color-cyan: #00A3E0;
   --color-cyandark: #0077A8; /* cyan for text on light backgrounds (AA contrast) */
   --color-graybg: #F3F8FC;
-  --color-hbv: #d4a017;
-  --color-hcv: #d6336c;
-  --color-hiv: #7048e8;
-  --color-flu: #12b5a5;
-  --color-cchf: #e8590c;
+  --color-hbv: #00A3E0;
+  --color-hcv: #5A9B5F;
+  --color-hcvdark: #3F7844;
+  --color-hiv: #7B61A8;
+  --color-dengue: #E06F61;
+  --color-denguedark: #A94138;
+  --color-flu: #159AA3;
+  --color-cchf: #D86A2C;
 }
 
 body {

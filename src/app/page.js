@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import TrustBadges from '@/components/TrustBadges';
 import Gallery from '@/components/Gallery';
+import InfectiousRange from '@/components/InfectiousRange';
 import MyeloidRange from '@/components/MyeloidRange';
 import TM from '@/components/TM';
 export default function Home() {
@@ -17,9 +18,12 @@ export default function Home() {
   }, []);
 
   const colorMap = {
-    hbv: { border: 'border-hbv', text: 'text-hbv', bg: 'bg-hbv' },
-    hcv: { border: 'border-hcv', text: 'text-hcv', bg: 'bg-hcv' },
+    hbv: { border: 'border-hbv', text: 'text-cyandark', bg: 'bg-hbv' },
+    hcv: { border: 'border-hcv', text: 'text-hcvdark', bg: 'bg-hcv' },
     hiv: { border: 'border-hiv', text: 'text-hiv', bg: 'bg-hiv' },
+    dengue: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
+    denv: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
+    chikv: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
     flu: { border: 'border-flu', text: 'text-flu', bg: 'bg-flu' },
     cchf: { border: 'border-cchf', text: 'text-cchf', bg: 'bg-cchf' },
     navy: { border: 'border-navy', text: 'text-navy', bg: 'bg-navy' },
@@ -95,6 +99,7 @@ export default function Home() {
             { n: 'HBV', c: 'bg-hbv' },
             { n: 'HCV', c: 'bg-hcv' },
             { n: 'HIV', c: 'bg-hiv' },
+            { n: 'DENGUE / CHIKUNGUNYA', c: 'bg-dengue' },
             { n: 'INFLUENZA A&B', c: 'bg-flu' },
             { n: 'CCHF', c: 'bg-cchf' },
           ].map((a) => (
@@ -106,25 +111,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* PRODUCT LINEUP IMAGE */}
-      <section className="bg-white py-16 px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-gray-100"
-        >
-          <Image
-            src={content.img_product_lineup || '/images/product-lineup.png'}
-            alt="Mugen-Plex Real-Time PCR Assay Lineup"
-            width={1536}
-            height={670}
-            className="w-full h-auto"
-            sizes="(max-width: 1024px) 100vw, 1024px"
-          />
-        </motion.div>
-      </section>
+      <InfectiousRange />
 
       {/* STATS BAR */}
       <section className="bg-white border-b border-gray-100">
