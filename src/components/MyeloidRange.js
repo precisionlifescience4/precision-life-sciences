@@ -9,10 +9,10 @@ const KITS = [
   { slug: 'MPL', title: 'MPL', color: '#6154C7', line: 'MPL mutations · myeloproliferative neoplasms' },
   { slug: 'CALR', title: 'CALR', color: '#E5A100', line: 'CALR mutations · myeloproliferative neoplasms' },
   { slug: 'PML-RARA', title: 'PML-RARA', color: '#E0525D', line: 'PML-RARA fusion transcript · acute promyelocytic leukaemia' },
-  { slug: 'MPN-Combo', title: 'MPN COMBO', color: '#159AA3', line: 'JAK2 · CALR · MPL in one assay · myeloproliferative neoplasms' },
+  { slug: 'MPN-Panel', title: 'MPN PANEL', color: '#159AA3', line: 'JAK2 · CALR · MPL in one panel · myeloproliferative neoplasms' },
 ];
 
-export default function LeukaemiaRange() {
+export default function MyeloidRange() {
   return (
     <section className="bg-navy text-white py-24 px-4">
       <div className="max-w-6xl mx-auto">
@@ -24,7 +24,7 @@ export default function LeukaemiaRange() {
         >
           <span className="text-cyan font-semibold text-sm tracking-widest uppercase">In development</span>
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2">
-            Mugen-Plex<sup className="text-[0.45em] font-semibold ml-0.5 align-super">™</sup> Leukaemias
+            Mugen-Plex<sup className="text-[0.45em] font-semibold ml-0.5 align-super">™</sup> Myeloid
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto mt-4 leading-relaxed">
             Real-time PCR assays for key molecular markers of haematological malignancies, in the same
@@ -44,8 +44,8 @@ export default function LeukaemiaRange() {
             >
               <div className="relative bg-white aspect-[3/2]">
                 <Image
-                  src={`/images/leukaemias/Mugen-Plex_Leukaemias_${k.slug}.jpg`}
-                  alt={`Mugen-Plex Leukaemias ${k.title} 48-test real-time PCR assay kit by Precision Life Sciences.`}
+                  src={`/images/myeloid/Mugen-Plex_Myeloid_${k.slug}.jpg`}
+                  alt={`Mugen-Plex Myeloid ${k.title} 48-test real-time PCR assay kit by Precision Life Sciences.`}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 384px"
                   className="object-contain p-5"
@@ -58,7 +58,7 @@ export default function LeukaemiaRange() {
                 </div>
                 <p className="text-sm text-gray-300 leading-relaxed mb-4">{k.line}</p>
                 <Link
-                  href={`/contact?topic=interest&product=${encodeURIComponent(`Mugen-Plex Leukaemias ${k.title}`)}`}
+                  href={`/contact?topic=interest&product=${encodeURIComponent(`Mugen-Plex Myeloid ${k.title}`)}`}
                   className="inline-block text-xs font-semibold px-4 py-2 rounded-full border border-white/30 hover:bg-white hover:text-navy transition-colors"
                 >
                   Register interest
