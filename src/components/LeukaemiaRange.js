@@ -42,14 +42,15 @@ export default function LeukaemiaRange() {
               transition={{ duration: 0.6, delay: (i % 3) * 0.12, ease: 'easeOut' }}
               className="bg-white/[0.04] border border-white/10 rounded-2xl overflow-hidden hover:border-white/25 transition-colors"
             >
-              <Image
-                src={`/images/leukaemias/Mugen-Plex_Leukaemias_${k.slug}.jpg`}
-                alt={`Mugen-Plex Leukaemias ${k.title} 48-test real-time PCR assay kit by Precision Life Sciences.`}
-                width={1200}
-                height={800}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 384px"
-                className="w-full h-auto"
-              />
+              <div className="relative bg-white aspect-[3/2]">
+                <Image
+                  src={`/images/leukaemias/Mugen-Plex_Leukaemias_${k.slug}.jpg`}
+                  alt={`Mugen-Plex Leukaemias ${k.title} 48-test real-time PCR assay kit by Precision Life Sciences.`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 384px"
+                  className="object-contain p-5"
+                />
+              </div>
               <div className="p-5">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: k.color }} />
