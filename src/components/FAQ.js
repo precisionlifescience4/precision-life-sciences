@@ -39,7 +39,7 @@ export default function FAQ() {
               className="w-full flex justify-between items-center text-left px-5 py-4 font-semibold text-navy bg-graybg hover:bg-gray-100 transition-colors"
             >
               {item.question}
-              <span className={`text-cyan text-xl transition-transform ${open === item.id ? 'rotate-45' : ''}`}>+</span>
+              <span className={`text-cyandark text-xl transition-transform ${open === item.id ? 'rotate-45' : ''}`}>+</span>
             </button>
             <AnimatePresence>
               {open === item.id && (

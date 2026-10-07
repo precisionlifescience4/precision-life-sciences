@@ -67,9 +67,9 @@ export default function AboutContent() {
       <motion.div {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="mt-16 pt-10 border-t border-gray-100">
         <p className="text-sm text-gray-500 mb-6 text-center">Developed With & Funded By</p>
         <div className="flex items-center justify-center gap-12 flex-wrap">
-          <Image src={content.img_partner_kmu || '/images/partner-kmu.png'} alt="KMU" width={90} height={45} unoptimized className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-          <Image src={content.img_partner_bq || '/images/partner-bq.png'} alt="BQ Pharma" width={100} height={45} unoptimized className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-          <Image src={content.img_partner_dgst || '/images/partner-dgst.png'} alt="DGST" width={90} height={90} unoptimized className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+          <Image src={content.img_partner_kmu || '/images/partner-kmu.png'} alt="KMU" width={90} height={45} className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+          <Image src={content.img_partner_bq || '/images/partner-bq.png'} alt="BQ Pharma" width={100} height={45} className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+          <Image src={content.img_partner_dgst || '/images/partner-dgst.png'} alt="DGST" width={90} height={90} className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
         </div>
       </motion.div>
     </main>

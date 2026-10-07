@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import EnquiryForm from '@/components/EnquiryForm';
 
@@ -38,7 +38,7 @@ export default function ContactContent() {
             <div>
               <p className="font-semibold text-navy mb-1">WhatsApp</p>
               {settings?.whatsapp ? (
-                <a href={`https://wa.me/${settings.whatsapp}`} className="text-cyan font-medium" target="_blank">Chat on WhatsApp →</a>
+                <a href={`https://wa.me/${settings.whatsapp}`} className="text-cyandark font-medium" target="_blank">Chat on WhatsApp →</a>
               ) : <span className="text-gray-500">{settings ? 'Not available' : '…'}</span>}
             </div>
             <div>
@@ -49,14 +49,14 @@ export default function ContactContent() {
               <p className="font-semibold text-navy mb-1">Address</p>
               <p className="text-gray-600">{settings?.address || (settings ? 'Peshawar, Khyber Pakhtunkhwa, Pakistan' : '…')}</p>
               {settings?.maps_link && (
-                <a href={settings.maps_link} target="_blank" className="text-cyan text-sm font-medium inline-block mt-1">
+                <a href={settings.maps_link} target="_blank" className="text-cyandark text-sm font-medium inline-block mt-1">
                   Open in Google Maps →
                 </a>
               )}
             </div>
           </div>
 
-          <div className="rounded-xl overflow-hidden h-56 bg-graybg flex items-center justify-center text-gray-400 text-sm shadow-sm">
+          <div className="rounded-xl overflow-hidden h-56 bg-graybg flex items-center justify-center text-gray-500 text-sm shadow-sm">
             {embedUrl ? (
               <iframe src={embedUrl} width="100%" height="100%" style={{ border: 0 }} loading="lazy" title="Location Map" />
             ) : (
@@ -67,7 +67,9 @@ export default function ContactContent() {
 
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
           <h2 className="font-bold text-navy mb-4">Send an Enquiry</h2>
-          <EnquiryForm />
+          <Suspense fallback={<div className="h-96 bg-white border border-gray-200 rounded-xl shadow-sm" />}>
+            <EnquiryForm />
+          </Suspense>
         </motion.div>
       </div>
     </main>

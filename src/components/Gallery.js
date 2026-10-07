@@ -20,7 +20,7 @@ export default function Gallery() {
         viewport={{ once: true }}
         className="text-center mb-12"
       >
-        <span className="text-cyan font-semibold text-sm tracking-widest uppercase">Gallery</span>
+        <span className="text-cyandark font-semibold text-sm tracking-widest uppercase">Gallery</span>
         <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">Our Products & Facility</h2>
       </motion.div>
 
@@ -36,7 +36,7 @@ export default function Gallery() {
             className="relative aspect-square rounded-xl overflow-hidden bg-graybg group"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={img.image_url} alt={img.caption || 'Gallery image'} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <img loading="lazy" decoding="async" src={img.image_url} alt={img.caption || 'Gallery image'} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             {img.caption && (
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/80 to-transparent px-3 py-2 text-white text-xs text-left opacity-0 group-hover:opacity-100 transition-opacity">
                 {img.caption}

@@ -41,14 +41,14 @@ export default function Team({ excludeName = '' }) {
           >
             {member.photo_url ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={member.photo_url} alt={member.name} className="w-20 h-20 rounded-full object-cover mx-auto mb-4 border-2 border-cyan" />
+              <img loading="lazy" decoding="async" src={member.photo_url} alt={member.name} className="w-20 h-20 rounded-full object-cover mx-auto mb-4 border-2 border-cyan" />
             ) : (
               <div className="w-20 h-20 rounded-full bg-navy text-white flex items-center justify-center font-bold text-xl mx-auto mb-4">
                 {initials(member.name)}
               </div>
             )}
             <h3 className="font-bold text-navy">{member.name}</h3>
-            <p className="text-cyan text-sm font-semibold mb-3">{member.role}</p>
+            <p className="text-cyandark text-sm font-semibold mb-3">{member.role}</p>
             <p className="text-gray-500 text-sm leading-relaxed">{member.bio}</p>
           </motion.div>
         ))}

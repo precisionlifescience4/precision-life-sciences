@@ -4,6 +4,7 @@
   --color-navy: #0a1f44;
   --color-navylight: #12294f;
   --color-cyan: #00b4d8;
+  --color-cyandark: #0077a0; /* cyan for text on light backgrounds (AA contrast) */
   --color-graybg: #f4f7fa;
   --color-hbv: #d4a017;
   --color-hcv: #d6336c;
