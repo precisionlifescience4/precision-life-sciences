@@ -1,9 +1,26 @@
 'use client';
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 
+const EMPTY_FORM = { name: '', organization: '', email: '', phone: '', inquiry_type: 'General', message: '', website: '' };
+
+// Arriving from a "Request datasheet / quote" button pre-fills the type and message.
+function initialForm(params) {
+  const product = (params.get('product') || '').slice(0, 160);
+  const presets = {
+    datasheet: ['Datasheet Request', `I would like to request the datasheet and instructions for use for: ${product}.`],
+    enquire: ['General', `I would like to enquire about: ${product}.`],
+    interest: ['General', `I would like to register my interest in: ${product}.`],
+    project: ['Collaboration / Research', 'I would like to discuss a research project with your molecular biology services team.'],
+  };
+  const preset = presets[params.get('topic')];
+  return preset ? { ...EMPTY_FORM, inquiry_type: preset[0], message: preset[1] } : { ...EMPTY_FORM };
+}
+
 export default function EnquiryForm() {
-  const [form, setForm] = useState({ name: '', organization: '', email: '', phone: '', inquiry_type: 'General', message: '', website: '' });
+  const params = useSearchParams();
+  const [form, setForm] = useState(() => initialForm(params));
   const [status, setStatus] = useState('idle');
 
   const set = (field, value) => setForm({ ...form, [field]: value });
@@ -18,7 +35,7 @@ export default function EnquiryForm() {
     });
     if (res.ok) {
       setStatus('sent');
-      setForm({ name: '', organization: '', email: '', phone: '', inquiry_type: 'General', message: '', website: '' });
+      setForm({ ...EMPTY_FORM });
     } else {
       setStatus('error');
     }
@@ -51,36 +68,37 @@ export default function EnquiryForm() {
       />
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className="text-xs font-bold text-gray-400 uppercase">Full Name *</label>
+          <label className="text-xs font-bold text-gray-500 uppercase">Full Name *</label>
           <input required value={form.name} onChange={(e) => set('name', e.target.value)} className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1" />
         </div>
         <div>
-          <label className="text-xs font-bold text-gray-400 uppercase">Organization</label>
+          <label className="text-xs font-bold text-gray-500 uppercase">Organization</label>
           <input value={form.organization} onChange={(e) => set('organization', e.target.value)} className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1" />
         </div>
         <div>
-          <label className="text-xs font-bold text-gray-400 uppercase">Email *</label>
+          <label className="text-xs font-bold text-gray-500 uppercase">Email *</label>
           <input required type="email" value={form.email} onChange={(e) => set('email', e.target.value)} className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1" />
         </div>
         <div>
-          <label className="text-xs font-bold text-gray-400 uppercase">Phone</label>
+          <label className="text-xs font-bold text-gray-500 uppercase">Phone</label>
           <input value={form.phone} onChange={(e) => set('phone', e.target.value)} className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1" />
         </div>
       </div>
 
       <div>
-        <label className="text-xs font-bold text-gray-400 uppercase">Enquiry Type</label>
+        <label className="text-xs font-bold text-gray-500 uppercase">Enquiry Type</label>
         <select value={form.inquiry_type} onChange={(e) => set('inquiry_type', e.target.value)} className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 bg-white">
           <option>General</option>
           <option>Bulk Order / Pricing</option>
           <option>Distributorship</option>
+          <option>Datasheet Request</option>
           <option>Technical Support</option>
           <option>Collaboration / Research</option>
         </select>
       </div>
 
       <div>
-        <label className="text-xs font-bold text-gray-400 uppercase">Message *</label>
+        <label className="text-xs font-bold text-gray-500 uppercase">Message *</label>
         <textarea required value={form.message} onChange={(e) => set('message', e.target.value)} className="w-full border border-gray-200 rounded-lg px-3 py-2 mt-1 min-h-[100px]" />
       </div>
 

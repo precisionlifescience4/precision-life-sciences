@@ -29,7 +29,7 @@ export default function Resources() {
   return (
     <main className="max-w-5xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <span className="text-cyan font-semibold text-sm tracking-widest uppercase">Learn</span>
+        <span className="text-cyandark font-semibold text-sm tracking-widest uppercase">Learn</span>
         <h1 className="text-4xl font-bold text-navy mt-2 mb-4">Resources &amp; Education</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
           We are preparing educational material on real-time PCR and molecular diagnostics, free for laboratory
@@ -40,14 +40,14 @@ export default function Resources() {
       <div className="grid md:grid-cols-3 gap-6">
         {SECTIONS.map((s) => (
           <div key={s.title} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <span className="w-11 h-11 rounded-full bg-cyan/10 text-cyan flex items-center justify-center mb-4">
+            <span className="w-11 h-11 rounded-full bg-cyan/10 text-cyandark flex items-center justify-center mb-4">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                 <path d={s.icon} />
               </svg>
             </span>
             <h2 className="font-bold text-navy mb-2">{s.title}</h2>
             <p className="text-sm text-gray-600 mb-4">{s.text}</p>
-            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Coming soon</span>
+            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Coming soon</span>
           </div>
         ))}
       </div>

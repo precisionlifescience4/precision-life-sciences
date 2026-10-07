@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import TrustBadges from '@/components/TrustBadges';
 import Gallery from '@/components/Gallery';
+import LeukaemiaRange from '@/components/LeukaemiaRange';
+import TM from '@/components/TM';
 export default function Home() {
   const [services, setServices] = useState([]);
   const [content, setContent] = useState({});
@@ -61,7 +63,7 @@ export default function Home() {
             {content.hero_subtitle || 'Real-Time PCR Assay Portfolio'}
           </p>
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
-            {content.hero_title || 'Mugen-Plex'}
+            <TM text={content.hero_title || 'Mugen-Plex'} />
           </h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
             {content.hero_description || 'Real-time PCR assays developed in Pakistan, built for laboratories that cannot afford to guess.'}
@@ -119,7 +121,7 @@ export default function Home() {
             width={1536}
             height={670}
             className="w-full h-auto"
-            unoptimized
+            sizes="(max-width: 1024px) 100vw, 1024px"
           />
         </motion.div>
       </section>
@@ -150,7 +152,7 @@ export default function Home() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <span className="text-cyan font-semibold text-sm tracking-widest uppercase">Product Portfolio</span>
+          <span className="text-cyandark font-semibold text-sm tracking-widest uppercase">Product Portfolio</span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
             One Family. Many Assays. Total Consistency.
           </h2>
@@ -161,7 +163,7 @@ export default function Home() {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {services?.filter(s => s.slug !== 'support').map((s, i) => {
+          {services?.filter(s => s.slug !== 'support' && !/development/i.test(s.price || '')).map((s, i) => {
             const c = colorMap[s.color] || colorMap.navy;
             return (
               <motion.div
@@ -180,7 +182,7 @@ export default function Home() {
                 <h3 className="font-bold text-navy text-lg mb-2 leading-snug">{s.name}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{s.description}</p>
                 <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-gray-400">{s.price}</span>
+                  <span className="text-xs font-semibold text-gray-500">{s.price}</span>
                   <Link href="/services" className={`text-xs font-bold ${c.text} group-hover:translate-x-1 transition-transform inline-block`}>
                     Learn more →
                   </Link>
@@ -190,6 +192,7 @@ export default function Home() {
           })}
         </div>
       </section>
+      <LeukaemiaRange />
       <TrustBadges />
 
       {/* CAPABILITIES */}
@@ -201,7 +204,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-            <span className="text-cyan font-semibold text-sm tracking-widest uppercase">Beyond the Kit</span>
+            <span className="text-cyandark font-semibold text-sm tracking-widest uppercase">Beyond the Kit</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
               Full-Cycle Diagnostic Capability
             </h2>
@@ -217,7 +220,7 @@ export default function Home() {
                 transition={{ delay: i * 0.15, duration: 0.7, ease: 'easeOut' }}
                 className="bg-white rounded-xl p-6 flex gap-4 items-start shadow-sm hover:shadow-md transition-shadow"
               >
-                <span className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan/10 text-cyan font-extrabold flex items-center justify-center">
+                <span className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan/10 text-cyandark font-extrabold flex items-center justify-center">
                   {i + 1}
                 </span>
                 <div>
@@ -237,7 +240,7 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-cyan font-semibold text-sm tracking-widest uppercase">Why Precision Life Sciences</span>
+          <span className="text-cyandark font-semibold text-sm tracking-widest uppercase">Why Precision Life Sciences</span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2 mb-6">
             Practical Science. Reliable Support.
           </h2>
@@ -245,9 +248,9 @@ export default function Home() {
             {content.why_choose_text || 'A growing portfolio of molecular diagnostics and research services, with accessible technical support.'}
           </p>
           <div className="flex items-center justify-center gap-10 mt-10 flex-wrap opacity-80">
-            <Image src={content.img_partner_kmu || '/images/partner-kmu.png'} alt="KMU" width={90} height={45} unoptimized className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-            <Image src={content.img_partner_bq || '/images/partner-bq.png'} alt="BQ Pharma" width={100} height={45} unoptimized className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-            <Image src={content.img_partner_dgst || '/images/partner-dgst.png'} alt="DGST" width={90} height={90} unoptimized className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+            <Image src={content.img_partner_kmu || '/images/partner-kmu.png'} alt="KMU" width={90} height={45} className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+            <Image src={content.img_partner_bq || '/images/partner-bq.png'} alt="BQ Pharma" width={100} height={45} className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
+            <Image src={content.img_partner_dgst || '/images/partner-dgst.png'} alt="DGST" width={90} height={90} className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
           </div>
         </motion.div>
       </section>

@@ -44,21 +44,21 @@ export default function CeoSection({ content = {} }) {
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <span className="text-cyan font-semibold text-sm tracking-widest uppercase">Leadership</span>
+        <span className="text-cyandark font-semibold text-sm tracking-widest uppercase">Leadership</span>
         <h2 id="ceo-heading" className="text-2xl font-bold text-navy mt-1 mb-8">Meet Our CEO</h2>
 
         <div className="grid md:grid-cols-[220px_1fr] gap-8 items-start">
           <div className="text-center md:text-left">
             {ceo.photo ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={ceo.photo} alt={ceo.name} className="w-44 h-44 md:w-52 md:h-52 rounded-2xl object-cover mx-auto md:mx-0 border-2 border-cyan shadow-md" />
+              <img loading="lazy" decoding="async" src={ceo.photo} alt={ceo.name} className="w-44 h-44 md:w-52 md:h-52 rounded-2xl object-cover mx-auto md:mx-0 border-2 border-cyan shadow-md" />
             ) : (
               <div className="w-44 h-44 md:w-52 md:h-52 rounded-2xl bg-navy text-white flex items-center justify-center font-bold text-5xl mx-auto md:mx-0 shadow-md">
                 {initials(ceo.name)}
               </div>
             )}
             <h3 className="font-bold text-navy text-lg mt-4">{ceo.name}</h3>
-            <p className="text-cyan text-sm font-semibold">{ceo.title}</p>
+            <p className="text-cyandark text-sm font-semibold">{ceo.title}</p>
             {ceo.credentials && <p className="text-gray-500 text-xs mt-1 leading-relaxed">{ceo.credentials}</p>}
           </div>
 
@@ -70,7 +70,7 @@ export default function CeoSection({ content = {} }) {
             </div>
 
             <blockquote className="mt-6 bg-graybg border-l-4 border-cyan rounded-r-xl p-5">
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">A message from the CEO</p>
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">A message from the CEO</p>
               <div className="space-y-3 text-navy/90 leading-relaxed italic">
                 {paragraphs(ceo.message).map((p, i) => (
                   <p key={i}>{p}</p>

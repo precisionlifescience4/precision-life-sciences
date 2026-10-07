@@ -290,6 +290,8 @@ function ContentTab({ flash }) {
     { key: 'ceo_credentials', label: 'CEO Section — Qualifications line (optional, shown under the title)' },
     { key: 'ceo_bio', label: 'CEO Section — Profile (leave a blank line between paragraphs)', long: true },
     { key: 'ceo_message', label: 'CEO Section — Message from the CEO (blank line between paragraphs)', long: true },
+    { key: 'prelaunch_notice', label: 'Pre-launch notice (slim banner at the top of every page; clear it to hide at launch)', long: true },
+    { key: 'company_reg_number', label: 'SECP Company Registration Number (shown in the footer when filled in)' },
     { key: 'footer_about', label: 'Footer — About Text', long: true },
     { key: 'company_legal_name', label: 'Company Legal Name (copyright line)' },
     { key: 'cta_title', label: 'Bottom CTA Title' },

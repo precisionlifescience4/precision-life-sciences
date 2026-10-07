@@ -1,7 +1,30 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import FAQ from '@/components/FAQ';
+import TM from '@/components/TM';
+
+function SpecChip({ label, value }) {
+  return (
+    <div className="bg-graybg rounded-lg px-3 py-2">
+      <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">{label}</p>
+      <p className="text-xs font-medium text-navy leading-snug">{value}</p>
+    </div>
+  );
+}
+
+// Which request buttons a card gets, and what they pre-fill on the Contact form.
+function actionsFor(s) {
+  const inDevelopment = /development/i.test(`${s.price} ${s.description}`);
+  const link = (topic) => `/contact?topic=${topic}&product=${encodeURIComponent(s.name)}`;
+  if (s.slug === 'support') return [{ label: 'Discuss your project', href: link('project'), primary: true }];
+  if (inDevelopment) return [{ label: 'Register interest', href: link('interest'), primary: true }];
+  return [
+    { label: 'Request datasheet', href: link('datasheet'), primary: false },
+    { label: 'Enquire', href: link('enquire'), primary: true },
+  ];
+}
 
 export default function ServicesContent() {
   const [services, setServices] = useState([]);
@@ -21,14 +44,6 @@ export default function ServicesContent() {
     navy: { border: 'border-navy', text: 'text-navy', bg: 'bg-navy' },
   };
 
-  const specRow = (label, value) =>
-    value ? (
-      <div className="flex justify-between py-1.5 border-b border-gray-100 last:border-0">
-        <span className="text-gray-400">{label}</span>
-        <span className="text-navy font-medium text-right">{value}</span>
-      </div>
-    ) : null;
-
   return (
     <main className="max-w-6xl mx-auto px-4 py-16">
       <motion.h1
@@ -37,14 +52,20 @@ export default function ServicesContent() {
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="text-4xl font-bold text-navy mb-2 text-center"
       >
-        {content.services_title || 'Mugen-Plex Portfolio & Services'}
+        <TM text={content.services_title || 'Mugen-Plex Portfolio & Services'} />
       </motion.h1>
       <p className="text-center text-gray-500 mb-12">{content.services_subtitle || 'For Research Use Only'}</p>
 
       <div className="grid md:grid-cols-2 gap-6">
         {services?.map((s, i) => {
           const c = colorMap[s.color] || colorMap.navy;
-          const hasSpecs = s.target_gene || s.sample_type || s.turnaround_time;
+          // General, public-facing specs only. Gene regions and reaction details stay in the datasheet.
+          const chips = [
+            ['Sample type', s.sample_type],
+            ['Turnaround', s.turnaround_time],
+            ['Storage', s.storage_condition],
+            ['Shelf life', s.shelf_life],
+          ].filter(([, v]) => v);
           return (
             <motion.div
               key={s.id}
@@ -57,24 +78,38 @@ export default function ServicesContent() {
               <h3 className="font-bold text-navy text-lg mb-2">{s.name}</h3>
               <p className="text-sm text-gray-600 mb-4">{s.description}</p>
 
-              {hasSpecs && (
-                <div className="bg-graybg rounded-lg px-4 py-3 text-xs mb-4">
-                  {specRow('Target', s.target_gene)}
-                  {specRow('Sample Type', s.sample_type)}
-                  {specRow('Turnaround Time', s.turnaround_time)}
-                  {specRow('Reaction Volume', s.reaction_volume)}
-                  {specRow('Storage', s.storage_condition)}
-                  {specRow('Shelf Life', s.shelf_life)}
+              {chips.length > 0 && (
+                <div className="grid grid-cols-2 gap-2 mb-4">
+                  {chips.map(([label, value]) => (
+                    <SpecChip key={label} label={label} value={value} />
+                  ))}
                 </div>
               )}
 
-              <span className={`text-sm font-bold ${c.text}`}>{s.price}</span>
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-gray-100">
+                <span className={`text-sm font-bold ${c.text}`}>{s.price}</span>
+                <div className="flex flex-wrap gap-2">
+                  {actionsFor(s).map((act) => (
+                    <Link
+                      key={act.label}
+                      href={act.href}
+                      className={`text-xs font-semibold px-3.5 py-2 rounded-full transition-colors ${
+                        act.primary
+                          ? 'bg-navy text-white hover:bg-navylight'
+                          : 'border border-navy/25 text-navy hover:border-navy'
+                      }`}
+                    >
+                      {act.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           );
         })}
       </div>
 
-      <p className="text-center text-xs text-gray-400 mt-12">
+      <p className="text-center text-xs text-gray-500 mt-12">
         All Mugen-Plex products are supplied for Research Use Only (RUO) and are not intended for use in
         diagnostic procedures. Specifications may change as products are developed; contact us to confirm
         current details before ordering.
