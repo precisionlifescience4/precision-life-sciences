@@ -19,6 +19,13 @@ export const metadata = {
   description: 'Mugen-Plex real-time PCR assays for HBV, HCV, HIV, Influenza A&B, CCHF and Dengue/Chikungunya, developed in Peshawar, Pakistan. For research use only.',
   keywords: ['Mugen-Plex', 'real-time PCR kits Pakistan', 'molecular diagnostics Peshawar', 'HBV PCR kit', 'HCV PCR kit', 'HIV PCR kit', 'CCHF PCR kit', 'Dengue PCR kit', 'Chikungunya PCR kit', 'Precision Life Sciences'],
   alternates: { canonical: '/' },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.ico',
+  },
   verification: { google: 'gANPx2fYCeSZmO02W1kig_qUm_prTTRFZeeM8nKwH_w' },
   openGraph: {
     title: 'Mugen-Plex Real-Time PCR Kits | Precision Life Sciences',
