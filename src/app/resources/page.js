@@ -3,16 +3,31 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'PCR Learning Resources',
-  description: 'Educational PCR video tutorials, protocols and product datasheets from Precision Life Sciences. Coming soon.',
+  description: 'Educational PCR videos, protocols and product resources from Precision Life Sciences.',
   alternates: { canonical: '/resources' },
+  openGraph: {
+    title: 'PCR Learning Resources | Precision Life Sciences',
+    description: 'Watch clear, concise educational videos about PCR fundamentals, quality and interpretation.',
+    url: `${SITE_URL}/resources`,
+  },
 };
 
-const SECTIONS = [
+const VIDEOS = [
   {
-    title: 'Video Tutorials',
-    text: 'Short educational videos on real-time PCR: sample preparation, setting up a run, and interpreting results.',
-    icon: 'M8 5v14l11-7z',
+    title: 'How PCR Copies DNA Using Heat',
+    label: 'PCR fundamentals',
+    description: 'A concise visual introduction to the heat-driven cycle that enables PCR amplification.',
+    src: '/videos/how-pcr-copies-dna-using-heat.mp4',
   },
+  {
+    title: 'How PCR Contamination Fueled the MMR Hoax',
+    label: 'Quality & evidence',
+    description: 'A case study in contamination control, interpretation and why PCR results need rigorous context.',
+    src: '/videos/how-pcr-contamination-fueled-the-mmr-hoax.mp4',
+  },
+];
+
+const COMING_SOON = [
   {
     title: 'Product Datasheets',
     text: 'Technical datasheets and instructions for use for each Mugen-Plex assay.',
@@ -27,38 +42,90 @@ const SECTIONS = [
 
 export default function Resources() {
   return (
-    <main className="max-w-5xl mx-auto px-4 py-16">
-      <div className="text-center mb-12">
-        <span className="text-cyandark font-semibold text-sm tracking-widest uppercase">Learn</span>
-        <h1 className="text-4xl font-bold text-navy mt-2 mb-4">Resources &amp; Education</h1>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          We are preparing educational material on real-time PCR and molecular diagnostics, free for laboratory
-          staff, students and researchers. It will appear here as it is published.
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-3 gap-6">
-        {SECTIONS.map((s) => (
-          <div key={s.title} className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <span className="w-11 h-11 rounded-full bg-cyan/10 text-cyandark flex items-center justify-center mb-4">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-                <path d={s.icon} />
-              </svg>
-            </span>
-            <h2 className="font-bold text-navy mb-2">{s.title}</h2>
-            <p className="text-sm text-gray-600 mb-4">{s.text}</p>
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Coming soon</span>
+    <main>
+      <section className="bg-graybg px-4 py-16 md:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <span className="text-sm font-semibold uppercase tracking-widest text-cyandark">Learn</span>
+            <h1 className="mt-2 text-4xl font-extrabold text-navy md:text-5xl">PCR, clearly explained.</h1>
+            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-gray-600">
+              Short visual lessons for laboratory staff, students and researchers.
+            </p>
           </div>
-        ))}
-      </div>
 
-      <div className="bg-graybg rounded-xl p-6 mt-10 text-center">
-        <p className="text-navy font-semibold mb-1">Looking for something specific?</p>
-        <p className="text-sm text-gray-600 mb-4">Tell us what material would help your laboratory and we will prioritise it.</p>
-        <Link href="/contact" className="inline-block bg-navy text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-navylight transition-colors">
-          Contact Us
-        </Link>
-      </div>
+          <div className="grid gap-7 lg:grid-cols-2">
+            {VIDEOS.map((video) => (
+              <article
+                key={video.src}
+                className="overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-[0_18px_55px_rgba(0,32,91,0.10)]"
+              >
+                <video
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="aspect-video w-full bg-navy object-cover"
+                  aria-label={`Watch ${video.title}`}
+                >
+                  <source src={video.src} type="video/mp4" />
+                  Your browser does not support embedded video.
+                </video>
+                <div className="p-6">
+                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-cyandark">
+                    {video.label}
+                  </span>
+                  <h2 className="mt-2 text-xl font-extrabold leading-snug text-navy">{video.title}</h2>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-600">{video.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <p className="mt-6 text-center text-xs text-gray-500">
+            Educational content only. Product-specific instructions remain in the applicable kit documentation.
+          </p>
+        </div>
+      </section>
+
+      <section className="px-4 py-16">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid gap-6 md:grid-cols-2">
+            {COMING_SOON.map((section) => (
+              <div key={section.title} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-cyan/10 text-cyandark">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5"
+                    aria-hidden="true"
+                  >
+                    <path d={section.icon} />
+                  </svg>
+                </span>
+                <h2 className="font-bold text-navy">{section.title}</h2>
+                <p className="mb-4 mt-2 text-sm text-gray-600">{section.text}</p>
+                <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Coming soon</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 rounded-xl bg-graybg p-6 text-center">
+            <p className="mb-1 font-semibold text-navy">Looking for something specific?</p>
+            <p className="mb-4 text-sm text-gray-600">
+              Tell us what material would help your laboratory and we will prioritise it.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-block rounded-full bg-navy px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navylight"
+            >
+              Contact Us
+            </Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
