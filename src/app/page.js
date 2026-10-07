@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import TrustBadges from '@/components/TrustBadges';
 import Gallery from '@/components/Gallery';
-import LeukaemiaRange from '@/components/LeukaemiaRange';
+import MyeloidRange from '@/components/MyeloidRange';
 import TM from '@/components/TM';
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -192,7 +192,7 @@ export default function Home() {
           })}
         </div>
       </section>
-      <LeukaemiaRange />
+      <MyeloidRange />
       <TrustBadges />
 
       {/* CAPABILITIES */}
