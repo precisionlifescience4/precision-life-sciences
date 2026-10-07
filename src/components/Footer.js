@@ -60,7 +60,11 @@ export default function Footer() {
       </div>
       <div className="border-t border-white/10 py-4 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-gray-400">
-          <p>© {new Date().getFullYear()} {content.company_legal_name || 'Precision Life Sciences'}. For Research Use Only.</p>
+          <p>
+            © {new Date().getFullYear()} {content.company_legal_name || 'Precision Life Sciences'}.
+            {content.company_reg_number ? ` SECP Company Registration No. ${content.company_reg_number}.` : ''} For Research Use Only.
+            {' '}Mugen-Plex™ — trademark application in progress.
+          </p>
           <p>
             Developed by{' '}
             <a

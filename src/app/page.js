@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import TrustBadges from '@/components/TrustBadges';
 import Gallery from '@/components/Gallery';
+import LeukaemiaRange from '@/components/LeukaemiaRange';
+import TM from '@/components/TM';
 export default function Home() {
   const [services, setServices] = useState([]);
   const [content, setContent] = useState({});
@@ -61,7 +63,7 @@ export default function Home() {
             {content.hero_subtitle || 'Real-Time PCR Assay Portfolio'}
           </p>
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
-            {content.hero_title || 'Mugen-Plex'}
+            <TM text={content.hero_title || 'Mugen-Plex'} />
           </h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
             {content.hero_description || 'Real-time PCR assays developed in Pakistan, built for laboratories that cannot afford to guess.'}
@@ -161,7 +163,7 @@ export default function Home() {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {services?.filter(s => s.slug !== 'support').map((s, i) => {
+          {services?.filter(s => s.slug !== 'support' && !/development/i.test(s.price || '')).map((s, i) => {
             const c = colorMap[s.color] || colorMap.navy;
             return (
               <motion.div
@@ -190,6 +192,7 @@ export default function Home() {
           })}
         </div>
       </section>
+      <LeukaemiaRange />
       <TrustBadges />
 
       {/* CAPABILITIES */}

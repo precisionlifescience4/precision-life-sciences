@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { supabase } from '@/lib/supabase';
 import { SITE_URL, SITE_NAME } from '@/lib/site';
+import PrelaunchBanner, { DEFAULT_NOTICE } from '@/components/PrelaunchBanner';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const sora = Sora({ subsets: ['latin'], weight: ['600', '700', '800'], variable: '--font-sora' });
@@ -30,6 +31,9 @@ export const metadata = {
 };
 export default async function RootLayout({ children }) {
   const { data: settings } = await supabase.from('settings').select('*').eq('id', 1).single();
+  // Pre-launch notice: shows the default until edited in the admin; an empty value hides it.
+  const { data: noticeRow } = await supabase.from('site_content').select('value').eq('key', 'prelaunch_notice').maybeSingle();
+  const notice = noticeRow ? noticeRow.value : DEFAULT_NOTICE;
 
   const organization = {
     '@context': 'https://schema.org',
@@ -60,6 +64,7 @@ export default async function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization).replace(/</g, '\\u003c') }}
         />
+        <PrelaunchBanner text={notice} />
         <Navbar settings={settings} />
         {children}
         <Footer />

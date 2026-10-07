@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import FAQ from '@/components/FAQ';
+import TM from '@/components/TM';
 
 function SpecChip({ label, value }) {
   return (
@@ -21,7 +22,7 @@ function actionsFor(s) {
   if (inDevelopment) return [{ label: 'Register interest', href: link('interest'), primary: true }];
   return [
     { label: 'Request datasheet', href: link('datasheet'), primary: false },
-    { label: 'Request a quote', href: link('quote'), primary: true },
+    { label: 'Enquire', href: link('enquire'), primary: true },
   ];
 }
 
@@ -51,7 +52,7 @@ export default function ServicesContent() {
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="text-4xl font-bold text-navy mb-2 text-center"
       >
-        {content.services_title || 'Mugen-Plex Portfolio & Services'}
+        <TM text={content.services_title || 'Mugen-Plex Portfolio & Services'} />
       </motion.h1>
       <p className="text-center text-gray-500 mb-12">{content.services_subtitle || 'For Research Use Only'}</p>
 

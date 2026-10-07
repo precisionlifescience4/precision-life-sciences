@@ -10,7 +10,7 @@ function initialForm(params) {
   const product = (params.get('product') || '').slice(0, 160);
   const presets = {
     datasheet: ['Datasheet Request', `I would like to request the datasheet and instructions for use for: ${product}.`],
-    quote: ['Bulk Order / Pricing', `I would like a quote for: ${product}.`],
+    enquire: ['General', `I would like to enquire about: ${product}.`],
     interest: ['General', `I would like to register my interest in: ${product}.`],
     project: ['Collaboration / Research', 'I would like to discuss a research project with your molecular biology services team.'],
   };

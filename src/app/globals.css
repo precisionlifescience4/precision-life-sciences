@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #0a1f44;
-  --color-navylight: #12294f;
-  --color-cyan: #00b4d8;
-  --color-cyandark: #0077a0; /* cyan for text on light backgrounds (AA contrast) */
-  --color-graybg: #f4f7fa;
+  --color-navy: #00205B;
+  --color-navylight: #0A3377;
+  --color-cyan: #00A3E0;
+  --color-cyandark: #0077A8; /* cyan for text on light backgrounds (AA contrast) */
+  --color-graybg: #EEF2F5;
   --color-hbv: #d4a017;
   --color-hcv: #d6336c;
   --color-hiv: #7048e8;
