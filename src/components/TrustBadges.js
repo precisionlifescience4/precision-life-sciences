@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const FALLBACK_BADGES = [
   { id: 'ruo', title: 'Clear RUO positioning', description: 'Product status is stated consistently across the portfolio and customer journey.' },
-  { id: 'format', title: 'Consistent 48-test format', description: 'A shared presentation helps laboratories move between assays with less friction.' },
+  { id: 'format', title: '24/48/96-test formats', description: 'A shared presentation helps laboratories move between assays with less friction.' },
   { id: 'storage', title: '2–8 °C storage', description: 'The stated storage range is surfaced clearly where customers compare products.' },
   { id: 'support', title: 'Pakistan-based support', description: 'A local team is available for product information, research discussion and follow-up.' },
 ];

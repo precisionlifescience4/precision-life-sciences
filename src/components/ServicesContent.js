@@ -9,60 +9,60 @@ const FALLBACK_SERVICES = [
     id: 'hbv',
     slug: 'hbv',
     name: 'Mugen-Plex HBV Real-Time PCR Assay',
-    description: 'A consistent 48-test RUO kit format for hepatitis B virus research workflows.',
+    description: 'Available in 24-, 48-, and 96-test RUO kit formats for hepatitis B virus research workflows.',
     sample_type: 'Plasma',
     storage_condition: '2–8 °C',
-    price: '48 tests · RUO',
+    price: '24/48/96 Tests · RUO',
     color: 'hbv',
   },
   {
     id: 'hcv',
     slug: 'hcv',
     name: 'Mugen-Plex HCV Real-Time PCR Assay',
-    description: 'A consistent 48-test RUO kit format for hepatitis C virus research workflows.',
+    description: 'Available in 24-, 48-, and 96-test RUO kit formats for hepatitis C virus research workflows.',
     sample_type: 'Plasma',
     storage_condition: '2–8 °C',
-    price: '48 tests · RUO',
+    price: '24/48/96 Tests · RUO',
     color: 'hcv',
   },
   {
     id: 'hiv',
     slug: 'hiv',
     name: 'Mugen-Plex HIV Real-Time PCR Assay',
-    description: 'A consistent 48-test RUO kit format for human immunodeficiency virus research workflows.',
+    description: 'Available in 24-, 48-, and 96-test RUO kit formats for human immunodeficiency virus research workflows.',
     sample_type: 'Plasma',
     storage_condition: '2–8 °C',
-    price: '48 tests · RUO',
+    price: '24/48/96 Tests · RUO',
     color: 'hiv',
   },
   {
     id: 'dengue-chikungunya',
     slug: 'dengue / chikungunya',
     name: 'Mugen-Plex Dengue / Chikungunya Real-Time PCR Assay',
-    description: 'A combined 48-test RUO arbovirus assay in the shared Mugen-Plex format.',
+    description: 'A combined RUO arbovirus assay available in 24-, 48-, and 96-test kit formats.',
     sample_type: 'Plasma',
     storage_condition: '2–8 °C',
-    price: '48 tests · RUO',
+    price: '24/48/96 Tests · RUO',
     color: 'dengue',
   },
   {
     id: 'influenza',
     slug: 'influenza a & b',
     name: 'Mugen-Plex Influenza A & B Real-Time PCR Assay',
-    description: 'A 48-test RUO assay for influenza A and B research workflows.',
+    description: 'An RUO assay available in 24-, 48-, and 96-test kit formats for influenza A and B research workflows.',
     sample_type: 'Nasopharyngeal swab',
     storage_condition: '2–8 °C',
-    price: '48 tests · RUO',
+    price: '24/48/96 Tests · RUO',
     color: 'flu',
   },
   {
     id: 'cchf',
     slug: 'cchf',
     name: 'Mugen-Plex CCHF Real-Time PCR Assay',
-    description: 'A consistent 48-test RUO kit format for Crimean-Congo haemorrhagic fever virus research.',
+    description: 'Available in 24-, 48-, and 96-test RUO kit formats for Crimean-Congo haemorrhagic fever virus research.',
     sample_type: 'Plasma',
     storage_condition: '2–8 °C',
-    price: '48 tests · RUO',
+    price: '24/48/96 Tests · RUO',
     color: 'cchf',
   },
   {
@@ -70,7 +70,7 @@ const FALLBACK_SERVICES = [
     slug: 'bcr-abl1',
     name: 'Mugen-Plex Myeloid BCR-ABL1',
     description: 'BCR-ABL1 fusion transcript assay concept for chronic myeloid leukaemia research.',
-    price: 'In development · 48 tests · RUO',
+    price: 'In development · 24/48/96 Tests · RUO',
     color: 'dengue',
   },
   {
@@ -78,7 +78,7 @@ const FALLBACK_SERVICES = [
     slug: 'jak2',
     name: 'Mugen-Plex Myeloid JAK2',
     description: 'JAK2 mutation assay concept for myeloproliferative neoplasm research.',
-    price: 'In development · 48 tests · RUO',
+    price: 'In development · 24/48/96 Tests · RUO',
     color: 'flu',
   },
   {
@@ -86,7 +86,7 @@ const FALLBACK_SERVICES = [
     slug: 'mpl',
     name: 'Mugen-Plex Myeloid MPL',
     description: 'MPL mutation assay concept for myeloproliferative neoplasm research.',
-    price: 'In development · 48 tests · RUO',
+    price: 'In development · 24/48/96 Tests · RUO',
     color: 'hiv',
   },
   {
@@ -94,7 +94,7 @@ const FALLBACK_SERVICES = [
     slug: 'calr',
     name: 'Mugen-Plex Myeloid CALR',
     description: 'CALR mutation assay concept for myeloproliferative neoplasm research.',
-    price: 'In development · 48 tests · RUO',
+    price: 'In development · 24/48/96 Tests · RUO',
     color: 'cchf',
   },
   {
@@ -102,7 +102,7 @@ const FALLBACK_SERVICES = [
     slug: 'pml-rara',
     name: 'Mugen-Plex Myeloid PML-RARA',
     description: 'PML-RARA fusion transcript assay concept for acute promyelocytic leukaemia research.',
-    price: 'In development · 48 tests · RUO',
+    price: 'In development · 24/48/96 Tests · RUO',
     color: 'dengue',
   },
   {
@@ -110,7 +110,7 @@ const FALLBACK_SERVICES = [
     slug: 'mpn panel',
     name: 'Mugen-Plex Myeloid MPN Panel',
     description: 'JAK2, CALR and MPL assay panel concept for myeloproliferative neoplasm research.',
-    price: 'In development · 48 tests · RUO',
+    price: 'In development · 24/48/96 Tests · RUO',
     color: 'flu',
   },
   {
@@ -202,7 +202,7 @@ export default function ServicesContent() {
       <p className="text-center text-gray-500 mb-12">RUO portfolio and molecular-development services</p>
 
       <div className="mx-auto mb-16 flex max-w-3xl flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-[0.12em] text-navy">
-        {['48-test format', 'RUO', '2–8 °C storage', 'Local technical discussion'].map((item) => (
+        {['24/48/96-test formats', 'RUO', '2–8 °C storage', 'Local technical discussion'].map((item) => (
           <span key={item} className="rounded-full border border-navy/10 bg-graybg px-4 py-2.5">{item}</span>
         ))}
       </div>

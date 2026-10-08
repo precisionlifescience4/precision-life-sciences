@@ -41,7 +41,7 @@ export default function AboutContent() {
           </div>
           <div className="grid gap-5 md:grid-cols-3">
             {[
-              ['A coherent portfolio', 'Each assay belongs to one recognisable Mugen-Plex family, with the same core presentation and 48-test format.'],
+              ['A coherent portfolio', 'Each assay belongs to one recognisable Mugen-Plex family, with the same core presentation across 24-, 48-, and 96-test formats.'],
               ['Clear product distinction', 'Assay-specific colour and naming help teams identify the right kit without adding visual clutter.'],
               ['Reachable local support', 'Product enquiries, research collaboration and technical follow-up are handled through a Pakistan-based team.'],
             ].map(([title, text], i) => (

@@ -11,7 +11,7 @@ const FAQS = [
   {
     id: 'format',
     question: 'What format does each kit use?',
-    answer: 'The current portfolio is presented in a consistent 48-test format. Request the relevant product information for the assay-specific contents and workflow.',
+    answer: 'The current portfolio is presented in consistent 24-, 48-, and 96-test formats. Request the relevant product information for the assay-specific contents and workflow.',
   },
   {
     id: 'storage',

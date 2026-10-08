@@ -28,7 +28,7 @@ export default function MyeloidRange() {
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto mt-4 leading-relaxed">
             Real-time PCR assays for key molecular markers of haematological malignancies, in the same
-            family and format as our infectious-disease kits. Planned in a 48-test RUO format.
+            family and format as our infectious-disease kits. Planned in 24-, 48-, and 96-test RUO formats.
           </p>
         </motion.div>
 
@@ -45,7 +45,7 @@ export default function MyeloidRange() {
               <div className="relative bg-white aspect-[3/2]">
                 <Image
                   src={`/images/myeloid/Mugen-Plex_Myeloid_${k.slug}.jpg`}
-                  alt={`Mugen-Plex Myeloid ${k.title} 48-test real-time PCR assay kit by Precision Life Sciences.`}
+                  alt={`Mugen-Plex Myeloid ${k.title} 24/48/96-test real-time PCR assay kit by Precision Life Sciences.`}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 384px"
                   className="object-contain p-5"

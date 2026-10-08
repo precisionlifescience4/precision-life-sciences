@@ -20,7 +20,7 @@ const ASSAY_MARKERS = [
 ];
 
 const PROOF_POINTS = [
-  { value: '48', label: 'tests per kit' },
+  { value: '24/48/96', label: 'tests per kit' },
   { value: '2–8 °C', label: 'storage' },
   { value: '6', label: 'infectious assays' },
   { value: '1', label: 'consistent family' },
@@ -96,7 +96,7 @@ export default function Home() {
               One family. Many assays. Total consistency.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg lg:mx-0">
-              A unified RUO assay family with a consistent 48-test format, clear colour-coding and responsive local support.
+              A unified RUO assay family in 24-, 48-, and 96-test formats, with clear colour-coding and responsive local support.
             </p>
 
             <div className="mt-9 flex flex-wrap justify-center gap-3 lg:justify-start">
@@ -150,7 +150,7 @@ export default function Home() {
               </div>
             </div>
             <span className="absolute -bottom-4 right-7 rounded-full border border-white/15 bg-navy px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-cyan shadow-lg">
-              48-test RUO format
+              24/48/96-test RUO formats
             </span>
           </motion.div>
         </div>

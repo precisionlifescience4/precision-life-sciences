@@ -46,7 +46,7 @@ function AssayCarton({ assay }) {
       <div className="relative aspect-[3/2] overflow-hidden bg-[radial-gradient(circle_at_50%_20%,#ffffff_0%,#eef5fa_62%,#dbe8f1_100%)]">
         <Image
           src={assay.image}
-          alt={`Mugen-Plex ${assay.name} 48-test real-time PCR assay carton by Precision Life Sciences.`}
+          alt={`Mugen-Plex ${assay.name} 24/48/96-test real-time PCR assay carton by Precision Life Sciences.`}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.035]"
@@ -64,7 +64,7 @@ function AssayCarton({ assay }) {
             <p className="mt-1 text-sm text-slate-500">{assay.description}</p>
           </div>
           <span className="shrink-0 rounded-full bg-graybg px-3 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-navy">
-            48 tests
+            24/48/96 Tests
           </span>
         </div>
       </div>
