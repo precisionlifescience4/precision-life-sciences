@@ -123,6 +123,54 @@ const FALLBACK_SERVICES = [
   },
 ];
 
+const COMMERCIAL_SERVICES = [
+  {
+    id: 'dna-extraction',
+    slug: 'dna-extraction',
+    kind: 'laboratory-service',
+    name: 'DNA Extraction',
+    description: 'DNA extraction for sequencing and other molecular research workflows.',
+    price: 'Pricing on request',
+    color: 'navy',
+  },
+  {
+    id: 'nucleic-acid-quantification',
+    slug: 'dna-rna-quantification',
+    kind: 'laboratory-service',
+    name: 'DNA/RNA Quantification',
+    description: 'DNA/RNA quantification for molecular research workflows.',
+    price: 'Pricing on request',
+    color: 'navy',
+  },
+  {
+    id: 'pcr-amplification',
+    slug: 'pcr-amplification',
+    kind: 'laboratory-service',
+    name: 'PCR Amplification',
+    description: 'Target amplification for defined molecular research projects.',
+    price: 'Pricing on request',
+    color: 'navy',
+  },
+  {
+    id: 'gel-electrophoresis',
+    slug: 'gel-electrophoresis',
+    kind: 'laboratory-service',
+    name: 'Gel Electrophoresis',
+    description: 'Gel electrophoresis for molecular research workflows.',
+    price: 'Pricing on request',
+    color: 'navy',
+  },
+  {
+    id: 'sanger-sequencing',
+    slug: 'sanger-sequencing',
+    kind: 'laboratory-service',
+    name: 'Sanger Sequencing',
+    description: 'Sanger sequencing for submitted PCR products and integrated molecular workflows.',
+    price: 'Pricing on request',
+    color: 'navy',
+  },
+];
+
 function SpecChip({ label, value }) {
   return (
     <div className="bg-graybg rounded-lg px-3 py-2">
@@ -140,6 +188,7 @@ function isInDevelopment(service) {
 function actionsFor(s) {
   const inDevelopment = isInDevelopment(s);
   const link = (topic) => `/contact?topic=${topic}&product=${encodeURIComponent(s.name)}`;
+  if (s.kind === 'laboratory-service') return [{ label: 'Request a quote', href: link('service'), primary: true }];
   if (s.slug === 'support') return [{ label: 'Discuss your project', href: link('project'), primary: true }];
   if (inDevelopment) return [{ label: 'Register interest', href: link('interest'), primary: true }];
   return [
@@ -166,6 +215,13 @@ export default function ServicesContent() {
   };
 
   const serviceGroups = [
+    {
+      id: 'laboratory-services',
+      eyebrow: 'Commercial molecular services',
+      title: 'A defined workflow for every research project',
+      description: 'Access individual services or discuss an integrated workflow from sample preparation through Sanger sequencing.',
+      items: COMMERCIAL_SERVICES,
+    },
     {
       id: 'infectious',
       eyebrow: 'Mugen-Plex Infectious',
@@ -199,24 +255,35 @@ export default function ServicesContent() {
       >
         <TM text="Mugen-Plex Portfolio & Services" />
       </motion.h1>
-      <p className="text-center text-gray-500 mb-12">RUO portfolio and molecular-development services</p>
+      <p className="text-center text-gray-500 mb-12">RUO assay portfolio, commercial molecular services and technical collaboration</p>
 
-      <div className="mx-auto mb-16 flex max-w-3xl flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-[0.12em] text-navy">
-        {['24/48/96-test formats', 'RUO', '2–8 °C storage', 'Local technical discussion'].map((item) => (
-          <span key={item} className="rounded-full border border-navy/10 bg-graybg px-4 py-2.5">{item}</span>
+      <nav aria-label="Services page sections" className="mx-auto mb-16 flex max-w-3xl flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-[0.12em] text-navy">
+        {[
+          { label: 'Commercial molecular services', href: '#laboratory-services' },
+          { label: 'Infectious assays', href: '#infectious' },
+          { label: 'Myeloid concepts', href: '#myeloid' },
+          { label: 'Technical collaboration', href: '#collaboration' },
+        ].map((item) => (
+          <a key={item.href} href={item.href} className="rounded-full border border-navy/10 bg-graybg px-4 py-2.5 transition-colors hover:border-cyan hover:text-cyandark">{item.label}</a>
         ))}
-      </div>
+      </nav>
 
       <div className="space-y-20">
         {serviceGroups.map((group) => (
-          <section key={group.id} aria-labelledby={`${group.id}-heading`}>
+          <section id={group.id} key={group.id} aria-labelledby={`${group.id}-heading`} className="scroll-mt-28">
             <div className="mb-8 max-w-2xl">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">{group.eyebrow}</p>
               <h2 id={`${group.id}-heading`} className="mt-2 text-2xl font-extrabold text-navy md:text-3xl">{group.title}</h2>
               <p className="mt-3 leading-relaxed text-slate-600">{group.description}</p>
             </div>
 
-            <div className={`grid gap-6 ${group.id === 'collaboration' ? 'md:grid-cols-1' : 'md:grid-cols-2'}`}>
+            <div className={`grid gap-6 ${
+              group.id === 'collaboration'
+                ? 'md:grid-cols-1'
+                : group.id === 'laboratory-services'
+                  ? 'md:grid-cols-2 lg:grid-cols-3'
+                  : 'md:grid-cols-2'
+            }`}>
               {group.items.map((s, i) => {
                 const c = colorMap[s.color] || colorMap.navy;
                 // General, public-facing specs only. Gene regions and reaction details stay in the datasheet.
@@ -233,7 +300,7 @@ export default function ServicesContent() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: (i % 2) * 0.08, duration: 0.5, ease: 'easeOut' }}
-                    className={`border-t-4 ${c.border} rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md`}
+                    className={`flex h-full flex-col border-t-4 ${c.border} rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md`}
                   >
                     <h3 className="mb-2 text-lg font-bold text-navy">{s.name}</h3>
                     <p className="mb-4 text-sm leading-relaxed text-gray-600">{s.description}</p>
@@ -246,7 +313,7 @@ export default function ServicesContent() {
                       </div>
                     )}
 
-                    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-4">
+                    <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-4">
                       <span className={`text-sm font-bold ${c.text}`}>{s.price}</span>
                       <div className="flex flex-wrap gap-2">
                         {actionsFor(s).map((act) => (
@@ -268,14 +335,32 @@ export default function ServicesContent() {
                 );
               })}
             </div>
+
+            {group.id === 'laboratory-services' && (
+              <div className="mt-6 flex flex-col justify-between gap-4 rounded-xl border border-navy/10 bg-graybg p-5 md:flex-row md:items-center">
+                <div>
+                  <p className="text-sm font-bold text-navy">Related project support</p>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Primer design, sequence data analysis, and training or workshops can be scoped separately.</p>
+                </div>
+                <Link href="/contact?topic=project" className="shrink-0 text-sm font-bold text-cyandark hover:text-navy">
+                  Discuss a project →
+                </Link>
+              </div>
+            )}
           </section>
         ))}
       </div>
 
-      <p className="text-center text-xs text-gray-500 mt-12">
-        Mugen-Plex products are RUO and are not intended for use in diagnostic procedures. Specifications may
-        change during development; contact us to confirm current details before ordering.
-      </p>
+      <div className="mx-auto mt-12 max-w-3xl space-y-2 text-center text-xs leading-relaxed text-gray-500">
+        <p>
+          Mugen-Plex products are RUO and are not intended for use in diagnostic procedures. Specifications may
+          change during development; contact us to confirm current details before ordering.
+        </p>
+        <p>
+          Commercial laboratory services are offered for research projects. Contact us to confirm scope, sample
+          requirements, pricing and turnaround time before sending samples.
+        </p>
+      </div>
 
       <FAQ />
     </main>

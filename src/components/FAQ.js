@@ -24,6 +24,11 @@ const FAQS = [
     answer: 'Plasma is specified for HBV, HCV, HIV, Dengue/Chikungunya and CCHF. A nasopharyngeal swab is specified for Influenza A & B.',
   },
   {
+    id: 'commercial-services',
+    question: 'Which commercial molecular services are available?',
+    answer: 'Research services include DNA extraction, DNA/RNA quantification, PCR amplification, gel electrophoresis and Sanger sequencing. Contact us to confirm scope, sample requirements, pricing and turnaround time before sending samples.',
+  },
+  {
     id: 'contact',
     question: 'How can I request product information or technical support?',
     answer: 'Use the enquiry form and select the relevant assay or project. The PLS team usually replies within one working day.',

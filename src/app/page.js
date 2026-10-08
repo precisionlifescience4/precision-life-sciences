@@ -195,6 +195,31 @@ export default function Home() {
       <MyeloidRange />
       <TrustBadges />
 
+      <section className="bg-white px-4 py-12 md:py-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 rounded-3xl border border-navy/15 bg-navy px-7 py-9 text-white md:grid-cols-[1.1fr_0.9fr] md:px-10 md:py-11">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan">Commercial molecular services</span>
+            <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">From research sample to sequence data.</h2>
+            <p className="mt-4 max-w-2xl leading-relaxed text-slate-300">
+              Request an individual laboratory service or discuss an integrated workflow with our local molecular team.
+            </p>
+            <Link
+              href="/services#laboratory-services"
+              className="mt-7 inline-block rounded-full bg-cyan px-6 py-3 font-bold text-navy transition hover:bg-white"
+            >
+              Explore commercial services
+            </Link>
+          </div>
+          <div className="flex flex-wrap gap-2 md:justify-end">
+            {['DNA extraction', 'DNA/RNA quantification', 'PCR amplification', 'Gel electrophoresis', 'Sanger sequencing'].map((service) => (
+              <span key={service} className="rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-slate-100">
+                {service}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-graybg px-4 py-20 md:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto mb-12 max-w-2xl text-center">

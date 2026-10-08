@@ -24,10 +24,10 @@ export default function ContactContent() {
         Tell us what your laboratory needs.
       </motion.h1>
       <p className="mx-auto mb-7 max-w-2xl text-center leading-relaxed text-gray-600">
-        Request product information, discuss technical support or start a research collaboration. We usually reply within one working day.
+        Request product information, ask for a commercial laboratory-service quote or start a research collaboration. We usually reply within one working day.
       </p>
       <div className="mx-auto mb-12 flex max-w-2xl flex-wrap justify-center gap-2 text-xs font-semibold text-navy">
-        {['Product information', 'Technical support', 'Research collaboration'].map((item) => (
+        {['Product information', 'Laboratory-service quotes', 'Technical support', 'Research collaboration'].map((item) => (
           <span key={item} className="rounded-full border border-navy/10 bg-graybg px-4 py-2">{item}</span>
         ))}
       </div>
@@ -73,7 +73,7 @@ export default function ContactContent() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-          <h2 className="mb-4 text-xl font-bold text-navy">Send a product or project enquiry</h2>
+          <h2 className="mb-4 text-xl font-bold text-navy">Send a product, service or project enquiry</h2>
           <Suspense fallback={<div className="h-96 bg-white border border-gray-200 rounded-xl shadow-sm" />}>
             <EnquiryForm />
           </Suspense>
