@@ -28,7 +28,7 @@ export default function AboutContent() {
             <h1 className="mt-3 text-4xl font-extrabold text-navy md:text-5xl">Molecular products designed closer to the laboratory.</h1>
           </motion.div>
           <motion.p {...fadeUp} transition={{ delay: 0.1, duration: 0.6, ease: 'easeOut' }} className="text-base leading-relaxed text-slate-600 md:text-lg">
-            <TM text={content.about_intro || 'Precision Life Sciences (Private) Limited is a Peshawar-based life-sciences company developing the Mugen-Plex RUO real-time PCR portfolio. The platform brings a consistent kit format, purposeful colour-coding and accessible local technical discussion to research laboratories in Pakistan.'} />
+            <TM text="Precision Life Sciences (Private) Limited is a Peshawar-based life-sciences company developing the Mugen-Plex RUO real-time PCR portfolio. The platform brings a consistent kit format, purposeful colour-coding and accessible local technical discussion to research laboratories in Pakistan." />
           </motion.p>
         </div>
       </section>
@@ -57,7 +57,7 @@ export default function AboutContent() {
             <div className="max-w-3xl">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan">Who we serve</p>
               <p className="mt-3 text-lg leading-relaxed text-slate-200">
-                {content.who_serve_text || 'Research laboratories, hospitals, diagnostic centres, universities and research institutes seeking well-presented RUO real-time PCR products and responsive local support.'}
+                Research laboratories, hospitals, diagnostic centres, universities and research institutes seeking well-presented RUO real-time PCR products and responsive local support.
               </p>
             </div>
           </div>

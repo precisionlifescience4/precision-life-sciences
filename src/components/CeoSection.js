@@ -25,6 +25,7 @@ const initials = (name) =>
     .toUpperCase();
 
 const paragraphs = (text) => String(text || '').split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+const shortenRuo = (text) => String(text || '').replace(/For Research Use Only/gi, 'RUO');
 
 export default function CeoSection({ content = {} }) {
   const ceo = {
@@ -64,7 +65,7 @@ export default function CeoSection({ content = {} }) {
 
           <div>
             <div className="space-y-4 text-gray-600 leading-relaxed">
-              {paragraphs(ceo.bio).map((p, i) => (
+              {paragraphs(shortenRuo(ceo.bio)).map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
@@ -72,7 +73,7 @@ export default function CeoSection({ content = {} }) {
             <blockquote className="mt-6 bg-graybg border-l-4 border-cyan rounded-r-xl p-5">
               <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">A message from the CEO</p>
               <div className="space-y-3 text-navy/90 leading-relaxed italic">
-                {paragraphs(ceo.message).map((p, i) => (
+                {paragraphs(shortenRuo(ceo.message)).map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
               </div>

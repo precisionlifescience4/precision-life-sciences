@@ -5,9 +5,10 @@ export const DEFAULT_NOTICE =
 
 export default function PrelaunchBanner({ text }) {
   if (!text) return null;
+  const displayText = String(text).replace(/For Research Use Only/gi, 'RUO');
   return (
     <div role="note" className="bg-navy text-white text-xs md:text-[13px] text-center px-4 py-2 leading-snug">
-      {text}
+      {displayText}
     </div>
   );
 }

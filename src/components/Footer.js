@@ -18,7 +18,7 @@ export default function Footer() {
         <div>
           <Image src="/images/logo-dark.svg" alt="Precision Life Sciences" width={180} height={45} className="mb-4" />
           <p className="text-gray-300 text-sm">
-            {content.footer_about || 'Molecular assay development and the Mugen-Plex RUO real-time PCR portfolio, based in Peshawar, Pakistan.'}
+            Molecular assay development and the Mugen-Plex RUO real-time PCR portfolio, based in Peshawar, Pakistan.
           </p>
         </div>
         <div>

@@ -28,7 +28,7 @@ export default function MyeloidRange() {
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto mt-4 leading-relaxed">
             Real-time PCR assays for key molecular markers of haematological malignancies, in the same
-            family and format as our infectious-disease kits. Supplied as 48-test kits. RUO.
+            family and format as our infectious-disease kits. Planned in a 48-test RUO format.
           </p>
         </motion.div>
 

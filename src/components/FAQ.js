@@ -1,16 +1,37 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const FAQS = [
+  {
+    id: 'status',
+    question: 'What is the current status of Mugen-Plex products?',
+    answer: 'The products are in development or validation and are presented as RUO. They are not currently available for diagnostic use or routine ordering.',
+  },
+  {
+    id: 'format',
+    question: 'What format does each kit use?',
+    answer: 'The current portfolio is presented in a consistent 48-test format. Request the relevant product information for the assay-specific contents and workflow.',
+  },
+  {
+    id: 'storage',
+    question: 'How should the kits be stored?',
+    answer: 'The stated storage condition for the current Mugen-Plex portfolio is 2–8 °C. Always follow the product-specific documentation supplied with the kit.',
+  },
+  {
+    id: 'specimens',
+    question: 'Which specimen types are specified?',
+    answer: 'Plasma is specified for HBV, HCV, HIV, Dengue/Chikungunya and CCHF. A nasopharyngeal swab is specified for Influenza A & B.',
+  },
+  {
+    id: 'contact',
+    question: 'How can I request product information or technical support?',
+    answer: 'Use the enquiry form and select the relevant assay or project. The PLS team usually replies within one working day.',
+  },
+];
+
 export default function FAQ() {
-  const [faqs, setFaqs] = useState([]);
   const [open, setOpen] = useState(null);
-
-  useEffect(() => {
-    fetch('/api/faqs').then(r => r.json()).then(setFaqs);
-  }, []);
-
-  if (!faqs.length) return null;
 
   return (
     <section className="max-w-3xl mx-auto px-4 py-20">
@@ -25,7 +46,7 @@ export default function FAQ() {
       </motion.h2>
 
       <div className="space-y-3">
-        {faqs.map((item, i) => (
+        {FAQS.map((item, i) => (
           <motion.div
             key={item.id}
             initial={{ opacity: 0, y: 15 }}

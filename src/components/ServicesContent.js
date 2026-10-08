@@ -1,5 +1,4 @@
 'use client';
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import FAQ from '@/components/FAQ';
@@ -150,16 +149,9 @@ function actionsFor(s) {
 }
 
 export default function ServicesContent() {
-  const [services, setServices] = useState(FALLBACK_SERVICES);
-  const [content, setContent] = useState({});
-
-  useEffect(() => {
-    fetch('/api/services')
-      .then((response) => response.json())
-      .then((data) => setServices(Array.isArray(data) && data.length ? data : FALLBACK_SERVICES))
-      .catch(() => setServices(FALLBACK_SERVICES));
-    fetch('/api/content').then((response) => response.json()).then(setContent).catch(() => setContent({}));
-  }, []);
+  // Keep approved product facts authoritative. Stale CMS records previously
+  // overrode the RUO, specimen and storage information shown to customers.
+  const services = FALLBACK_SERVICES;
 
   const colorMap = {
     hbv: { border: 'border-hbv', text: 'text-cyandark', bg: 'bg-hbv' },
@@ -205,9 +197,9 @@ export default function ServicesContent() {
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="text-4xl font-bold text-navy mb-2 text-center"
       >
-        <TM text={content.services_title || 'Mugen-Plex Portfolio & Services'} />
+        <TM text="Mugen-Plex Portfolio & Services" />
       </motion.h1>
-      <p className="text-center text-gray-500 mb-12">{content.services_subtitle || 'RUO portfolio and molecular-development services'}</p>
+      <p className="text-center text-gray-500 mb-12">RUO portfolio and molecular-development services</p>
 
       <div className="mx-auto mb-16 flex max-w-3xl flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-[0.12em] text-navy">
         {['48-test format', 'RUO', '2–8 °C storage', 'Local technical discussion'].map((item) => (
