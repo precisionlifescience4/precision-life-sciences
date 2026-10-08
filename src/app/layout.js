@@ -16,7 +16,7 @@ export const metadata = {
     default: 'Mugen-Plex Real-Time PCR Kits | Precision Life Sciences',
     template: '%s | Precision Life Sciences',
   },
-  description: 'Mugen-Plex real-time PCR assays for HBV, HCV, HIV, Influenza A&B, CCHF and Dengue/Chikungunya, developed in Peshawar, Pakistan. For research use only.',
+  description: 'Mugen-Plex RUO real-time PCR assays for HBV, HCV, HIV, Influenza A&B, CCHF and Dengue/Chikungunya, developed in Peshawar, Pakistan.',
   keywords: ['Mugen-Plex', 'real-time PCR kits Pakistan', 'molecular diagnostics Peshawar', 'HBV PCR kit', 'HCV PCR kit', 'HIV PCR kit', 'CCHF PCR kit', 'Dengue PCR kit', 'Chikungunya PCR kit', 'Precision Life Sciences'],
   alternates: { canonical: '/' },
   icons: {

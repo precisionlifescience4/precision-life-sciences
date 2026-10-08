@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" role="img" aria-labelledby="title desc">
+  <title id="title">BQ Pharma and Medical Devices</title>
+  <desc id="desc">Neutral typographic partner identifier for BQ Pharma and Medical Devices.</desc>
+  <g fill="#173B67" font-family="Arial, Helvetica, sans-serif">
+    <text x="16" y="70" font-size="66" font-weight="800" letter-spacing="-3">BQ</text>
+    <text x="120" y="54" font-size="31" font-weight="800" letter-spacing="1.4">PHARMA</text>
+    <text x="122" y="81" font-size="16" font-weight="600" letter-spacing="2.2">&amp; MEDICAL DEVICES</text>
+  </g>
+  <rect x="17" y="88" width="330" height="5" rx="2.5" fill="#00A3E0"/>
+</svg>

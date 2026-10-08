@@ -2,14 +2,22 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
+const FALLBACK_BADGES = [
+  { id: 'ruo', title: 'Clear RUO positioning', description: 'Product status is stated consistently across the portfolio and customer journey.' },
+  { id: 'format', title: 'Consistent 48-test format', description: 'A shared presentation helps laboratories move between assays with less friction.' },
+  { id: 'storage', title: '2–8 °C storage', description: 'The stated storage range is surfaced clearly where customers compare products.' },
+  { id: 'support', title: 'Pakistan-based support', description: 'A local team is available for product information, research discussion and follow-up.' },
+];
+
 export default function TrustBadges() {
-  const [badges, setBadges] = useState([]);
+  const [badges, setBadges] = useState(FALLBACK_BADGES);
 
   useEffect(() => {
-    fetch('/api/trust-badges').then(r => r.json()).then(setBadges);
+    fetch('/api/trust-badges')
+      .then((response) => response.json())
+      .then((data) => setBadges(Array.isArray(data) && data.length ? data : FALLBACK_BADGES))
+      .catch(() => setBadges(FALLBACK_BADGES));
   }, []);
-
-  if (!badges.length) return null;
 
   const accents = ['bg-hbv', 'bg-hcv', 'bg-hiv', 'bg-flu', 'bg-cchf'];
 
@@ -23,9 +31,9 @@ export default function TrustBadges() {
           className="flex items-end justify-between flex-wrap gap-4 mb-14 border-b border-white/10 pb-6"
         >
           <div>
-            <span className="text-cyan font-semibold text-xs tracking-[0.2em] uppercase">Trust &amp; Credibility</span>
+            <span className="text-cyan font-semibold text-xs tracking-[0.2em] uppercase">What stays consistent</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2">
-              Built on Transparency and Collaboration
+              A clearer experience from carton to enquiry.
             </h2>
           </div>
           <span className="text-gray-500 text-sm hidden md:block">

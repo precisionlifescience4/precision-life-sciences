@@ -11,7 +11,7 @@ export const DEFAULT_CEO = {
 He established Precision Life Sciences to carry these assays from the research laboratory to the laboratories that need them, with a focus on molecular diagnostics that are developed in Pakistan, consistently produced and properly supported.`,
   message: `Laboratories in Pakistan have long relied on imported molecular kits, with the delays and costs that come with them. We set out to change that: to build real-time PCR assays here, together with our university and industry partners, that laboratories can trust and that we are willing to stand behind.
 
-Mugen-Plex kits are currently supplied for research use only, and we say so plainly. As validation and regulatory approval progress, our commitment stays the same: clear information, consistent quality and a team you can reach. I invite laboratories, researchers and partners to work with us.`,
+Mugen-Plex kits are currently supplied as RUO products, and we say so plainly. As validation and regulatory approval progress, our commitment stays the same: clear information, consistent quality and a team you can reach. I invite laboratories, researchers and partners to work with us.`,
 };
 
 const initials = (name) =>

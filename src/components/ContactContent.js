@@ -7,7 +7,7 @@ export default function ContactContent() {
   const [settings, setSettings] = useState(null);
 
   useEffect(() => {
-    fetch('/api/settings').then(r => r.json()).then(setSettings);
+    fetch('/api/settings').then(r => r.json()).then(setSettings).catch(() => setSettings({}));
   }, []);
 
   const embedUrl = settings?.address
@@ -15,18 +15,22 @@ export default function ContactContent() {
     : null;
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-16">
+    <main className="mx-auto max-w-6xl px-4 py-16 md:py-20">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-4xl font-bold text-navy mb-6 text-center"
+        className="mb-5 text-center text-4xl font-extrabold text-navy md:text-5xl"
       >
-        Get In Touch
+        Tell us what your laboratory needs.
       </motion.h1>
-      <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-        Questions about pricing, bulk orders, distribution, technical support or research collaboration?
-        Send us a message and our team will reply, usually within one working day.
+      <p className="mx-auto mb-7 max-w-2xl text-center leading-relaxed text-gray-600">
+        Request product information, discuss technical support or start a research collaboration. We usually reply within one working day.
       </p>
+      <div className="mx-auto mb-12 flex max-w-2xl flex-wrap justify-center gap-2 text-xs font-semibold text-navy">
+        {['Product information', 'Technical support', 'Research collaboration'].map((item) => (
+          <span key={item} className="rounded-full border border-navy/10 bg-graybg px-4 py-2">{item}</span>
+        ))}
+      </div>
 
       <div className="grid md:grid-cols-2 gap-8">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
@@ -56,17 +60,20 @@ export default function ContactContent() {
             </div>
           </div>
 
-          <div className="rounded-xl overflow-hidden h-56 bg-graybg flex items-center justify-center text-gray-500 text-sm shadow-sm">
-            {embedUrl ? (
+          {embedUrl ? (
+            <div className="h-56 overflow-hidden rounded-xl bg-graybg text-sm text-gray-500 shadow-sm">
               <iframe src={embedUrl} width="100%" height="100%" style={{ border: 0 }} loading="lazy" title="Location Map" />
-            ) : (
-              'Map will appear here once address is added'
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="rounded-xl border border-navy/10 bg-navy p-6 text-white shadow-sm">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan">Based in Peshawar</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">Supporting laboratories and research partners from Khyber Pakhtunkhwa, Pakistan.</p>
+            </div>
+          )}
         </motion.div>
 
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-          <h2 className="font-bold text-navy mb-4">Send an Enquiry</h2>
+          <h2 className="mb-4 text-xl font-bold text-navy">Send a product or project enquiry</h2>
           <Suspense fallback={<div className="h-96 bg-white border border-gray-200 rounded-xl shadow-sm" />}>
             <EnquiryForm />
           </Suspense>

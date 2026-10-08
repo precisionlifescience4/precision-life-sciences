@@ -20,22 +20,26 @@ const VIDEOS = [
     src: '/videos/how-pcr-copies-dna-using-heat.mp4',
   },
   {
-    title: 'How PCR Contamination Fueled the MMR Hoax',
+    title: 'PCR Contamination: A Quality-Control Case Study',
     label: 'Quality & evidence',
     description: 'A case study in contamination control, interpretation and why PCR results need rigorous context.',
     src: '/videos/how-pcr-contamination-fueled-the-mmr-hoax.mp4',
   },
 ];
 
-const COMING_SOON = [
+const RESOURCE_ROUTES = [
   {
     title: 'Product Datasheets',
-    text: 'Technical datasheets and instructions for use for each Mugen-Plex assay.',
+    text: 'Ask for the current product information available for the Mugen-Plex assay relevant to your work.',
+    label: 'Request product information',
+    href: '/contact?topic=datasheet',
     icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M8 13h8M8 17h8',
   },
   {
     title: 'Protocols & Guides',
-    text: 'Practical guides for laboratory set-up, quality control and good PCR practice.',
+    text: 'Discuss laboratory set-up, quality control or a research workflow with the PLS team.',
+    label: 'Ask a technical question',
+    href: '/contact?topic=project',
     icon: 'M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20V2H6.5A2.5 2.5 0 004 4.5z',
   },
 ];
@@ -89,7 +93,7 @@ export default function Resources() {
       <section className="px-4 py-16">
         <div className="mx-auto max-w-5xl">
           <div className="grid gap-6 md:grid-cols-2">
-            {COMING_SOON.map((section) => (
+            {RESOURCE_ROUTES.map((section) => (
               <div key={section.title} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                 <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-cyan/10 text-cyandark">
                   <svg
@@ -107,7 +111,9 @@ export default function Resources() {
                 </span>
                 <h2 className="font-bold text-navy">{section.title}</h2>
                 <p className="mb-4 mt-2 text-sm text-gray-600">{section.text}</p>
-                <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Coming soon</span>
+                <Link href={section.href} className="text-xs font-bold uppercase tracking-wide text-cyandark hover:text-navy">
+                  {section.label} →
+                </Link>
               </div>
             ))}
           </div>

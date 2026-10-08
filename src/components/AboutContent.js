@@ -1,9 +1,9 @@
 'use client';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Team from '@/components/Team';
 import CeoSection, { DEFAULT_CEO } from '@/components/CeoSection';
+import InstitutionalStrip from '@/components/InstitutionalStrip';
 import TM from '@/components/TM';
 
 export default function AboutContent() {
@@ -20,59 +20,56 @@ export default function AboutContent() {
   };
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-16">
-      <motion.h1 {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-4xl font-bold text-navy mb-6">
-        About Precision Life Sciences
-      </motion.h1>
-      <motion.p {...fadeUp} transition={{ delay: 0.12, duration: 0.6, ease: 'easeOut' }} className="text-gray-600 mb-6 leading-relaxed">
-        <TM text={content.about_intro || 'Precision Life Sciences (Private) Limited is a Peshawar-based life-sciences company developing practical molecular diagnostics. Our Mugen-Plex real-time PCR assays were developed in Pakistan in collaboration with Khyber Medical University, BQ Pharma and DGST, and are designed so that laboratories can run reliable viral testing with a consistent kit format, complete controls and local technical support.'} />
-      </motion.p>
-
-      <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-2xl font-bold text-navy mt-10 mb-4">
-        Why Choose Us
-      </motion.h2>
-      <div className="grid md:grid-cols-2 gap-4 text-gray-600">
-        {[
-          'A growing portfolio of molecular diagnostics',
-          'Consistent kit presentation & colour coding',
-          'Complete control sets',
-          'Locally developed diagnostics and research services',
-          'Accessible technical support',
-          'Collaboration with KMU, BQ Pharma & DGST',
-        ].map((item, i) => (
-          <motion.div
-            key={item}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.12, duration: 0.6, ease: 'easeOut' }}
-            whileHover={{ scale: 1.02 }}
-            className="bg-graybg p-4 rounded-lg"
-          >
-            {item}
+    <main>
+      <section className="bg-graybg px-4 py-16 md:py-20">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+          <motion.div {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }}>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">About PLS</span>
+            <h1 className="mt-3 text-4xl font-extrabold text-navy md:text-5xl">Molecular products designed closer to the laboratory.</h1>
           </motion.div>
-        ))}
+          <motion.p {...fadeUp} transition={{ delay: 0.1, duration: 0.6, ease: 'easeOut' }} className="text-base leading-relaxed text-slate-600 md:text-lg">
+            <TM text={content.about_intro || 'Precision Life Sciences (Private) Limited is a Peshawar-based life-sciences company developing the Mugen-Plex RUO real-time PCR portfolio. The platform brings a consistent kit format, purposeful colour-coding and accessible local technical discussion to research laboratories in Pakistan.'} />
+          </motion.p>
+        </div>
+      </section>
+
+      <section className="px-4 py-16 md:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 max-w-2xl">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Our focus</span>
+            <h2 className="mt-2 text-3xl font-extrabold text-navy">Built for practical laboratory adoption.</h2>
+          </div>
+          <div className="grid gap-5 md:grid-cols-3">
+            {[
+              ['A coherent portfolio', 'Each assay belongs to one recognisable Mugen-Plex family, with the same core presentation and 48-test format.'],
+              ['Clear product distinction', 'Assay-specific colour and naming help teams identify the right kit without adding visual clutter.'],
+              ['Reachable local support', 'Product enquiries, research collaboration and technical follow-up are handled through a Pakistan-based team.'],
+            ].map(([title, text], i) => (
+              <article key={title} className="rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_12px_35px_rgba(0,32,91,0.06)]">
+                <span className="text-sm font-extrabold text-cyan">0{i + 1}</span>
+                <h3 className="mt-5 text-xl font-extrabold text-navy">{title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{text}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-14 rounded-2xl bg-navy px-6 py-8 text-white md:flex md:items-center md:justify-between md:px-10">
+            <div className="max-w-3xl">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan">Who we serve</p>
+              <p className="mt-3 text-lg leading-relaxed text-slate-200">
+                {content.who_serve_text || 'Research laboratories, hospitals, diagnostic centres, universities and research institutes seeking well-presented RUO real-time PCR products and responsive local support.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-5xl px-4">
+        <CeoSection content={content} />
+        <Team excludeName={content.ceo_name || DEFAULT_CEO.name} />
       </div>
 
-      <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-2xl font-bold text-navy mt-10 mb-4">
-        Who We Serve
-      </motion.h2>
-      <motion.p {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-gray-600 leading-relaxed">
-        {content.who_serve_text || 'Clinical and research laboratories, hospitals, diagnostic centres, universities and research institutes that need dependable real-time PCR reagents, supplied and supported locally.'}
-      </motion.p>
-
-      <CeoSection content={content} />
-
-      <Team excludeName={content.ceo_name || DEFAULT_CEO.name} />
-
-      <motion.div {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }} className="mt-16 pt-10 border-t border-gray-100">
-        <p className="text-sm text-gray-500 mb-6 text-center">Developed With & Funded By</p>
-        <div className="flex items-center justify-center gap-12 flex-wrap">
-          <Image src={content.img_partner_kmu || '/images/partner-kmu.png'} alt="KMU" width={90} height={45} className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-          <Image src={content.img_partner_bq || '/images/partner-bq.png'} alt="BQ Pharma" width={100} height={45} className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-          <Image src={content.img_partner_dgst || '/images/partner-dgst.png'} alt="DGST" width={90} height={90} className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-        </div>
-      </motion.div>
+      <InstitutionalStrip compact />
     </main>
   );
 }

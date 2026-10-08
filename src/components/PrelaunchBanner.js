@@ -1,7 +1,7 @@
 // Slim notice above the header. Edited in Admin > Homepage & About ("Pre-launch notice").
 // Leave that field empty to hide the banner at launch.
 export const DEFAULT_NOTICE =
-  'Pre-launch preview: Mugen-Plex products are in development or validation and supplied for Research Use Only. Not currently available for order.';
+  'Pre-launch preview: Mugen-Plex products are in development or validation. RUO; not currently available for order.';
 
 export default function PrelaunchBanner({ text }) {
   if (!text) return null;

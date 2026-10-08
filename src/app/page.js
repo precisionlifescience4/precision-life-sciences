@@ -1,4 +1,5 @@
 'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -6,261 +7,235 @@ import { useEffect, useState } from 'react';
 import TrustBadges from '@/components/TrustBadges';
 import Gallery from '@/components/Gallery';
 import InfectiousRange from '@/components/InfectiousRange';
+import InstitutionalStrip from '@/components/InstitutionalStrip';
 import MyeloidRange from '@/components/MyeloidRange';
-import TM from '@/components/TM';
+
+const ASSAY_MARKERS = [
+  { name: 'HBV', color: 'bg-hbv' },
+  { name: 'HCV', color: 'bg-hcv' },
+  { name: 'HIV', color: 'bg-hiv' },
+  { name: 'Dengue / Chikungunya', color: 'bg-dengue' },
+  { name: 'Influenza A & B', color: 'bg-flu' },
+  { name: 'CCHF', color: 'bg-cchf' },
+];
+
+const PROOF_POINTS = [
+  { value: '48', label: 'tests per kit' },
+  { value: '2–8 °C', label: 'storage' },
+  { value: '6', label: 'infectious assays' },
+  { value: '1', label: 'consistent family' },
+];
+
+const VALUE_POINTS = [
+  {
+    number: '01',
+    title: 'A familiar kit every time',
+    description: 'A consistent format across the portfolio helps laboratory teams recognise, store and handle each assay quickly.',
+  },
+  {
+    number: '02',
+    title: 'Colour that has a job',
+    description: 'Assay-specific accents make the range easier to identify without changing the core Mugen-Plex visual system.',
+  },
+  {
+    number: '03',
+    title: 'Support within reach',
+    description: 'Product information, technical discussion and research collaboration are available through a local team in Pakistan.',
+  },
+];
+
 export default function Home() {
-  const [services, setServices] = useState([]);
   const [content, setContent] = useState({});
 
   useEffect(() => {
-    fetch('/api/services').then(r => r.json()).then(setServices);
-    fetch('/api/content').then(r => r.json()).then(setContent);
+    fetch('/api/content').then((response) => response.json()).then(setContent).catch(() => setContent({}));
   }, []);
 
-  const colorMap = {
-    hbv: { border: 'border-hbv', text: 'text-cyandark', bg: 'bg-hbv' },
-    hcv: { border: 'border-hcv', text: 'text-hcvdark', bg: 'bg-hcv' },
-    hiv: { border: 'border-hiv', text: 'text-hiv', bg: 'bg-hiv' },
-    dengue: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
-    denv: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
-    chikv: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
-    flu: { border: 'border-flu', text: 'text-flu', bg: 'bg-flu' },
-    cchf: { border: 'border-cchf', text: 'text-cchf', bg: 'bg-cchf' },
-    navy: { border: 'border-navy', text: 'text-navy', bg: 'bg-navy' },
-  };
-
-  const stats = [
-    { value: content.stat1_value || '6+', label: content.stat1_label || 'Molecular Diagnostics' },
-    { value: content.stat2_value || '100%', label: content.stat2_label || 'Locally Developed' },
-    { value: content.stat3_value || '3+', label: content.stat3_label || 'Institutional Partners' },
-    { value: content.stat4_value || '24/7', label: content.stat4_label || 'Technical Support' },
-  ];
-
   const capabilities = [
-    { title: content.cap1_title || 'Molecular Assay Development', desc: content.cap1_desc || '' },
-    { title: content.cap2_title || 'Diagnostic Product Development', desc: content.cap2_desc || '' },
-    { title: content.cap3_title || 'Laboratory Implementation', desc: content.cap3_desc || '' },
-    { title: content.cap4_title || 'Local Technical Support', desc: content.cap4_desc || '' },
+    {
+      title: content.cap1_title || 'Molecular Assay Development',
+      desc: content.cap1_desc || 'From assay concept and oligonucleotide design to controls and a practical verification plan.',
+    },
+    {
+      title: content.cap2_title || 'Diagnostic Product Development',
+      desc: content.cap2_desc || 'A consistent kit architecture, product presentation and documentation designed for laboratory use.',
+    },
+    {
+      title: content.cap3_title || 'Laboratory Implementation',
+      desc: content.cap3_desc || 'Workflow discussion, onboarding and practical support for research laboratories adopting the platform.',
+    },
+    {
+      title: content.cap4_title || 'Local Technical Support',
+      desc: content.cap4_desc || 'A reachable Pakistan-based team for product questions, collaboration and technical follow-up.',
+    },
   ];
 
   return (
     <main className="overflow-hidden">
-      {/* HERO */}
-        <section className="relative bg-navy text-white pt-16 pb-32 px-4 text-center">
-        <div className="absolute inset-0 bg-navy" />
+      <section className="relative bg-navy px-4 py-16 text-white md:py-20 lg:py-24">
         <div
-          className="absolute inset-0 opacity-[0.06]"
+          className="absolute inset-0 opacity-[0.07]"
           style={{
             backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
             backgroundSize: '26px 26px',
           }}
         />
-        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-hbv via-hcv to-cchf" />
+        <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-hbv via-hcv to-cchf" />
 
-               <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, ease: 'easeOut' }}
-          className="relative z-10"
-        >
-          <p className="text-cyan text-sm md:text-base font-bold tracking-[0.25em] uppercase mb-5">
-            {content.hero_subtitle || 'Real-Time PCR Assay Portfolio'}
-          </p>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
-            <TM text={content.hero_title || 'Mugen-Plex'} />
-          </h1>
-          <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
-            {content.hero_description || 'Real-time PCR assays developed in Pakistan, built for laboratories that cannot afford to guess.'}
-          </p>
+        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: 'easeOut' }}
+            className="text-center lg:text-left"
+          >
+            <p className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-cyan">
+              Mugen-Plex<sup className="ml-0.5 text-[0.55em] align-super">™</sup> real-time PCR portfolio
+            </p>
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
+              One family. Many assays. Total consistency.
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg lg:mx-0">
+              A unified RUO assay family with a consistent 48-test format, clear colour-coding and responsive local support.
+            </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mt-10">
-            <Link
-              href="/services"
-              className="bg-cyan text-navy px-8 py-4 rounded-full font-bold shadow-lg shadow-cyan/30 hover:shadow-cyan/50 hover:scale-105 transition-all"
-            >
-              Explore the Portfolio
-            </Link>
-            <Link
-              href="/contact"
-              className="border border-white/40 px-8 py-4 rounded-full font-bold hover:bg-white hover:text-navy transition-all"
-            >
-              Commercial Enquiry
-            </Link>
-          </div>
-        </motion.div>
+            <div className="mt-9 flex flex-wrap justify-center gap-3 lg:justify-start">
+              <Link
+                href="/services"
+                className="rounded-full bg-cyan px-7 py-3.5 font-bold text-navy shadow-lg shadow-cyan/25 transition hover:-translate-y-0.5 hover:bg-white"
+              >
+                View the assay range
+              </Link>
+              <Link
+                href="/contact?topic=enquire"
+                className="rounded-full border border-white/35 px-7 py-3.5 font-bold text-white transition hover:border-white hover:bg-white hover:text-navy"
+              >
+                Request information
+              </Link>
+            </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.9, ease: 'easeOut' }}
-          className="relative z-10 flex flex-wrap justify-center gap-x-8 gap-y-3 mt-16 text-sm font-semibold tracking-wide"
-        >
-          {[
-            { n: 'HBV', c: 'bg-hbv' },
-            { n: 'HCV', c: 'bg-hcv' },
-            { n: 'HIV', c: 'bg-hiv' },
-            { n: 'DENGUE / CHIKUNGUNYA', c: 'bg-dengue' },
-            { n: 'INFLUENZA A&B', c: 'bg-flu' },
-            { n: 'CCHF', c: 'bg-cchf' },
-          ].map((a) => (
-            <span key={a.n} className="flex items-center gap-2 text-gray-200">
-              <span className={`w-2.5 h-2.5 rounded-full ${a.c}`} />
-              {a.n}
+            <div className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-3 text-xs font-semibold uppercase tracking-wide text-slate-300 lg:justify-start">
+              {ASSAY_MARKERS.map((assay) => (
+                <span key={assay.name} className="flex items-center gap-2">
+                  <span className={`h-2.5 w-2.5 rounded-full ${assay.color}`} />
+                  {assay.name}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15, duration: 0.7, ease: 'easeOut' }}
+            className="relative mx-auto hidden w-full max-w-xl lg:block"
+            aria-label="Selected Mugen-Plex assay cartons"
+          >
+            <div className="absolute -inset-5 rounded-[2.2rem] bg-cyan/10 blur-2xl" />
+            <div className="relative grid grid-cols-2 gap-3 rounded-[2rem] border border-white/15 bg-white/10 p-3 shadow-2xl backdrop-blur-sm">
+              <div className="col-span-2 overflow-hidden rounded-2xl bg-white">
+                <div className="relative aspect-[2.5/1]">
+                  <Image src="/images/infectious/mugen-plex-hcv.png" alt="Mugen-Plex HCV RUO assay carton" fill className="object-contain p-1" sizes="560px" priority />
+                </div>
+              </div>
+              <div className="overflow-hidden rounded-2xl bg-white">
+                <div className="relative aspect-[3/2]">
+                  <Image src="/images/infectious/mugen-plex-hbv.png" alt="Mugen-Plex HBV RUO assay carton" fill className="object-contain p-1" sizes="280px" priority />
+                </div>
+              </div>
+              <div className="overflow-hidden rounded-2xl bg-white">
+                <div className="relative aspect-[3/2]">
+                  <Image src="/images/infectious/mugen-plex-hiv.png" alt="Mugen-Plex HIV RUO assay carton" fill className="object-contain p-1" sizes="280px" priority />
+                </div>
+              </div>
+            </div>
+            <span className="absolute -bottom-4 right-7 rounded-full border border-white/15 bg-navy px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-cyan shadow-lg">
+              48-test RUO format
             </span>
+          </motion.div>
+        </div>
+      </section>
+
+      <section aria-label="Portfolio facts" className="border-b border-slate-100 bg-white">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 px-4 md:grid-cols-4">
+          {PROOF_POINTS.map((point) => (
+            <div key={point.label} className="border-slate-100 px-4 py-7 text-center md:border-l md:first:border-l-0">
+              <p className="text-2xl font-extrabold text-navy md:text-3xl">{point.value}</p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{point.label}</p>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </section>
 
       <InfectiousRange />
 
-      {/* STATS BAR */}
-      <section className="bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {stats.map((s, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15, duration: 0.6, ease: 'easeOut' }}
-            >
-              <p className="text-4xl font-extrabold text-navy">{s.value}</p>
-              <p className="text-sm text-gray-500 mt-1 tracking-wide">{s.label}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      <section className="bg-white px-4 py-20 md:py-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Designed around the laboratory</span>
+            <h2 className="mt-3 text-3xl font-extrabold text-navy md:text-4xl">Consistency that reduces friction.</h2>
+            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-slate-600">
+              The family is designed to feel familiar from one assay to the next, while colour keeps each product distinct.
+            </p>
+          </div>
 
-      {/* PRODUCT PORTFOLIO */}
-      <section className="max-w-6xl mx-auto px-4 py-24">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mb-14"
-        >
-          <span className="text-cyandark font-semibold text-sm tracking-widest uppercase">Product Portfolio</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
-            One family. Every assay unmistakable.
-          </h2>
-          <p className="text-gray-500 max-w-xl mx-auto mt-4">
-            One consistent kit format, colour-coded for instant recognition.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {services?.filter(s => s.slug !== 'support' && !/development/i.test(s.price || '')).map((s, i) => {
-            const c = colorMap[s.color] || colorMap.navy;
-            return (
-              <motion.div
-                key={s.id}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: i * 0.15, ease: 'easeOut' }}
-                whileHover={{ y: -6 }}
-                className={`relative bg-white border-2 ${c.border} rounded-2xl p-7 shadow-sm hover:shadow-xl transition-shadow group`}
-              >
-                <div className={`absolute top-0 left-0 right-0 h-1.5 rounded-t-2xl ${c.bg}`} />
-                <span className={`inline-block text-xs font-bold tracking-widest uppercase ${c.text} mb-3`}>
-                  {s.slug}
-                </span>
-                <h3 className="font-bold text-navy text-lg mb-2 leading-snug">{s.name}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{s.description}</p>
-                <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-gray-500">{s.price}</span>
-                  <Link href="/services" className={`text-xs font-bold ${c.text} group-hover:translate-x-1 transition-transform inline-block`}>
-                    Learn more →
-                  </Link>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </section>
-      <MyeloidRange />
-      <TrustBadges />
-
-      {/* CAPABILITIES */}
-      <section className="bg-graybg py-24 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-14"
-          >
-            <span className="text-cyandark font-semibold text-sm tracking-widest uppercase">Beyond the Kit</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2">
-              Full-Cycle Diagnostic Capability
-            </h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {capabilities.map((cap, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15, duration: 0.7, ease: 'easeOut' }}
-                className="bg-white rounded-xl p-6 flex gap-4 items-start shadow-sm hover:shadow-md transition-shadow"
-              >
-                <span className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan/10 text-cyandark font-extrabold flex items-center justify-center">
-                  {i + 1}
-                </span>
-                <div>
-                  <h3 className="font-bold text-navy mb-1">{cap.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{cap.desc}</p>
-                </div>
-              </motion.div>
+          <div className="grid gap-5 md:grid-cols-3">
+            {VALUE_POINTS.map((point) => (
+              <article key={point.number} className="rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_12px_35px_rgba(0,32,91,0.06)]">
+                <span className="text-sm font-extrabold text-cyan">{point.number}</span>
+                <h3 className="mt-5 text-xl font-extrabold text-navy">{point.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{point.description}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* WHY CHOOSE US */}
-      <section className="max-w-5xl mx-auto px-4 py-24 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <span className="text-cyandark font-semibold text-sm tracking-widest uppercase">Why Precision Life Sciences</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-navy mt-2 mb-6">
-            Practical Science. Reliable Support.
-          </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            {content.why_choose_text || 'A growing portfolio of molecular diagnostics and research services, with accessible technical support.'}
-          </p>
-          <div className="flex items-center justify-center gap-10 mt-10 flex-wrap opacity-80">
-            <Image src={content.img_partner_kmu || '/images/partner-kmu.png'} alt="KMU" width={90} height={45} className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-            <Image src={content.img_partner_bq || '/images/partner-bq.png'} alt="BQ Pharma" width={100} height={45} className="h-9 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-            <Image src={content.img_partner_dgst || '/images/partner-dgst.png'} alt="DGST" width={90} height={90} className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all" />
-          </div>
-        </motion.div>
-      </section>
- 
-       <Gallery />
+      <InstitutionalStrip />
+      <MyeloidRange />
+      <TrustBadges />
 
-      {/* CTA BANNER */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="bg-navy text-white text-center py-20 px-4"
-      >
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-4">{content.cta_title || 'Ready to bring Mugen-Plex to your lab?'}</h2>
-        <p className="text-gray-300 max-w-xl mx-auto mb-8">
-          {content.cta_description || 'Get in touch for pricing and technical collaboration.'}
-        </p>
-        <Link
-          href="/contact"
-          className="bg-cyan text-navy px-8 py-4 rounded-full font-bold shadow-lg shadow-cyan/30 hover:scale-105 transition-transform inline-block"
-        >
-          Contact Our Team
-        </Link>
-      </motion.section>
+      <section className="bg-graybg px-4 py-20 md:py-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Beyond the kit</span>
+            <h2 className="mt-3 text-3xl font-extrabold text-navy md:text-4xl">From assay idea to laboratory workflow.</h2>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2">
+            {capabilities.map((capability, index) => (
+              <article key={capability.title} className="flex gap-4 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan/10 font-extrabold text-cyandark">
+                  {index + 1}
+                </span>
+                <div>
+                  <h3 className="font-bold text-navy">{capability.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-600">{capability.desc}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Gallery />
+
+      <section className="relative bg-navy px-4 py-20 text-center text-white">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan to-transparent" />
+        <div className="relative mx-auto max-w-2xl">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan">Start a conversation</span>
+          <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">Is Mugen-Plex right for your laboratory?</h2>
+          <p className="mx-auto mb-8 mt-4 max-w-xl leading-relaxed text-slate-300">
+            Ask for the relevant product information, discuss a research requirement or explore a technical collaboration.
+          </p>
+          <Link
+            href="/contact?topic=enquire"
+            className="inline-block rounded-full bg-cyan px-8 py-4 font-bold text-navy shadow-lg shadow-cyan/25 transition hover:-translate-y-0.5 hover:bg-white"
+          >
+            Contact the team
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

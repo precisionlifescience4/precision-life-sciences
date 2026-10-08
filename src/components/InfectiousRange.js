@@ -88,10 +88,10 @@ export default function InfectiousRange() {
             Mugen-Plex<sup className="ml-0.5 text-[0.55em] align-super">™</sup> Infectious Disease
           </span>
           <h2 className="mt-3 text-3xl font-extrabold text-navy md:text-5xl">
-            Built as one. Recognised at a glance.
+            One workflow. Six clear choices.
           </h2>
           <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-slate-600">
-            Six research assays. One consistent, colour-coded kit format.
+            The same disciplined Mugen-Plex format, with an assay-specific colour for fast recognition.
           </p>
         </div>
 
@@ -103,7 +103,7 @@ export default function InfectiousRange() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl border border-navy/10 bg-white/85 px-6 py-5 text-center shadow-sm backdrop-blur sm:flex-row sm:text-left">
           <div>
-            <p className="font-bold text-navy">For Research Use Only</p>
+            <p className="font-bold text-navy">RUO</p>
             <p className="mt-1 text-sm text-slate-500">Not intended for use in diagnostic procedures.</p>
           </div>
           <Link
