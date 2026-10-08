@@ -2,12 +2,12 @@ import { SITE_URL } from '@/lib/site';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'PCR Learning Resources',
-  description: 'Educational PCR videos, protocols and product resources from Precision Life Sciences.',
+  title: 'PCR Resources & Safety Data Sheets',
+  description: 'Educational PCR videos, protocols and Mugen-Plex safety data sheets from Precision Life Sciences.',
   alternates: { canonical: '/resources' },
   openGraph: {
-    title: 'PCR Learning Resources | Precision Life Sciences',
-    description: 'Watch clear, concise educational videos about PCR fundamentals, quality and interpretation.',
+    title: 'PCR Resources & Safety Data Sheets | Precision Life Sciences',
+    description: 'Access Mugen-Plex safety data sheets and educational PCR resources from Precision Life Sciences.',
     url: `${SITE_URL}/resources`,
   },
 };
@@ -41,6 +41,44 @@ const RESOURCE_ROUTES = [
     label: 'Ask a technical question',
     href: '/contact?topic=project',
     icon: 'M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20V2H6.5A2.5 2.5 0 004 4.5z',
+  },
+];
+
+const SAFETY_DATA_SHEETS = [
+  {
+    assay: 'HBV',
+    status: 'IFU-reconciled draft',
+    href: '/sds/Mugen-Plex-HBV-SDS-Draft-v0.2.pdf',
+  },
+  {
+    assay: 'HCV',
+    status: 'IFU-reconciled draft',
+    href: '/sds/Mugen-Plex-HCV-SDS-Draft-v0.2.pdf',
+  },
+  {
+    assay: 'HIV',
+    status: 'IFU-reconciled draft',
+    href: '/sds/Mugen-Plex-HIV-SDS-Draft-v0.2.pdf',
+  },
+  {
+    assay: 'Dengue / Chikungunya',
+    status: 'IFU-reconciled draft',
+    href: '/sds/Mugen-Plex-Dengue-Chikungunya-SDS-Draft-v0.2.pdf',
+  },
+  {
+    assay: 'Influenza A/B',
+    status: 'IFU-reconciled draft',
+    href: '/sds/Mugen-Plex-Influenza-AB-SDS-Draft-v0.2.pdf',
+  },
+  {
+    assay: 'Dengue Serotyping',
+    status: 'Source-limited draft',
+    href: '/sds/Mugen-Plex-Dengue-Serotyping-SDS-Draft-v0.2.pdf',
+  },
+  {
+    assay: 'CCHF',
+    status: 'Source-limited draft',
+    href: '/sds/Mugen-Plex-CCHF-SDS-Draft-v0.2.pdf',
   },
 ];
 
@@ -86,6 +124,62 @@ export default function Resources() {
 
           <p className="mt-6 text-center text-xs text-gray-500">
             Educational content only. Product-specific instructions remain in the applicable kit documentation.
+          </p>
+        </div>
+      </section>
+
+      <section id="safety-data-sheets" className="scroll-mt-24 border-y border-gray-200 bg-white px-4 py-16">
+        <div className="mx-auto max-w-6xl">
+          <div className="max-w-3xl">
+            <span className="text-sm font-semibold uppercase tracking-widest text-cyandark">Product safety</span>
+            <h2 className="mt-2 text-3xl font-extrabold text-navy md:text-4xl">Safety Data Sheets</h2>
+            <p className="mt-4 leading-relaxed text-gray-600">
+              Download the current technical-review SDS draft for each Mugen-Plex assay. These documents support
+              laboratory review while controlled versions complete formal approval.
+            </p>
+          </div>
+
+          <div className="mt-8 rounded-xl border border-amber-300 bg-amber-50 p-5 text-sm leading-relaxed text-amber-950">
+            <p className="font-bold">Draft documents — not yet approved for controlled external release</p>
+            <p className="mt-1">
+              Do not use these drafts as a substitute for the applicable kit instructions for use, institutional risk
+              assessment or a formally approved SDS. Contact PLS before relying on them for regulatory or procurement
+              purposes.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {SAFETY_DATA_SHEETS.map((sheet) => (
+              <article key={sheet.href} className="flex flex-col rounded-xl border border-gray-200 bg-white p-5">
+                <span className="text-xs font-bold uppercase tracking-[0.14em] text-cyandark">Mugen-Plex</span>
+                <h3 className="mt-2 text-xl font-extrabold text-navy">{sheet.assay}</h3>
+                <p className="mt-2 text-sm text-gray-500">{sheet.status}</p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <a
+                    href={sheet.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full bg-navy px-4 py-2 text-xs font-bold uppercase tracking-wide text-white transition-colors hover:bg-navylight"
+                  >
+                    View PDF
+                  </a>
+                  <a
+                    href={sheet.href}
+                    download
+                    className="rounded-full border border-navy/25 px-4 py-2 text-xs font-bold uppercase tracking-wide text-navy transition-colors hover:border-navy"
+                  >
+                    Download
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <p className="mt-6 text-sm text-gray-600">
+            Need a controlled copy or clarification?{' '}
+            <Link href="/contact?topic=sds" className="font-bold text-cyandark hover:text-navy">
+              Contact the PLS technical team →
+            </Link>
           </p>
         </div>
       </section>
