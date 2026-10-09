@@ -89,6 +89,19 @@ export default function Footer() {
           </p>
           <Link href="/contact?topic=enquire" className="font-semibold text-cyan transition hover:text-white">Request product information →</Link>
         </div>
+        <div className="max-w-7xl mx-auto flex justify-center md:justify-end mt-2">
+          <p className="text-[11px] text-gray-500">
+            Developed by{' '}
+            <a
+              href="https://share.google/AkFM4pQJHLmPGV1o4"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-cyan transition-colors"
+            >
+              Ibadullah
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
