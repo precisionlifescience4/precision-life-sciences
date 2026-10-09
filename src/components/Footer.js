@@ -3,6 +3,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
+const LAB_SERVICE_LINKS = [
+  ['DNA Extraction', '/molecular-services/dna-extraction'],
+  ['DNA/RNA Quantification', '/molecular-services/dna-rna-quantification'],
+  ['PCR Amplification', '/molecular-services/pcr-amplification'],
+  ['Gel Electrophoresis', '/molecular-services/gel-electrophoresis'],
+  ['Sanger Sequencing', '/molecular-services/sanger-sequencing'],
+];
+
 export default function Footer() {
   const [settings, setSettings] = useState(null);
   const [content, setContent] = useState({});
@@ -18,12 +26,20 @@ export default function Footer() {
 
   return (
     <footer className="bg-navy text-white">
-      <div className="max-w-7xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
           <Image src="/images/logo-dark.svg" alt="Precision Life Sciences" width={180} height={45} className="mb-4" />
           <p className="text-gray-300 text-sm">
             Molecular assay development and the Mugen-Plex RUO real-time PCR portfolio, based in Peshawar, Pakistan.
           </p>
+        </div>
+        <div>
+          <p className="font-semibold mb-3">Laboratory Services</p>
+          <ul className="space-y-2 text-sm text-gray-300">
+            {LAB_SERVICE_LINKS.map(([label, href]) => (
+              <li key={href}><Link href={href} className="hover:text-cyan transition-colors">{label}</Link></li>
+            ))}
+          </ul>
         </div>
         <div>
           <p className="font-semibold mb-3">Quick Links</p>

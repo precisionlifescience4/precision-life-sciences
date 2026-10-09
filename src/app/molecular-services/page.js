@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
+import { LAB_SERVICES } from '@/lib/labServices';
 
 export const metadata = {
   title: 'Molecular Biology Laboratory Services in Peshawar',
@@ -11,29 +12,6 @@ export const metadata = {
     url: `${SITE_URL}/molecular-services`,
   },
 };
-
-const SERVICES = [
-  {
-    name: 'DNA Extraction',
-    description: 'DNA extraction for sequencing and other defined molecular research workflows.',
-  },
-  {
-    name: 'DNA/RNA Quantification',
-    description: 'Nucleic-acid quantification to support downstream molecular research planning and quality checks.',
-  },
-  {
-    name: 'PCR Amplification',
-    description: 'Target amplification for defined research projects, scoped against the sample and project requirements.',
-  },
-  {
-    name: 'Gel Electrophoresis',
-    description: 'Gel electrophoresis support for visualising and reviewing molecular research products.',
-  },
-  {
-    name: 'Sanger Sequencing',
-    description: 'Sanger sequencing support for submitted PCR products and integrated molecular workflows.',
-  },
-];
 
 export default function MolecularServicesPage() {
   const structuredData = {
@@ -58,9 +36,14 @@ export default function MolecularServicesPage() {
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Research molecular services',
-      itemListElement: SERVICES.map((service) => ({
+      itemListElement: LAB_SERVICES.map((service) => ({
         '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: service.name, description: service.description },
+        itemOffered: {
+          '@type': 'Service',
+          name: service.name,
+          description: service.shortDescription,
+          url: `${SITE_URL}/molecular-services/${service.slug}`,
+        },
       })),
     },
   };
@@ -96,16 +79,16 @@ export default function MolecularServicesPage() {
           </div>
 
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((service, index) => (
+            {LAB_SERVICES.map((service, index) => (
               <article key={service.name} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6">
                 <span className="text-sm font-extrabold text-cyandark">0{index + 1}</span>
                 <h3 className="mt-4 text-xl font-extrabold text-navy">{service.name}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{service.description}</p>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{service.shortDescription}</p>
                 <Link
-                  href={`/contact?topic=service&product=${encodeURIComponent(service.name)}`}
+                  href={`/molecular-services/${service.slug}`}
                   className="mt-6 font-bold text-cyandark hover:text-navy"
                 >
-                  Request this service →
+                  View service details →
                 </Link>
               </article>
             ))}
