@@ -76,7 +76,7 @@ export default async function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization).replace(/</g, '\\u003c') }}
         />
         <PrelaunchBanner text={notice} />
-        <Navbar settings={settings} />
+        <Navbar />
         {children}
         <Footer />
         <WhatsAppButton />
