@@ -633,8 +633,8 @@ function TeamTab({ flash }) {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-navy mb-1">Leadership Team</h2>
-      <p className="text-sm text-gray-500 mb-6">Add, edit or remove team members shown on the About page.</p>
+      <h2 className="text-xl font-bold text-navy mb-1">Website Team</h2>
+      <p className="text-sm text-gray-500 mb-6">Add, edit or remove leadership and research team members shown on the About page.</p>
 
       {team.map((m) => (
         <div key={m.id} className="bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm">

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 168" role="img" aria-labelledby="title desc">
+  <title id="title">ISO 9001:2015 - KMU Project R&amp;D Laboratory</title>
+  <desc id="desc">Informational certification mark for the KMU project research and development laboratory.</desc>
+  <rect x="3" y="3" width="354" height="162" rx="18" fill="#fff" stroke="#00205b" stroke-width="6"/>
+  <path d="M28 45h78M28 58h50" fill="none" stroke="#00a9ce" stroke-width="8" stroke-linecap="round"/>
+  <text x="28" y="104" fill="#00205b" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="700">ISO 9001</text>
+  <text x="269" y="104" fill="#00a9ce" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700">:2015</text>
+  <text x="28" y="136" fill="#00205b" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" letter-spacing="1.2">KMU PROJECT R&amp;D LAB</text>
+</svg>

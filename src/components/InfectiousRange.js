@@ -3,36 +3,42 @@ import Link from 'next/link';
 
 const ASSAYS = [
   {
+    slug: 'hbv',
     name: 'HBV',
     image: '/images/infectious/mugen-plex-hbv.png',
     color: '#00A3E0',
     description: 'Hepatitis B virus',
   },
   {
+    slug: 'hcv',
     name: 'HCV',
     image: '/images/infectious/mugen-plex-hcv.png',
     color: '#5A9B5F',
     description: 'Hepatitis C virus',
   },
   {
+    slug: 'hiv',
     name: 'HIV',
     image: '/images/infectious/mugen-plex-hiv.png',
     color: '#7B61A8',
     description: 'Human immunodeficiency virus',
   },
   {
+    slug: 'dengue-chikungunya',
     name: 'Dengue / Chikungunya',
     image: '/images/infectious/mugen-plex-dengue-chikungunya.png',
     color: '#E06F61',
     description: 'Combined arbovirus assay',
   },
   {
+    slug: 'influenza-a-b',
     name: 'Influenza A & B',
     image: '/images/infectious/mugen-plex-influenza-a-b.png',
     color: '#159AA3',
     description: 'Influenza virus assay',
   },
   {
+    slug: 'cchf',
     name: 'CCHF',
     image: '/images/infectious/mugen-plex-cchf.png',
     color: '#D86A2C',
@@ -43,7 +49,7 @@ const ASSAYS = [
 function AssayCarton({ assay }) {
   return (
     <article className="group overflow-hidden rounded-[1.4rem] border border-slate-200 bg-white transition-colors hover:border-navy/30">
-      <div className="relative aspect-[3/2] overflow-hidden bg-white">
+      <Link href={`/assays/${assay.slug}`} className="relative block aspect-[3/2] overflow-hidden bg-white">
         <Image
           src={assay.image}
           alt={`Mugen-Plex ${assay.name} 24/48/96-test real-time PCR assay carton by Precision Life Sciences.`}
@@ -51,7 +57,7 @@ function AssayCarton({ assay }) {
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.035]"
         />
-      </div>
+      </Link>
       <div className="relative border-t border-slate-100 px-5 pb-5 pt-4">
         <span
           aria-hidden="true"
@@ -60,13 +66,18 @@ function AssayCarton({ assay }) {
         />
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="font-extrabold tracking-tight text-navy">{assay.name}</h3>
+            <h3 className="font-extrabold tracking-tight text-navy">
+              <Link href={`/assays/${assay.slug}`} className="hover:text-cyandark">{assay.name}</Link>
+            </h3>
             <p className="mt-1 text-sm text-slate-500">{assay.description}</p>
           </div>
           <span className="shrink-0 rounded-full bg-graybg px-3 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-navy">
             24/48/96 Tests
           </span>
         </div>
+        <Link href={`/assays/${assay.slug}`} className="mt-4 inline-block text-sm font-bold text-cyandark hover:text-navy">
+          View assay details →
+        </Link>
       </div>
     </article>
   );

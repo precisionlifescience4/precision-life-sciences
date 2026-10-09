@@ -2,6 +2,23 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
+const PROJECT_TEAM = [
+  {
+    id: 'sidra-rahman',
+    name: 'Dr. Sidra Rahman',
+    role: 'Research Associate',
+    bio: 'Supports the end-to-end development of qPCR assays for five viral targets, from project planning and in-silico primer and probe design through laboratory optimization and validation on conventional PCR and real-time qPCR platforms. Her work also includes sample processing, nucleic-acid extraction, reagent preparation, experimental documentation, data review and technical troubleshooting.',
+    photo_url: '',
+  },
+  {
+    id: 'shamsullah',
+    name: 'Shamsullah',
+    role: 'Research Assistant',
+    bio: 'An M.Phil. graduate in Biochemistry/Molecular Biology supporting the “Import Substitution through Development of In-House Diagnostic Assays” project. He contributes to in-silico primer and probe analysis, assay optimization and validation for five viral targets, alongside sample processing, nucleic-acid extraction, reagent preparation, routine PCR and qPCR workflows, laboratory records, inventory, data analysis and technical reporting.',
+    photo_url: '',
+  },
+];
+
 export default function Team({ excludeName = '' }) {
   const [team, setTeam] = useState([]);
 
@@ -18,7 +35,16 @@ export default function Team({ excludeName = '' }) {
     const y = words(b);
     return x.length > 0 && y.length > 0 && x[0] === y[0] && x[x.length - 1] === y[y.length - 1];
   };
-  const others = team.filter((m) => !excludeName || !samePerson(m.name, excludeName));
+  const correctedTeam = team.map((member) => (
+    samePerson(member.name, 'Hazrat Bilal')
+      ? { ...member, role: 'Chief Business Officer' }
+      : member
+  ));
+  const completeTeam = [
+    ...correctedTeam,
+    ...PROJECT_TEAM.filter((profile) => !correctedTeam.some((member) => samePerson(member.name, profile.name))),
+  ];
+  const others = completeTeam.filter((m) => !excludeName || !samePerson(m.name, excludeName));
   if (!others.length) return null;
 
   const initials = (name) =>
@@ -26,10 +52,10 @@ export default function Team({ excludeName = '' }) {
 
   return (
     <section className="mt-16 pt-10 border-t border-gray-100">
-      <h2 className="text-2xl font-bold text-navy mb-2 text-center">Leadership</h2>
-      <p className="text-gray-500 text-center mb-10 text-sm">The people behind Precision Life Sciences</p>
+      <h2 className="text-2xl font-bold text-navy mb-2 text-center">Our Team</h2>
+      <p className="text-gray-500 text-center mb-10 text-sm">Leadership and research professionals supporting Precision Life Sciences</p>
 
-      <div className="flex flex-wrap justify-center gap-6 max-w-3xl mx-auto">
+      <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
         {others.map((member, i) => (
           <motion.div
             key={member.id}

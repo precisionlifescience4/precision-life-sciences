@@ -173,6 +173,14 @@ const COMMERCIAL_SERVICES = [
 ];
 
 const JOURNEY_IDS = new Set(['infectious', 'myeloid', 'laboratory-services', 'collaboration']);
+const ASSAY_DETAIL_PATHS = {
+  hbv: '/assays/hbv',
+  hcv: '/assays/hcv',
+  hiv: '/assays/hiv',
+  'dengue / chikungunya': '/assays/dengue-chikungunya',
+  'influenza a & b': '/assays/influenza-a-b',
+  cchf: '/assays/cchf',
+};
 
 function SpecChip({ label, value }) {
   return (
@@ -194,6 +202,12 @@ function actionsFor(s) {
   if (s.kind === 'laboratory-service') return [{ label: 'Request a quote', href: link('service'), primary: true }];
   if (s.slug === 'support') return [{ label: 'Discuss your project', href: link('project'), primary: true }];
   if (inDevelopment) return [{ label: 'Register interest', href: link('interest'), primary: true }];
+  if (ASSAY_DETAIL_PATHS[s.slug]) {
+    return [
+      { label: 'View assay', href: ASSAY_DETAIL_PATHS[s.slug], primary: false },
+      { label: 'Enquire', href: link('enquire'), primary: true },
+    ];
+  }
   return [
     { label: 'Request datasheet', href: link('datasheet'), primary: false },
     { label: 'Enquire', href: link('enquire'), primary: true },
@@ -381,11 +395,11 @@ export default function ServicesContent() {
             {group.id === 'laboratory-services' && (
               <div className="mt-6 flex flex-col justify-between gap-4 rounded-xl border border-navy/10 bg-graybg p-5 md:flex-row md:items-center">
                 <div>
-                  <p className="text-sm font-bold text-navy">Related project support</p>
-                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Primer design, sequence data analysis, and training or workshops can be scoped separately.</p>
+                  <p className="text-sm font-bold text-navy">Laboratory services overview</p>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Review the workflow, submission steps and service-specific enquiry routes before sending samples.</p>
                 </div>
-                <Link href="/contact?topic=project" className="shrink-0 text-sm font-bold text-cyandark hover:text-navy">
-                  Discuss a project →
+                <Link href="/molecular-services" className="shrink-0 text-sm font-bold text-cyandark hover:text-navy">
+                  View service details →
                 </Link>
               </div>
             )}

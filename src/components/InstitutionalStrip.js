@@ -35,6 +35,20 @@ const RELATIONSHIP_GROUPS = [
     ],
   },
   {
+    title: 'Certified project facility',
+    description: 'KMU’s project R&D Laboratory is certified to ISO 9001:2015 for development and validation of in-house diagnostic assays. Certificate AMER801517; surveillance/expiry 29 September 2027.',
+    institutions: [
+      {
+        name: 'ISO 9001:2015 - KMU Project R&D Laboratory',
+        src: '/images/partners/iso-9001-kmu-project-lab.svg',
+        width: 180,
+        height: 84,
+        className: 'h-14',
+        preserveColor: true,
+      },
+    ],
+  },
+  {
     title: 'Standards & science references',
     description: 'PSQCA and PCSIR are relevant national public institutions; their marks are shown for institutional context only.',
     institutions: [
@@ -67,7 +81,7 @@ export default function InstitutionalStrip({ compact = false }) {
           </h2>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {RELATIONSHIP_GROUPS.map((group) => (
             <article key={group.title} className="rounded-xl border border-slate-200 bg-graybg p-5">
               <p className="font-bold text-navy">{group.title}</p>
@@ -81,7 +95,7 @@ export default function InstitutionalStrip({ compact = false }) {
                       title={institution.name}
                       width={institution.width}
                       height={institution.height}
-                      className={`${institution.className} w-auto max-w-full object-contain grayscale opacity-70`}
+                      className={`${institution.className} w-auto max-w-full object-contain ${institution.preserveColor ? 'opacity-90' : 'grayscale opacity-70'}`}
                     />
                     <figcaption className="sr-only">{institution.name}</figcaption>
                   </figure>
@@ -92,7 +106,7 @@ export default function InstitutionalStrip({ compact = false }) {
         </div>
 
         <p className="mx-auto mt-5 max-w-3xl text-center text-[0.7rem] leading-relaxed text-slate-500">
-          Institutional marks provide relationship or public-body context only. Their display does not by itself represent product certification, regulatory approval or endorsement.
+          Institutional marks provide relationship or public-body context only. The ISO statement applies specifically to the KMU project R&amp;D Laboratory and its certified scope; it does not represent PLS company certification, product certification, regulatory approval or endorsement.
         </p>
       </div>
     </section>

@@ -6,7 +6,12 @@ import { requireAdmin } from '@/lib/adminAuth';
 export async function GET() {
   const { data, error } = await supabase.from('team_members').select('*').order('sort_order');
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data);
+  const correctedTeam = data.map((member) => (
+    member.name === 'Hazrat Bilal'
+      ? { ...member, role: 'Chief Business Officer' }
+      : member
+  ));
+  return NextResponse.json(correctedTeam);
 }
 
 export async function POST(request) {

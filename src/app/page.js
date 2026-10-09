@@ -140,7 +140,7 @@ export default function Home() {
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyandark">Laboratory services</p>
             <h2 className="mt-3 text-2xl font-extrabold text-navy">Need a defined molecular workflow?</h2>
             <p className="mt-3 leading-relaxed text-slate-600">Explore DNA extraction, quantification, PCR, electrophoresis and Sanger sequencing services.</p>
-            <Link href="/services#laboratory-services" className="mt-6 inline-block font-bold text-cyandark hover:text-navy">Choose a service →</Link>
+            <Link href="/molecular-services" className="mt-6 inline-block font-bold text-cyandark hover:text-navy">Choose a service →</Link>
           </article>
           <article className="rounded-2xl border border-navy/10 bg-navy p-7 text-white">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan">Mugen-Plex Myeloid</p>

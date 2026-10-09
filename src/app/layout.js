@@ -66,6 +66,19 @@ export default async function RootLayout({ children }) {
       sameAs: [settings?.facebook, settings?.instagram, settings?.youtube].filter(Boolean),
     }),
   };
+  const website = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    name: SITE_NAME,
+    alternateName: 'PLS Pakistan',
+    url: SITE_URL,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Precision Life Sciences (Private) Limited',
+      url: SITE_URL,
+    },
+  };
 
   return (
     <html lang="en">
@@ -74,6 +87,10 @@ export default async function RootLayout({ children }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization).replace(/</g, '\\u003c') }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(website).replace(/</g, '\\u003c') }}
         />
         <PrelaunchBanner text={notice} />
         <Navbar />

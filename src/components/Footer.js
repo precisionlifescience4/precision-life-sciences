@@ -31,6 +31,7 @@ export default function Footer() {
             <li><Link href="/" className="hover:text-cyan transition-colors">Home</Link></li>
             <li><Link href="/about" className="hover:text-cyan transition-colors">About Us</Link></li>
             <li><Link href="/services" className="hover:text-cyan transition-colors">Assays &amp; Services</Link></li>
+            <li><Link href="/molecular-services" className="hover:text-cyan transition-colors">Laboratory Services</Link></li>
             <li><Link href="/resources" className="hover:text-cyan transition-colors">Resources</Link></li>
             <li><Link href="/contact" className="hover:text-cyan transition-colors">Contact</Link></li>
           </ul>
