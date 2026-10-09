@@ -1,40 +1,58 @@
 import Image from 'next/image';
 
-const INSTITUTIONS = [
+const RELATIONSHIP_GROUPS = [
   {
-    name: 'BQ Pharma & Medical Devices',
-    src: '/images/partners/bq-pharma.svg',
-    width: 180,
-    height: 52,
-    className: 'h-9',
+    title: 'Research context',
+    description: 'The underlying work was developed during employment at KMU with support from DGST Khyber Pakhtunkhwa.',
+    institutions: [
+      {
+        name: 'Directorate General of Science & Technology, Khyber Pakhtunkhwa',
+        src: '/images/partners/dgst.png',
+        width: 82,
+        height: 82,
+        className: 'h-12',
+      },
+      {
+        name: 'Khyber Medical University',
+        src: '/images/partners/kmu.png',
+        width: 145,
+        height: 58,
+        className: 'h-9',
+      },
+    ],
   },
   {
-    name: 'Directorate General of Science & Technology, Khyber Pakhtunkhwa',
-    src: '/images/partners/dgst.png',
-    width: 82,
-    height: 82,
-    className: 'h-14',
+    title: 'Commercial ecosystem',
+    description: 'BQ Pharma & Medical Devices is presented as part of the local product-development and manufacturing ecosystem.',
+    institutions: [
+      {
+        name: 'BQ Pharma & Medical Devices',
+        src: '/images/partners/bq-pharma.svg',
+        width: 180,
+        height: 52,
+        className: 'h-9',
+      },
+    ],
   },
   {
-    name: 'Khyber Medical University',
-    src: '/images/partners/kmu.png',
-    width: 145,
-    height: 58,
-    className: 'h-10',
-  },
-  {
-    name: 'Pakistan Standards & Quality Control Authority',
-    src: '/images/partners/psqca.png',
-    width: 70,
-    height: 70,
-    className: 'h-12',
-  },
-  {
-    name: 'Pakistan Council of Scientific & Industrial Research',
-    src: '/images/partners/pcsir.png',
-    width: 70,
-    height: 70,
-    className: 'h-12',
+    title: 'Standards & science references',
+    description: 'PSQCA and PCSIR are relevant national public institutions; their marks are shown for institutional context only.',
+    institutions: [
+      {
+        name: 'Pakistan Standards & Quality Control Authority',
+        src: '/images/partners/psqca.png',
+        width: 70,
+        height: 70,
+        className: 'h-11',
+      },
+      {
+        name: 'Pakistan Council of Scientific & Industrial Research',
+        src: '/images/partners/pcsir.png',
+        width: 70,
+        height: 70,
+        className: 'h-11',
+      },
+    ],
   },
 ];
 
@@ -42,45 +60,39 @@ export default function InstitutionalStrip({ compact = false }) {
   return (
     <section className={compact ? 'border-y border-slate-100 bg-white px-4 py-10' : 'bg-white px-4 py-16'}>
       <div className="mx-auto max-w-6xl">
-        {!compact && (
-          <div className="mx-auto mb-9 max-w-2xl text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">
-              Pakistan science &amp; quality ecosystem
-            </span>
-            <h2 className="mt-2 text-2xl font-extrabold text-navy md:text-3xl">
-              Local collaboration, built into the journey.
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-600">
-              Academic research, public-sector science, local manufacturing and national quality infrastructure.
-            </p>
-          </div>
-        )}
+        <div className={`mx-auto max-w-2xl text-center ${compact ? 'mb-7' : 'mb-9'}`}>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Institutional context</span>
+          <h2 className={`mt-2 font-extrabold text-navy ${compact ? 'text-2xl' : 'text-2xl md:text-3xl'}`}>
+            How the organisations relate to the work.
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-2 items-stretch gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {INSTITUTIONS.map((institution) => (
-            <figure
-              key={institution.name}
-              className="flex min-h-28 flex-col items-center justify-center rounded-xl border border-slate-100 bg-slate-50/70 px-4 py-4 text-center"
-            >
-              <div className="flex h-14 items-center justify-center">
-                <Image
-                  src={institution.src}
-                  alt={institution.name}
-                  width={institution.width}
-                  height={institution.height}
-                  className={`${institution.className} w-auto max-w-full object-contain grayscale opacity-65 transition duration-300 hover:grayscale-0 hover:opacity-100`}
-                />
+        <div className="grid gap-4 lg:grid-cols-3">
+          {RELATIONSHIP_GROUPS.map((group) => (
+            <article key={group.title} className="rounded-xl border border-slate-200 bg-graybg p-5">
+              <p className="font-bold text-navy">{group.title}</p>
+              <p className="mt-2 min-h-16 text-xs leading-relaxed text-slate-600">{group.description}</p>
+              <div className="mt-4 flex min-h-16 items-center gap-5 border-t border-navy/10 pt-4">
+                {group.institutions.map((institution) => (
+                  <figure key={institution.name} className="flex min-w-0 flex-1 justify-center">
+                    <Image
+                      src={institution.src}
+                      alt={institution.name}
+                      title={institution.name}
+                      width={institution.width}
+                      height={institution.height}
+                      className={`${institution.className} w-auto max-w-full object-contain grayscale opacity-70`}
+                    />
+                    <figcaption className="sr-only">{institution.name}</figcaption>
+                  </figure>
+                ))}
               </div>
-              <figcaption className="mt-2 text-[0.65rem] font-semibold leading-snug text-slate-500">
-                {institution.name}
-              </figcaption>
-            </figure>
+            </article>
           ))}
         </div>
 
-        <p className="mx-auto mt-5 max-w-3xl text-center text-[0.68rem] leading-relaxed text-slate-400">
-          Institutional marks identify collaborators and relevant public bodies; their display does not by itself
-          represent product certification or endorsement.
+        <p className="mx-auto mt-5 max-w-3xl text-center text-[0.7rem] leading-relaxed text-slate-500">
+          Institutional marks provide relationship or public-body context only. Their display does not by itself represent product certification, regulatory approval or endorsement.
         </p>
       </div>
     </section>

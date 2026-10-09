@@ -41,6 +41,9 @@ export default async function RootLayout({ children }) {
   // Pre-launch notice: shows the default until edited in the admin; an empty value hides it.
   const { data: noticeRow } = await supabase.from('site_content').select('value').eq('key', 'prelaunch_notice').maybeSingle();
   const notice = noticeRow ? noticeRow.value : DEFAULT_NOTICE;
+  const publicDomainEmail = settings?.email?.toLowerCase().endsWith('@precisionlifesciences.com.pk')
+    ? settings.email
+    : null;
 
   const organization = {
     '@context': 'https://schema.org',
@@ -50,7 +53,7 @@ export default async function RootLayout({ children }) {
     url: SITE_URL,
     logo: `${SITE_URL}/images/logo.svg`,
     description: 'Peshawar-based developer of Mugen-Plex real-time PCR assays for laboratory use.',
-    ...(settings?.email && { email: settings.email }),
+    ...(publicDomainEmail && { email: publicDomainEmail }),
     ...(settings?.phone && { telephone: settings.phone }),
     address: {
       '@type': 'PostalAddress',
@@ -67,6 +70,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${sora.variable}`}>
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization).replace(/</g, '\\u003c') }}

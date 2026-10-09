@@ -2,30 +2,15 @@ import { SITE_URL } from '@/lib/site';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'PCR Resources & Safety Data Sheets',
-  description: 'Educational PCR videos, protocols and Mugen-Plex safety data sheets from Precision Life Sciences.',
+  title: 'Product Resources & Safety Data Sheets',
+  description: 'Approved Mugen-Plex safety data sheets and product resources from Precision Life Sciences.',
   alternates: { canonical: '/resources' },
   openGraph: {
     title: 'PCR Resources & Safety Data Sheets | Precision Life Sciences',
-    description: 'Access Mugen-Plex safety data sheets and educational PCR resources from Precision Life Sciences.',
+    description: 'Access approved Mugen-Plex safety data sheets and product resources from Precision Life Sciences.',
     url: `${SITE_URL}/resources`,
   },
 };
-
-const VIDEOS = [
-  {
-    title: 'How PCR Copies DNA Using Heat',
-    label: 'PCR fundamentals',
-    description: 'A concise visual introduction to the heat-driven cycle that enables PCR amplification.',
-    src: '/videos/how-pcr-copies-dna-using-heat.mp4',
-  },
-  {
-    title: 'PCR Contamination: A Quality-Control Case Study',
-    label: 'Quality & evidence',
-    description: 'A case study in contamination control, interpretation and why PCR results need rigorous context.',
-    src: '/videos/how-pcr-contamination-fueled-the-mmr-hoax.mp4',
-  },
-];
 
 const RESOURCE_ROUTES = [
   {
@@ -47,83 +32,50 @@ const RESOURCE_ROUTES = [
 const SAFETY_DATA_SHEETS = [
   {
     assay: 'HBV',
-    status: 'IFU-reconciled draft',
-    href: '/sds/Mugen-Plex-HBV-SDS-Draft-v0.2.pdf',
+    status: 'Approved SDS · Revision 1.0',
+    href: '/sds/Mugen-Plex-HBV-SDS-v1.0.pdf',
   },
   {
     assay: 'HCV',
-    status: 'IFU-reconciled draft',
-    href: '/sds/Mugen-Plex-HCV-SDS-Draft-v0.2.pdf',
+    status: 'Approved SDS · Revision 1.0',
+    href: '/sds/Mugen-Plex-HCV-SDS-v1.0.pdf',
   },
   {
     assay: 'HIV',
-    status: 'IFU-reconciled draft',
-    href: '/sds/Mugen-Plex-HIV-SDS-Draft-v0.2.pdf',
+    status: 'Approved SDS · Revision 1.0',
+    href: '/sds/Mugen-Plex-HIV-SDS-v1.0.pdf',
   },
   {
     assay: 'Dengue / Chikungunya',
-    status: 'IFU-reconciled draft',
-    href: '/sds/Mugen-Plex-Dengue-Chikungunya-SDS-Draft-v0.2.pdf',
+    status: 'Approved SDS · Revision 1.0',
+    href: '/sds/Mugen-Plex-Dengue-Chikungunya-SDS-v1.0.pdf',
   },
   {
     assay: 'Influenza A/B',
-    status: 'IFU-reconciled draft',
-    href: '/sds/Mugen-Plex-Influenza-AB-SDS-Draft-v0.2.pdf',
+    status: 'Approved SDS · Revision 1.0',
+    href: '/sds/Mugen-Plex-Influenza-AB-SDS-v1.0.pdf',
   },
   {
     assay: 'Dengue Serotyping',
-    status: 'Source-limited draft',
-    href: '/sds/Mugen-Plex-Dengue-Serotyping-SDS-Draft-v0.2.pdf',
+    status: 'Approved SDS · Revision 1.0',
+    href: '/sds/Mugen-Plex-Dengue-Serotyping-SDS-v1.0.pdf',
   },
   {
     assay: 'CCHF',
-    status: 'Source-limited draft',
-    href: '/sds/Mugen-Plex-CCHF-SDS-Draft-v0.2.pdf',
+    status: 'Approved SDS · Revision 1.0',
+    href: '/sds/Mugen-Plex-CCHF-SDS-v1.0.pdf',
   },
 ];
 
 export default function Resources() {
   return (
-    <main>
-      <section className="bg-graybg px-4 py-16 md:py-20">
-        <div className="mx-auto max-w-6xl">
-          <div className="mx-auto mb-12 max-w-2xl text-center">
-            <span className="text-sm font-semibold uppercase tracking-widest text-cyandark">Learn</span>
-            <h1 className="mt-2 text-4xl font-extrabold text-navy md:text-5xl">PCR, clearly explained.</h1>
-            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-gray-600">
-              Short visual lessons for laboratory staff, students and researchers.
-            </p>
-          </div>
-
-          <div className="grid gap-7 lg:grid-cols-2">
-            {VIDEOS.map((video) => (
-              <article
-                key={video.src}
-                className="overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-[0_18px_55px_rgba(0,32,91,0.10)]"
-              >
-                <video
-                  controls
-                  playsInline
-                  preload="metadata"
-                  className="aspect-video w-full bg-navy object-cover"
-                  aria-label={`Watch ${video.title}`}
-                >
-                  <source src={video.src} type="video/mp4" />
-                  Your browser does not support embedded video.
-                </video>
-                <div className="p-6">
-                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-cyandark">
-                    {video.label}
-                  </span>
-                  <h2 className="mt-2 text-xl font-extrabold leading-snug text-navy">{video.title}</h2>
-                  <p className="mt-3 text-sm leading-relaxed text-gray-600">{video.description}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <p className="mt-6 text-center text-xs text-gray-500">
-            Educational content only. Product-specific instructions remain in the applicable kit documentation.
+    <main id="main-content">
+      <section className="bg-graybg px-4 py-14 md:py-20">
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="text-sm font-semibold uppercase tracking-widest text-cyandark">Technical resources</span>
+          <h1 className="mt-2 text-4xl font-extrabold text-navy md:text-5xl">Approved product information, ready to use.</h1>
+          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-gray-600">
+            Download the current Mugen-Plex Safety Data Sheets or request assay-specific product information and technical guidance.
           </p>
         </div>
       </section>
@@ -134,17 +86,7 @@ export default function Resources() {
             <span className="text-sm font-semibold uppercase tracking-widest text-cyandark">Product safety</span>
             <h2 className="mt-2 text-3xl font-extrabold text-navy md:text-4xl">Safety Data Sheets</h2>
             <p className="mt-4 leading-relaxed text-gray-600">
-              Download the current technical-review SDS draft for each Mugen-Plex assay. These documents support
-              laboratory review while controlled versions complete formal approval.
-            </p>
-          </div>
-
-          <div className="mt-8 rounded-xl border border-amber-300 bg-amber-50 p-5 text-sm leading-relaxed text-amber-950">
-            <p className="font-bold">Draft documents — not yet approved for controlled external release</p>
-            <p className="mt-1">
-              Do not use these drafts as a substitute for the applicable kit instructions for use, institutional risk
-              assessment or a formally approved SDS. Contact PLS before relying on them for regulatory or procurement
-              purposes.
+              Download the approved controlled SDS for each Mugen-Plex assay. Revision and approval status are stated inside every document.
             </p>
           </div>
 

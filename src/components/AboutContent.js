@@ -20,7 +20,7 @@ export default function AboutContent() {
   };
 
   return (
-    <main>
+    <main id="main-content">
       <section className="bg-graybg px-4 py-16 md:py-20">
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <motion.div {...fadeUp} transition={{ duration: 0.6, ease: 'easeOut' }}>

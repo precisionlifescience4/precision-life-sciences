@@ -63,15 +63,10 @@ export default function AdminDashboard() {
 
         {tab === 'overview' && <OverviewTab setTab={setTab} />}
         {tab === 'inquiries' && <InquiriesTab flash={flash} />}
-        {tab === 'inquiries' && <InquiriesTab flash={flash} />}
-        {tab === 'services' && <ServicesTab flash={flash} />}
         {tab === 'services' && <ServicesTab flash={flash} />}
         {tab === 'content' && <ContentTab flash={flash} />}
         {tab === 'faqs' && <FaqsTab flash={flash} />}
-        {tab === 'faqs' && <FaqsTab flash={flash} />}
         {tab === 'team' && <TeamTab flash={flash} />}
-        {tab === 'team' && <TeamTab flash={flash} />}
-        {tab === 'badges' && <BadgesTab flash={flash} />}
         {tab === 'badges' && <BadgesTab flash={flash} />}
         {tab === 'gallery' && <GalleryTab flash={flash} />}
         {tab === 'settings' && <SettingsTab flash={flash} />}
@@ -560,6 +555,23 @@ function ImagesTab({ flash }) {
   );
 }
 /* ---------- TEAM TAB ---------- */
+function UploadButton({ id, onChange }) {
+  return (
+    <label
+      htmlFor={id}
+      className="inline-flex items-center gap-2 bg-navy text-white text-xs font-semibold px-4 py-2 rounded-lg cursor-pointer hover:bg-navylight transition-colors"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+        <polyline points="17 8 12 3 7 8" />
+        <line x1="12" y1="3" x2="12" y2="15" />
+      </svg>
+      Upload Photo
+      <input id={id} type="file" accept="image/*" onChange={onChange} className="hidden" />
+    </label>
+  );
+}
+
 function TeamTab({ flash }) {
   const [team, setTeam] = useState([]);
   const [newMember, setNewMember] = useState({ name: '', role: '', bio: '', photo_url: '' });
@@ -618,21 +630,6 @@ function TeamTab({ flash }) {
       flash('Upload failed: ' + (data.error || 'unknown error'));
     }
   };
-
-  const UploadButton = ({ id, onChange }) => (
-    <label
-      htmlFor={id}
-      className="inline-flex items-center gap-2 bg-navy text-white text-xs font-semibold px-4 py-2 rounded-lg cursor-pointer hover:bg-navylight transition-colors"
-    >
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-        <polyline points="17 8 12 3 7 8" />
-        <line x1="12" y1="3" x2="12" y2="15" />
-      </svg>
-      Upload Photo
-      <input id={id} type="file" accept="image/*" onChange={onChange} className="hidden" />
-    </label>
-  );
 
   return (
     <div>

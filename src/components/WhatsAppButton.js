@@ -1,25 +1,29 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 export default function WhatsAppButton() {
   const [whatsapp, setWhatsapp] = useState(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     fetch('/api/settings').then(r => r.json()).then(d => setWhatsapp(d.whatsapp));
   }, []);
 
-  if (!whatsapp) return null;
+  if (!whatsapp || pathname === '/contact') return null;
 
   return (
     <motion.a
       href={`https://wa.me/${whatsapp}`}
       target="_blank"
+      rel="noopener noreferrer"
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
       whileHover={{ scale: 1.1 }}
-      className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-green-500/40"
+      className="fixed right-3 z-40 flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-green-600 text-white transition-colors hover:bg-green-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy sm:right-6 sm:h-14 sm:w-14"
+      style={{ bottom: 'max(1rem, env(safe-area-inset-bottom))' }}
       aria-label="Chat on WhatsApp"
     >
       <svg viewBox="0 0 32 32" width="28" height="28" fill="white">

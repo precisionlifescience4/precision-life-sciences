@@ -42,8 +42,8 @@ const ASSAYS = [
 
 function AssayCarton({ assay }) {
   return (
-    <article className="group overflow-hidden rounded-[1.4rem] border border-slate-200 bg-white shadow-[0_18px_55px_rgba(0,32,91,0.10)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_65px_rgba(0,32,91,0.16)]">
-      <div className="relative aspect-[3/2] overflow-hidden bg-[radial-gradient(circle_at_50%_20%,#ffffff_0%,#eef5fa_62%,#dbe8f1_100%)]">
+    <article className="group overflow-hidden rounded-[1.4rem] border border-slate-200 bg-white transition-colors hover:border-navy/30">
+      <div className="relative aspect-[3/2] overflow-hidden bg-white">
         <Image
           src={assay.image}
           alt={`Mugen-Plex ${assay.name} 24/48/96-test real-time PCR assay carton by Precision Life Sciences.`}
@@ -74,14 +74,7 @@ function AssayCarton({ assay }) {
 
 export default function InfectiousRange() {
   return (
-    <section className="relative overflow-hidden bg-graybg px-4 py-20 md:py-24">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-55"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 12% 18%, rgba(0,163,224,0.12), transparent 25%), radial-gradient(circle at 88% 72%, rgba(0,32,91,0.08), transparent 28%)',
-        }}
-      />
+    <section className="relative overflow-hidden bg-graybg px-4 py-16 md:py-20">
       <div className="relative mx-auto max-w-6xl">
         <div className="mx-auto mb-12 max-w-3xl text-center">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-cyandark">
@@ -101,13 +94,13 @@ export default function InfectiousRange() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl border border-navy/10 bg-white/85 px-6 py-5 text-center shadow-sm backdrop-blur sm:flex-row sm:text-left">
+        <div className="mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl border border-navy/10 bg-white px-6 py-5 text-center sm:flex-row sm:text-left">
           <div>
             <p className="font-bold text-navy">RUO</p>
             <p className="mt-1 text-sm text-slate-500">Not intended for use in diagnostic procedures.</p>
           </div>
           <Link
-            href="/services"
+            href="/services#infectious"
             className="rounded-full bg-navy px-6 py-3 text-sm font-bold text-white transition hover:bg-navylight"
           >
             Explore assays and services

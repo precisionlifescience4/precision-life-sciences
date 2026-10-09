@@ -12,6 +12,10 @@ export default function Footer() {
     fetch('/api/content').then(r => r.json()).then(setContent).catch(() => setContent({}));
   }, []);
 
+  const publicDomainEmail = settings?.email?.toLowerCase().endsWith('@precisionlifesciences.com.pk')
+    ? settings.email
+    : null;
+
   return (
     <footer className="bg-navy text-white">
       <div className="max-w-7xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
@@ -22,7 +26,7 @@ export default function Footer() {
           </p>
         </div>
         <div>
-          <h4 className="font-semibold mb-3">Quick Links</h4>
+          <p className="font-semibold mb-3">Quick Links</p>
           <ul className="space-y-2 text-sm text-gray-300">
             <li><Link href="/" className="hover:text-cyan transition-colors">Home</Link></li>
             <li><Link href="/about" className="hover:text-cyan transition-colors">About Us</Link></li>
@@ -31,12 +35,12 @@ export default function Footer() {
             <li><Link href="/contact" className="hover:text-cyan transition-colors">Contact</Link></li>
           </ul>
         </div>
-             <div>
-          <h4 className="font-semibold mb-3">Contact</h4>
+        <div>
+          <p className="font-semibold mb-3">Contact</p>
           <ul className="space-y-2 text-sm text-gray-300">
             <li>
-              {settings?.email ? (
-                <a href={`mailto:${settings.email}`} className="hover:text-cyan transition-colors">{settings.email}</a>
+              {publicDomainEmail ? (
+                <a href={`mailto:${publicDomainEmail}`} className="hover:text-cyan transition-colors">{publicDomainEmail}</a>
               ) : <Link href="/contact" className="hover:text-cyan transition-colors">Use the enquiry form →</Link>}
             </li>
             <li>

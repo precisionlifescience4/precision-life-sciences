@@ -14,8 +14,12 @@ export default function ContactContent() {
     ? `https://www.google.com/maps?q=${encodeURIComponent(settings.address)}&output=embed`
     : null;
 
+  const publicDomainEmail = settings?.email?.toLowerCase().endsWith('@precisionlifesciences.com.pk')
+    ? settings.email
+    : null;
+
   return (
-    <main className="mx-auto max-w-6xl px-4 py-16 md:py-20">
+    <main id="main-content" className="mx-auto max-w-6xl px-4 py-16 md:py-20">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -42,18 +46,22 @@ export default function ContactContent() {
             <div>
               <p className="font-semibold text-navy mb-1">WhatsApp</p>
               {settings?.whatsapp ? (
-                <a href={`https://wa.me/${settings.whatsapp}`} className="text-cyandark font-medium" target="_blank">Chat on WhatsApp →</a>
+                <a href={`https://wa.me/${settings.whatsapp}`} className="text-cyandark font-medium" target="_blank" rel="noopener noreferrer">Chat on WhatsApp →</a>
               ) : <span className="text-gray-500">{settings ? 'Not available' : '…'}</span>}
             </div>
             <div>
-              <p className="font-semibold text-navy mb-1">Email</p>
-              {settings?.email ? <a href={`mailto:${settings.email}`} className="text-gray-600 hover:text-cyan break-all">{settings.email}</a> : <span className="text-gray-500">{settings ? 'Please use the form' : '…'}</span>}
+              <p className="font-semibold text-navy mb-1">Email enquiries</p>
+              {publicDomainEmail ? (
+                <a href={`mailto:${publicDomainEmail}`} className="break-all text-gray-600 hover:text-cyandark">{publicDomainEmail}</a>
+              ) : (
+                <a href="#enquiry-form" className="font-medium text-cyandark hover:text-navy">Use the enquiry form →</a>
+              )}
             </div>
             <div>
               <p className="font-semibold text-navy mb-1">Address</p>
               <p className="text-gray-600">{settings?.address || (settings ? 'Peshawar, Khyber Pakhtunkhwa, Pakistan' : '…')}</p>
               {settings?.maps_link && (
-                <a href={settings.maps_link} target="_blank" className="text-cyandark text-sm font-medium inline-block mt-1">
+                <a href={settings.maps_link} target="_blank" rel="noopener noreferrer" className="text-cyandark text-sm font-medium inline-block mt-1">
                   Open in Google Maps →
                 </a>
               )}
@@ -72,7 +80,7 @@ export default function ContactContent() {
           )}
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+        <motion.div id="enquiry-form" className="scroll-mt-28" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
           <h2 className="mb-4 text-xl font-bold text-navy">Send a product, service or project enquiry</h2>
           <Suspense fallback={<div className="h-96 bg-white border border-gray-200 rounded-xl shadow-sm" />}>
             <EnquiryForm />

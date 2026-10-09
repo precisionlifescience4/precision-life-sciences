@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import FAQ from '@/components/FAQ';
@@ -171,6 +172,8 @@ const COMMERCIAL_SERVICES = [
   },
 ];
 
+const JOURNEY_IDS = new Set(['infectious', 'myeloid', 'laboratory-services', 'collaboration']);
+
 function SpecChip({ label, value }) {
   return (
     <div className="bg-graybg rounded-lg px-3 py-2">
@@ -216,28 +219,32 @@ export default function ServicesContent() {
 
   const serviceGroups = [
     {
-      id: 'laboratory-services',
-      eyebrow: 'Commercial molecular services',
-      title: 'A defined workflow for every research project',
-      description: 'Access individual services or discuss an integrated workflow from sample preparation through Sanger sequencing.',
-      items: COMMERCIAL_SERVICES,
-    },
-    {
       id: 'infectious',
+      tabLabel: 'I need an infectious assay',
       eyebrow: 'Mugen-Plex Infectious',
-      title: 'Infectious-disease assay range',
+      title: 'Choose an infectious-disease assay',
       description: 'Six clearly differentiated assays presented in one consistent RUO kit family.',
       items: services.filter((service) => service.slug !== 'support' && !isInDevelopment(service)),
     },
     {
       id: 'myeloid',
+      tabLabel: 'I am exploring myeloid assays',
       eyebrow: 'Mugen-Plex Myeloid',
-      title: 'Myeloid assay concepts',
+      title: 'Explore the myeloid assay pipeline',
       description: 'A focused molecular-haematology line currently in development.',
       items: services.filter((service) => service.slug !== 'support' && isInDevelopment(service)),
     },
     {
+      id: 'laboratory-services',
+      tabLabel: 'I need a laboratory service',
+      eyebrow: 'Commercial molecular services',
+      title: 'Build a defined research workflow',
+      description: 'Access individual services or discuss an integrated workflow from sample preparation through Sanger sequencing.',
+      items: COMMERCIAL_SERVICES,
+    },
+    {
       id: 'collaboration',
+      tabLabel: 'I want to collaborate',
       eyebrow: 'Work with PLS',
       title: 'Development and technical collaboration',
       description: 'Start with a defined assay requirement, implementation question or research objective.',
@@ -245,35 +252,70 @@ export default function ServicesContent() {
     },
   ].filter((group) => group.items.length);
 
+  const [activeJourney, setActiveJourney] = useState('infectious');
+
+  useEffect(() => {
+    const selectFromHash = () => {
+      const requested = window.location.hash.replace('#', '');
+      if (JOURNEY_IDS.has(requested)) setActiveJourney(requested);
+    };
+    selectFromHash();
+    window.addEventListener('hashchange', selectFromHash);
+    return () => window.removeEventListener('hashchange', selectFromHash);
+  }, []);
+
+  const activeGroup = serviceGroups.find((group) => group.id === activeJourney) || serviceGroups[0];
+
+  const chooseJourney = (id) => {
+    setActiveJourney(id);
+    window.history.replaceState(null, '', `#${id}`);
+  };
+
   return (
-    <main className="max-w-6xl mx-auto px-4 py-16">
+    <main id="main-content" className="max-w-6xl mx-auto px-4 py-14 md:py-16">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="text-4xl font-bold text-navy mb-2 text-center"
       >
-        <TM text="Mugen-Plex Portfolio & Services" />
+        <TM text="Choose your route into Mugen-Plex" />
       </motion.h1>
-      <p className="text-center text-gray-500 mb-12">RUO assay portfolio, commercial molecular services and technical collaboration</p>
+      <p className="mx-auto mb-10 max-w-2xl text-center text-gray-600">
+        Start with the outcome you need. Each route shows only the relevant assays, services and next step.
+      </p>
 
-      <nav aria-label="Services page sections" className="mx-auto mb-16 flex max-w-3xl flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-[0.12em] text-navy">
-        {[
-          { label: 'Commercial molecular services', href: '#laboratory-services' },
-          { label: 'Infectious assays', href: '#infectious' },
-          { label: 'Myeloid concepts', href: '#myeloid' },
-          { label: 'Technical collaboration', href: '#collaboration' },
-        ].map((item) => (
-          <a key={item.href} href={item.href} className="rounded-full border border-navy/10 bg-graybg px-4 py-2.5 transition-colors hover:border-cyan hover:text-cyandark">{item.label}</a>
+      <nav aria-label="Customer journeys" className="mx-auto mb-12 grid max-w-5xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {serviceGroups.map((group) => (
+          <button
+            key={group.id}
+            type="button"
+            aria-pressed={activeGroup.id === group.id}
+            onClick={() => chooseJourney(group.id)}
+            className={`min-h-16 rounded-xl border px-4 py-3 text-left text-sm font-bold leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+              activeGroup.id === group.id
+                ? 'border-navy bg-navy text-white'
+                : 'border-navy/15 bg-graybg text-navy hover:border-cyan'
+            }`}
+          >
+            {group.tabLabel}
+          </button>
         ))}
       </nav>
 
-      <div className="space-y-20">
-        {serviceGroups.map((group) => (
-          <section id={group.id} key={group.id} aria-labelledby={`${group.id}-heading`} className="scroll-mt-28">
+      <div>
+        {[activeGroup].map((group) => (
+          <motion.section
+            id={`${group.id}-panel`}
+            key={group.id}
+            aria-live="polite"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="mb-8 max-w-2xl">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">{group.eyebrow}</p>
-              <h2 id={`${group.id}-heading`} className="mt-2 text-2xl font-extrabold text-navy md:text-3xl">{group.title}</h2>
+              <h2 className="mt-2 text-2xl font-extrabold text-navy md:text-3xl">{group.title}</h2>
               <p className="mt-3 leading-relaxed text-slate-600">{group.description}</p>
             </div>
 
@@ -347,7 +389,7 @@ export default function ServicesContent() {
                 </Link>
               </div>
             )}
-          </section>
+          </motion.section>
         ))}
       </div>
 
