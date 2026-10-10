@@ -48,26 +48,6 @@ const RELATIONSHIP_GROUPS = [
       },
     ],
   },
-  {
-    title: 'Standards & science references',
-    description: 'PSQCA and PCSIR are relevant national public institutions; their marks are shown for institutional context only.',
-    institutions: [
-      {
-        name: 'Pakistan Standards & Quality Control Authority',
-        src: '/images/partners/psqca.png',
-        width: 70,
-        height: 70,
-        className: 'h-11',
-      },
-      {
-        name: 'Pakistan Council of Scientific & Industrial Research',
-        src: '/images/partners/pcsir.png',
-        width: 70,
-        height: 70,
-        className: 'h-11',
-      },
-    ],
-  },
 ];
 
 export default function InstitutionalStrip({ compact = false }) {
@@ -81,7 +61,7 @@ export default function InstitutionalStrip({ compact = false }) {
           </h2>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-3">
           {RELATIONSHIP_GROUPS.map((group) => (
             <article key={group.title} className="rounded-xl border border-slate-200 bg-graybg p-5">
               <p className="font-bold text-navy">{group.title}</p>
@@ -106,7 +86,7 @@ export default function InstitutionalStrip({ compact = false }) {
         </div>
 
         <p className="mx-auto mt-5 max-w-3xl text-center text-[0.7rem] leading-relaxed text-slate-500">
-          Institutional marks provide relationship or public-body context only. The ISO statement applies specifically to the KMU project R&amp;D Laboratory and its certified scope; it does not represent PLS company certification, product certification, regulatory approval or endorsement.
+          Institutional marks show relationships to the work only. The ISO statement applies specifically to the KMU project R&amp;D Laboratory and its certified scope; it does not represent PLS company certification, product certification, regulatory approval or endorsement.
         </p>
       </div>
     </section>
