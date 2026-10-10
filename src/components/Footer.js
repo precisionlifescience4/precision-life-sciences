@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { LEGAL_NAME, SECP_CUIN } from '@/lib/site';
 
 const LAB_SERVICE_LINKS = [
   ['DNA Extraction', '/molecular-services/dna-extraction'],
@@ -13,11 +14,9 @@ const LAB_SERVICE_LINKS = [
 
 export default function Footer() {
   const [settings, setSettings] = useState(null);
-  const [content, setContent] = useState({});
 
   useEffect(() => {
     fetch('/api/settings').then(r => r.json()).then(setSettings).catch(() => setSettings({}));
-    fetch('/api/content').then(r => r.json()).then(setContent).catch(() => setContent({}));
   }, []);
 
   const publicDomainEmail = settings?.email?.toLowerCase().endsWith('@precisionlifesciences.com.pk')
@@ -83,8 +82,10 @@ export default function Footer() {
       <div className="border-t border-white/10 py-4 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-gray-400">
           <p className="text-center md:text-left">
-            © {new Date().getFullYear()} {content.company_legal_name || 'Precision Life Sciences'}.
-            {content.company_reg_number ? ` SECP Company Registration No. ${content.company_reg_number}.` : ''} RUO.
+            © {new Date().getFullYear()} {LEGAL_NAME}.{' '}
+            <Link href="/resources#corporate-credentials" className="hover:text-cyan transition-colors">
+              SECP CUIN {SECP_CUIN}
+            </Link>. RUO.
             {' '}Mugen-Plex™ — trademark application in progress.
           </p>
           <Link href="/contact?topic=enquire" className="font-semibold text-cyan transition hover:text-white">Request product information →</Link>

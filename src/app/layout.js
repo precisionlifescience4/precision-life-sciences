@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { supabase } from '@/lib/supabase';
-import { SITE_URL, SITE_NAME } from '@/lib/site';
+import { INCORPORATION_DATE, LEGAL_NAME, SECP_CUIN, SECP_VERIFICATION_URL, SITE_URL, SITE_NAME } from '@/lib/site';
 import PrelaunchBanner, { DEFAULT_NOTICE } from '@/components/PrelaunchBanner';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -48,11 +48,19 @@ export default async function RootLayout({ children }) {
   const organization = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Precision Life Sciences (Private) Limited',
+    '@id': `${SITE_URL}/#organization`,
+    name: LEGAL_NAME,
+    legalName: LEGAL_NAME,
     alternateName: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/images/logo.svg`,
     description: 'Peshawar-based developer of Mugen-Plex real-time PCR assays for laboratory use.',
+    foundingDate: INCORPORATION_DATE,
+    identifier: {
+      '@type': 'PropertyValue',
+      propertyID: 'SECP Corporate Unique Identification Number',
+      value: SECP_CUIN,
+    },
     ...(publicDomainEmail && { email: publicDomainEmail }),
     ...(settings?.phone && { telephone: settings.phone }),
     address: {
@@ -62,9 +70,7 @@ export default async function RootLayout({ children }) {
       addressRegion: 'Khyber Pakhtunkhwa',
       addressCountry: 'PK',
     },
-    ...([settings?.facebook, settings?.instagram, settings?.youtube].some(Boolean) && {
-      sameAs: [settings?.facebook, settings?.instagram, settings?.youtube].filter(Boolean),
-    }),
+    sameAs: [SECP_VERIFICATION_URL, settings?.facebook, settings?.instagram, settings?.youtube].filter(Boolean),
   };
   const website = {
     '@context': 'https://schema.org',
@@ -75,7 +81,8 @@ export default async function RootLayout({ children }) {
     url: SITE_URL,
     publisher: {
       '@type': 'Organization',
-      name: 'Precision Life Sciences (Private) Limited',
+      '@id': `${SITE_URL}/#organization`,
+      name: LEGAL_NAME,
       url: SITE_URL,
     },
   };

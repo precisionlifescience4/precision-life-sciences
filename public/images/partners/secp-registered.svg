@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="144" viewBox="0 0 360 144" role="img" aria-labelledby="title desc">
+  <title id="title">SECP incorporated company</title>
+  <desc id="desc">Precision Life Sciences corporate registration credential, CUIN 0348054</desc>
+  <rect x="2" y="2" width="356" height="140" rx="18" fill="#FFFFFF" stroke="#00205B" stroke-width="4"/>
+  <rect x="18" y="18" width="72" height="108" rx="12" fill="#00205B"/>
+  <path d="M38 72l11 11 23-27" fill="none" stroke="#17B8E6" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="108" y="51" fill="#00205B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">SECP</text>
+  <text x="108" y="76" fill="#00205B" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" letter-spacing="1.5">INCORPORATED</text>
+  <line x1="108" y1="88" x2="332" y2="88" stroke="#17B8E6" stroke-width="3"/>
+  <text x="108" y="113" fill="#42526B" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600">CUIN 0348054</text>
+</svg>

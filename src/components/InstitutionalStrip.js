@@ -1,6 +1,22 @@
 import Image from 'next/image';
+import { INCORPORATION_CERTIFICATE_URL, SECP_CUIN, SECP_VERIFICATION_URL } from '@/lib/site';
 
 const RELATIONSHIP_GROUPS = [
+  {
+    title: 'Corporate registration',
+    description: `Precision Life Sciences (Private) Limited was incorporated with SECP under CUIN ${SECP_CUIN} on 29 July 2026.`,
+    institutions: [
+      {
+        name: 'SECP incorporated company - CUIN 0348054',
+        src: '/images/partners/secp-registered.svg',
+        width: 180,
+        height: 72,
+        className: 'h-12',
+        preserveColor: true,
+        href: INCORPORATION_CERTIFICATE_URL,
+      },
+    ],
+  },
   {
     title: 'Research context',
     description: 'The underlying work was developed during employment at KMU with support from DGST Khyber Pakhtunkhwa.',
@@ -81,7 +97,7 @@ export default function InstitutionalStrip({ compact = false }) {
           </h2>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {RELATIONSHIP_GROUPS.map((group) => (
             <article key={group.title} className="rounded-xl border border-slate-200 bg-graybg p-5">
               <p className="font-bold text-navy">{group.title}</p>
@@ -89,14 +105,27 @@ export default function InstitutionalStrip({ compact = false }) {
               <div className="mt-4 flex min-h-16 items-center gap-5 border-t border-navy/10 pt-4">
                 {group.institutions.map((institution) => (
                   <figure key={institution.name} className="flex min-w-0 flex-1 justify-center">
-                    <Image
-                      src={institution.src}
-                      alt={institution.name}
-                      title={institution.name}
-                      width={institution.width}
-                      height={institution.height}
-                      className={`${institution.className} w-auto max-w-full object-contain ${institution.preserveColor ? 'opacity-90' : 'grayscale opacity-70'}`}
-                    />
+                    {institution.href ? (
+                      <a href={institution.href} target="_blank" rel="noreferrer" aria-label={`View ${institution.name}`}>
+                        <Image
+                          src={institution.src}
+                          alt={institution.name}
+                          title={institution.name}
+                          width={institution.width}
+                          height={institution.height}
+                          className={`${institution.className} w-auto max-w-full object-contain ${institution.preserveColor ? 'opacity-90' : 'grayscale opacity-70'}`}
+                        />
+                      </a>
+                    ) : (
+                      <Image
+                        src={institution.src}
+                        alt={institution.name}
+                        title={institution.name}
+                        width={institution.width}
+                        height={institution.height}
+                        className={`${institution.className} w-auto max-w-full object-contain ${institution.preserveColor ? 'opacity-90' : 'grayscale opacity-70'}`}
+                      />
+                    )}
                     <figcaption className="sr-only">{institution.name}</figcaption>
                   </figure>
                 ))}
@@ -106,7 +135,10 @@ export default function InstitutionalStrip({ compact = false }) {
         </div>
 
         <p className="mx-auto mt-5 max-w-3xl text-center text-[0.7rem] leading-relaxed text-slate-500">
-          Institutional marks provide relationship or public-body context only. The ISO statement applies specifically to the KMU project R&amp;D Laboratory and its certified scope; it does not represent PLS company certification, product certification, regulatory approval or endorsement.
+          SECP registration confirms legal incorporation only and does not constitute product or regulatory approval. Institutional marks provide relationship or public-body context only. The ISO statement applies specifically to the KMU project R&amp;D Laboratory and its certified scope; it does not represent PLS company certification, product certification, regulatory approval or endorsement.{' '}
+          <a href={SECP_VERIFICATION_URL} target="_blank" rel="noreferrer" className="font-semibold text-cyandark hover:text-navy">
+            Verify the company with SECP.
+          </a>
         </p>
       </div>
     </section>
