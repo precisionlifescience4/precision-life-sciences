@@ -278,6 +278,7 @@ function ContentTab({ flash }) {
     { key: 'why_choose_text', label: 'Home Page — "Why Choose Us" Text', long: true },
     { key: 'about_intro', label: 'About Page — Introduction Paragraph', long: true },
     { key: 'who_serve_text', label: 'About Page — "Who We Serve" Text', long: true },
+    { key: 'facility_statement', label: 'About Page — "Where the science is done" statement (blank line between paragraphs; leave empty for the default wording)', long: true },
     { key: 'services_title', label: 'Services Page — Heading' },
     { key: 'services_subtitle', label: 'Services Page — Subheading' },
     { key: 'ceo_name', label: 'CEO Section — Name' },
@@ -286,9 +287,7 @@ function ContentTab({ flash }) {
     { key: 'ceo_bio', label: 'CEO Section — Profile (leave a blank line between paragraphs)', long: true },
     { key: 'ceo_message', label: 'CEO Section — Message from the CEO (blank line between paragraphs)', long: true },
     { key: 'prelaunch_notice', label: 'Pre-launch notice (slim banner at the top of every page; clear it to hide at launch)', long: true },
-    { key: 'company_reg_number', label: 'SECP Company Registration Number (shown in the footer when filled in)' },
     { key: 'footer_about', label: 'Footer — About Text', long: true },
-    { key: 'company_legal_name', label: 'Company Legal Name (copyright line)' },
     { key: 'cta_title', label: 'Bottom CTA Title' },
     { key: 'cta_description', label: 'Bottom CTA Description', long: true },
   ];

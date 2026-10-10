@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Team from '@/components/Team';
 import CeoSection, { DEFAULT_CEO } from '@/components/CeoSection';
 import InstitutionalStrip from '@/components/InstitutionalStrip';
+import CompanyInformation from '@/components/CompanyInformation';
 import TM from '@/components/TM';
 
 export default function AboutContent() {
@@ -64,12 +65,16 @@ export default function AboutContent() {
         </div>
       </section>
 
+      <CompanyInformation statement={content.facility_statement} />
+
       <div className="mx-auto max-w-5xl px-4">
         <CeoSection content={content} />
         <Team excludeName={content.ceo_name || DEFAULT_CEO.name} />
       </div>
 
-      <InstitutionalStrip compact />
+      <div id="institutions" className="scroll-mt-24">
+        <InstitutionalStrip compact />
+      </div>
     </main>
   );
 }
