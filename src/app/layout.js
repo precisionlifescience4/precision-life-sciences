@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { supabase } from '@/lib/supabase';
 import { SITE_URL, SITE_NAME } from '@/lib/site';
+import { COMPANY } from '@/lib/company';
 import PrelaunchBanner, { DEFAULT_NOTICE } from '@/components/PrelaunchBanner';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -49,7 +50,14 @@ export default async function RootLayout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Precision Life Sciences (Private) Limited',
+    legalName: COMPANY.legalName,
     alternateName: SITE_NAME,
+    foundingDate: COMPANY.incorporatedISO,
+    identifier: {
+      '@type': 'PropertyValue',
+      propertyID: 'SECP Corporate Unique Identification No. (CUIN)',
+      value: COMPANY.cuin,
+    },
     url: SITE_URL,
     logo: `${SITE_URL}/images/logo.svg`,
     description: 'Peshawar-based developer of Mugen-Plex real-time PCR assays for laboratory use.',

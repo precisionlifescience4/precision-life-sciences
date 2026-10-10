@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import InfectiousRange from '@/components/InfectiousRange';
 import InstitutionalStrip from '@/components/InstitutionalStrip';
+import { RegistrationBar } from '@/components/CompanyInformation';
 
 const ASSAY_MARKERS = [
   { name: 'HBV', color: 'bg-hbv' },
@@ -131,6 +132,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <RegistrationBar />
 
       <InfectiousRange />
 

@@ -2,6 +2,7 @@
 import { Suspense, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import EnquiryForm from '@/components/EnquiryForm';
+import { COMPANY } from '@/lib/company';
 
 export default function ContactContent() {
   const [settings, setSettings] = useState(null);
@@ -63,6 +64,16 @@ export default function ContactContent() {
               {settings?.maps_link && (
                 <a href={settings.maps_link} target="_blank" rel="noopener noreferrer" className="text-cyandark text-sm font-medium inline-block mt-1">
                   Open in Google Maps →
+                </a>
+              )}
+            </div>
+            <div>
+              <p className="font-semibold text-navy mb-1">Registered company</p>
+              <p className="text-gray-600">{COMPANY.legalName}</p>
+              <p className="text-sm text-gray-500">SECP CUIN {COMPANY.cuin} · Incorporated {COMPANY.incorporatedLabel}</p>
+              {COMPANY.verifyUrl && (
+                <a href={COMPANY.verifyUrl} target="_blank" rel="noopener noreferrer" className="text-cyandark text-sm font-medium inline-block mt-1">
+                  Verify on the SECP register →
                 </a>
               )}
             </div>

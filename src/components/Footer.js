@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { COMPANY } from '@/lib/company';
 
 const LAB_SERVICE_LINKS = [
   ['DNA Extraction', '/molecular-services/dna-extraction'],
@@ -13,11 +14,9 @@ const LAB_SERVICE_LINKS = [
 
 export default function Footer() {
   const [settings, setSettings] = useState(null);
-  const [content, setContent] = useState({});
 
   useEffect(() => {
     fetch('/api/settings').then(r => r.json()).then(setSettings).catch(() => setSettings({}));
-    fetch('/api/content').then(r => r.json()).then(setContent).catch(() => setContent({}));
   }, []);
 
   const publicDomainEmail = settings?.email?.toLowerCase().endsWith('@precisionlifesciences.com.pk')
@@ -46,6 +45,7 @@ export default function Footer() {
           <ul className="space-y-2 text-sm text-gray-300">
             <li><Link href="/" className="hover:text-cyan transition-colors">Home</Link></li>
             <li><Link href="/about" className="hover:text-cyan transition-colors">About Us</Link></li>
+            <li><Link href="/about#company" className="hover:text-cyan transition-colors">Company Information</Link></li>
             <li><Link href="/services" className="hover:text-cyan transition-colors">Assays &amp; Services</Link></li>
             <li><Link href="/molecular-services" className="hover:text-cyan transition-colors">Laboratory Services</Link></li>
             <li><Link href="/resources" className="hover:text-cyan transition-colors">Resources</Link></li>
@@ -83,9 +83,14 @@ export default function Footer() {
       <div className="border-t border-white/10 py-4 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-gray-400">
           <p className="text-center md:text-left">
-            © {new Date().getFullYear()} {content.company_legal_name || 'Precision Life Sciences'}.
-            {content.company_reg_number ? ` SECP Company Registration No. ${content.company_reg_number}.` : ''} RUO.
-            {' '}Mugen-Plex™ — trademark application in progress.
+            © {new Date().getFullYear()} {COMPANY.legalName}. SECP CUIN {COMPANY.cuin}, incorporated {COMPANY.incorporatedLabel}.
+            {COMPANY.verifyUrl && (
+              <>
+                {' '}
+                <a href={COMPANY.verifyUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-white/30 underline-offset-2 hover:text-cyan">Verify on SECP</a>.
+              </>
+            )}
+            {' '}RUO. Mugen-Plex™ — trademark application in progress.
           </p>
           <Link href="/contact?topic=enquire" className="font-semibold text-cyan transition hover:text-white">Request product information →</Link>
         </div>
