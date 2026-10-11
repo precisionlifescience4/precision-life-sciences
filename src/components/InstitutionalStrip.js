@@ -1,144 +1,94 @@
 import Image from 'next/image';
 import { INCORPORATION_CERTIFICATE_URL, SECP_CUIN, SECP_VERIFICATION_URL } from '@/lib/site';
 
-const RELATIONSHIP_GROUPS = [
-  {
-    title: 'Corporate registration',
-    description: `Precision Life Sciences (Private) Limited was incorporated with SECP under CUIN ${SECP_CUIN} on 29 July 2026.`,
-    institutions: [
-      {
-        name: 'SECP incorporated company - CUIN 0348054',
-        src: '/images/partners/secp-registered.svg',
-        width: 180,
-        height: 72,
-        className: 'h-12',
-        preserveColor: true,
-        href: INCORPORATION_CERTIFICATE_URL,
-      },
-    ],
-  },
-  {
-    title: 'Research context',
-    description: 'The underlying work was developed during employment at KMU with support from DGST Khyber Pakhtunkhwa.',
-    institutions: [
-      {
-        name: 'Directorate General of Science & Technology, Khyber Pakhtunkhwa',
-        src: '/images/partners/dgst.png',
-        width: 82,
-        height: 82,
-        className: 'h-12',
-      },
-      {
-        name: 'Khyber Medical University',
-        src: '/images/partners/kmu.png',
-        width: 145,
-        height: 58,
-        className: 'h-9',
-      },
-    ],
-  },
-  {
-    title: 'Commercial ecosystem',
-    description: 'BQ Pharma & Medical Devices is presented as part of the local product-development and manufacturing ecosystem.',
-    institutions: [
-      {
-        name: 'BQ Pharma & Medical Devices',
-        src: '/images/partners/bq-pharma.svg',
-        width: 180,
-        height: 52,
-        className: 'h-9',
-      },
-    ],
-  },
-  {
-    title: 'Certified project facility',
-    description: 'KMU’s project R&D Laboratory is certified to ISO 9001:2015 for development and validation of in-house diagnostic assays. Certificate AMER801517; surveillance/expiry 29 September 2027.',
-    institutions: [
-      {
-        name: 'ISO 9001:2015 - KMU Project R&D Laboratory',
-        src: '/images/partners/iso-9001-kmu-project-lab.svg',
-        width: 180,
-        height: 84,
-        className: 'h-14',
-        preserveColor: true,
-      },
-    ],
-  },
-  {
-    title: 'Standards & science references',
-    description: 'PSQCA and PCSIR are relevant national public institutions; their marks are shown for institutional context only.',
-    institutions: [
-      {
-        name: 'Pakistan Standards & Quality Control Authority',
-        src: '/images/partners/psqca.png',
-        width: 70,
-        height: 70,
-        className: 'h-11',
-      },
-      {
-        name: 'Pakistan Council of Scientific & Industrial Research',
-        src: '/images/partners/pcsir.png',
-        width: 70,
-        height: 70,
-        className: 'h-11',
-      },
-    ],
-  },
-];
+function LogoFrame({ src, alt, width, height }) {
+  return (
+    <div className="flex h-20 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3">
+      <Image src={src} alt={alt} width={width} height={height} className="max-h-full w-auto max-w-full object-contain" />
+    </div>
+  );
+}
 
 export default function InstitutionalStrip({ compact = false }) {
   return (
-    <section className={compact ? 'border-y border-slate-100 bg-white px-4 py-10' : 'bg-white px-4 py-16'}>
+    <section className={`bg-white px-4 ${compact ? 'py-12' : 'py-16'}`} aria-labelledby="institutional-context-title">
       <div className="mx-auto max-w-6xl">
-        <div className={`mx-auto max-w-2xl text-center ${compact ? 'mb-7' : 'mb-9'}`}>
+        <div className={`mx-auto max-w-3xl text-center ${compact ? 'mb-8' : 'mb-10'}`}>
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Institutional context</span>
-          <h2 className={`mt-2 font-extrabold text-navy ${compact ? 'text-2xl' : 'text-2xl md:text-3xl'}`}>
-            How the organisations relate to the work.
+          <h2 id="institutional-context-title" className="mt-2 text-2xl font-extrabold text-navy md:text-3xl">
+            The company, the research and the laboratory.
           </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            Three distinct parts of the Mugen-Plex story, each with its own documented role.
+          </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {RELATIONSHIP_GROUPS.map((group) => (
-            <article key={group.title} className="rounded-xl border border-slate-200 bg-graybg p-5">
-              <p className="font-bold text-navy">{group.title}</p>
-              <p className="mt-2 min-h-16 text-xs leading-relaxed text-slate-600">{group.description}</p>
-              <div className="mt-4 flex min-h-16 items-center gap-5 border-t border-navy/10 pt-4">
-                {group.institutions.map((institution) => (
-                  <figure key={institution.name} className="flex min-w-0 flex-1 justify-center">
-                    {institution.href ? (
-                      <a href={institution.href} target="_blank" rel="noreferrer" aria-label={`View ${institution.name}`}>
-                        <Image
-                          src={institution.src}
-                          alt={institution.name}
-                          title={institution.name}
-                          width={institution.width}
-                          height={institution.height}
-                          className={`${institution.className} w-auto max-w-full object-contain ${institution.preserveColor ? 'opacity-90' : 'grayscale opacity-70'}`}
-                        />
-                      </a>
-                    ) : (
-                      <Image
-                        src={institution.src}
-                        alt={institution.name}
-                        title={institution.name}
-                        width={institution.width}
-                        height={institution.height}
-                        className={`${institution.className} w-auto max-w-full object-contain ${institution.preserveColor ? 'opacity-90' : 'grayscale opacity-70'}`}
-                      />
-                    )}
-                    <figcaption className="sr-only">{institution.name}</figcaption>
-                  </figure>
-                ))}
-              </div>
-            </article>
-          ))}
+        <div className="grid gap-4 lg:grid-cols-3">
+          <article className="flex h-full flex-col rounded-2xl border border-slate-200 bg-graybg p-5 md:p-6">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyandark">01 / Company</p>
+            <h3 className="mt-2 text-lg font-bold text-navy">Registered in Pakistan</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              Precision Life Sciences (Private) Limited was incorporated on 29 July 2026. SECP CUIN {SECP_CUIN}.
+            </p>
+            <div className="mt-auto pt-6">
+              <a href={INCORPORATION_CERTIFICATE_URL} target="_blank" rel="noreferrer" className="block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyandark" aria-label="View Precision Life Sciences certificate of incorporation">
+                <LogoFrame src="/images/partners/secp-registered.svg" alt="SECP incorporation credential, CUIN 0348054" width={210} height={84} />
+              </a>
+              <a href={SECP_VERIFICATION_URL} target="_blank" rel="noreferrer" className="mt-3 inline-block text-sm font-semibold text-cyandark underline-offset-4 hover:underline focus-visible:underline">
+                Verify company registration ↗
+              </a>
+            </div>
+          </article>
+
+          <article className="flex h-full flex-col rounded-2xl border border-slate-200 bg-graybg p-5 md:p-6">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyandark">02 / Research</p>
+            <h3 className="mt-2 text-lg font-bold text-navy">Developed in a university setting</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              The underlying work was developed during employment at Khyber Medical University, with support from DGST Khyber Pakhtunkhwa.
+            </p>
+            <div className="mt-auto grid grid-cols-2 gap-3 pt-6">
+              <LogoFrame src="/images/partners/kmu.png" alt="Khyber Medical University" width={150} height={61} />
+              <LogoFrame src="/images/partners/dgst.png" alt="Directorate General of Science and Technology, Khyber Pakhtunkhwa" width={68} height={68} />
+            </div>
+          </article>
+
+          <article className="flex h-full flex-col rounded-2xl border border-slate-200 bg-graybg p-5 md:p-6">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyandark">03 / Quality system</p>
+            <h3 className="mt-2 text-lg font-bold text-navy">Certified project laboratory</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              KMU&apos;s Project R&amp;D Laboratory holds ISO 9001:2015 certification for its documented assay-development and validation scope.
+            </p>
+            <div className="mt-auto pt-6">
+              <LogoFrame src="/images/partners/iso-9001-kmu-project-lab.svg" alt="ISO 9001:2015, KMU Project R and D Laboratory" width={190} height={89} />
+              <p className="mt-3 text-xs leading-relaxed text-slate-500">
+                Certificate AMER801517 · Applies to the KMU laboratory, not PLS or its products.
+              </p>
+            </div>
+          </article>
         </div>
 
-        <p className="mx-auto mt-5 max-w-3xl text-center text-[0.7rem] leading-relaxed text-slate-500">
-          SECP registration confirms legal incorporation only and does not constitute product or regulatory approval. Institutional marks provide relationship or public-body context only. The ISO statement applies specifically to the KMU project R&amp;D Laboratory and its certified scope; it does not represent PLS company certification, product certification, regulatory approval or endorsement.{' '}
-          <a href={SECP_VERIFICATION_URL} target="_blank" rel="noreferrer" className="font-semibold text-cyandark hover:text-navy">
-            Verify the company with SECP.
-          </a>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <div className="flex flex-col gap-4 rounded-xl border border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 className="text-sm font-bold text-navy">Local commercial ecosystem</h3>
+              <p className="mt-1 text-xs leading-relaxed text-slate-600">BQ Pharma &amp; Medical Devices is shown in the local product-development context.</p>
+            </div>
+            <Image src="/images/partners/bq-pharma.svg" alt="BQ Pharma and Medical Devices" width={160} height={46} className="h-9 w-auto max-w-40 shrink-0 object-contain" />
+          </div>
+          <div className="flex flex-col gap-4 rounded-xl border border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 className="text-sm font-bold text-navy">Standards &amp; science references</h3>
+              <p className="mt-1 text-xs leading-relaxed text-slate-600">PSQCA and PCSIR are shown as public-body references, not endorsers.</p>
+            </div>
+            <div className="flex shrink-0 items-center gap-3">
+              <Image src="/images/partners/psqca.png" alt="Pakistan Standards and Quality Control Authority" width={48} height={48} className="h-12 w-12 object-contain" />
+              <Image src="/images/partners/pcsir.png" alt="Pakistan Council of Scientific and Industrial Research" width={48} height={48} className="h-12 w-12 object-contain" />
+            </div>
+          </div>
+        </div>
+
+        <p className="mx-auto mt-5 max-w-4xl text-center text-xs leading-relaxed text-slate-500">
+          Corporate registration, institutional involvement and laboratory certification are separate claims. None implies product approval, PLS company ISO certification or endorsement by the institutions shown.
         </p>
       </div>
     </section>
