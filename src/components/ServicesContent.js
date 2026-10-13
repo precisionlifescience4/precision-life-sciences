@@ -424,6 +424,15 @@ export default function ServicesContent() {
         ))}
       </div>
 
+      <div className="mt-10 flex flex-col justify-between gap-4 rounded-2xl border border-navy/10 bg-graybg p-6 md:flex-row md:items-center">
+        <div className="max-w-2xl">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyandark">Mugen-Prep · in development</p>
+          <h2 className="mt-2 text-xl font-extrabold text-navy">Column-based DNA and RNA extraction kits</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">A separate RUO preparation line planned alongside Mugen-Plex PCR assays.</p>
+        </div>
+        <Link href="/extraction-kits" className="shrink-0 text-sm font-bold text-cyandark hover:text-navy">Explore extraction kits →</Link>
+      </div>
+
       <div className="mx-auto mt-12 max-w-3xl space-y-2 text-center text-xs leading-relaxed text-gray-500">
         <p>
           Mugen-Plex products are RUO and are not intended for use in diagnostic procedures. Specifications may

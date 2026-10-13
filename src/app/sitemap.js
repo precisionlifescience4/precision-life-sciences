@@ -8,6 +8,7 @@ export default function sitemap() {
     '',
     '/about',
     '/services',
+    '/extraction-kits',
     '/molecular-services',
     '/resources',
     '/contact',
