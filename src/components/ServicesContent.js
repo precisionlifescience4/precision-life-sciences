@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import FAQ from '@/components/FAQ';
 import TM from '@/components/TM';
+import { EMERGENCY_PANELS } from '@/lib/emergencyPanels';
 
 const FALLBACK_SERVICES = [
   {
@@ -172,7 +173,15 @@ const COMMERCIAL_SERVICES = [
   },
 ];
 
-const JOURNEY_IDS = new Set(['infectious', 'myeloid', 'laboratory-services', 'collaboration']);
+const JOURNEY_IDS = new Set(['infectious', 'emergency-panels', 'myeloid', 'laboratory-services', 'collaboration']);
+const EMERGENCY_PANEL_SERVICES = EMERGENCY_PANELS.map((panel) => ({
+  id: panel.id,
+  slug: panel.id,
+  name: panel.name,
+  description: panel.description,
+  price: 'In development · RUO concept',
+  color: panel.color,
+}));
 const ASSAY_DETAIL_PATHS = {
   hbv: '/assays/hbv',
   hcv: '/assays/hcv',
@@ -241,6 +250,14 @@ export default function ServicesContent() {
       items: services.filter((service) => service.slug !== 'support' && !isInDevelopment(service)),
     },
     {
+      id: 'emergency-panels',
+      tabLabel: 'I am exploring emergency panels',
+      eyebrow: 'Emergency medicine research pipeline',
+      title: 'Explore the respiratory and meningitis panel concepts',
+      description: 'Both multiplex real-time PCR panels are in development. Target coverage, specimen requirements, format and performance have not been established; neither is intended for clinical decision-making.',
+      items: EMERGENCY_PANEL_SERVICES,
+    },
+    {
       id: 'myeloid',
       tabLabel: 'I am exploring myeloid assays',
       eyebrow: 'Mugen-Plex Myeloid',
@@ -299,7 +316,7 @@ export default function ServicesContent() {
         Start with the outcome you need. Each route shows only the relevant assays, services and next step.
       </p>
 
-      <nav aria-label="Customer journeys" className="mx-auto mb-12 grid max-w-5xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <nav aria-label="Customer journeys" className="mx-auto mb-12 grid max-w-6xl gap-3 sm:grid-cols-2 lg:grid-cols-5">
         {serviceGroups.map((group) => (
           <button
             key={group.id}

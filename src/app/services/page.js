@@ -3,11 +3,11 @@ import ServicesContent from '@/components/ServicesContent';
 
 export const metadata = {
   title: 'PCR Assays, Sanger Sequencing & Molecular Services',
-  description: 'Explore Mugen-Plex RUO PCR assays and commercial research services including DNA extraction, DNA/RNA quantification, PCR amplification, gel electrophoresis and Sanger sequencing.',
+  description: 'Explore Mugen-Plex RUO PCR assays, respiratory and meningitis panel concepts in development, and commercial molecular research services.',
   alternates: { canonical: '/services' },
   openGraph: {
     title: 'PCR Assays, Sanger Sequencing & Molecular Services',
-    description: 'Explore Mugen-Plex RUO assays and commercial molecular research services from Precision Life Sciences.',
+    description: 'Explore Mugen-Plex RUO assays, respiratory and meningitis panel concepts in development, and molecular research services.',
     url: `${SITE_URL}/services`,
   },
 };

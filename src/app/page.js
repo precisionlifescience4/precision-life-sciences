@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import InfectiousRange from '@/components/InfectiousRange';
+import EmergencyPanels from '@/components/EmergencyPanels';
 import InstitutionalStrip from '@/components/InstitutionalStrip';
 
 const ASSAY_MARKERS = [
@@ -133,6 +134,7 @@ export default function Home() {
       </section>
 
       <InfectiousRange />
+      <EmergencyPanels />
 
       <section className="bg-graybg px-4 py-12 md:py-16">
         <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-2">
