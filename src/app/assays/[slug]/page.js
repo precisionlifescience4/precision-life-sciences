@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
   if (!assay) return {};
 
   const title = `${assay.shortName} Real-Time PCR Assay (RUO)`;
-  const description = `${assay.fullName} for ${assay.researchArea}, presented in ${assay.formats} with ${assay.storage} storage.`;
+  const description = `${assay.fullName} for ${assay.researchArea}, presented in ${assay.formats}. ${assay.roomTemperatureStable ? 'Room-temperature stable when unopened and dry' : 'Contact PLS for current storage instructions'}; RUO.`;
 
   return {
     title,
@@ -97,6 +97,11 @@ export default async function AssayPage({ params }) {
               <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">
                 A consistent Mugen-Plex RUO kit format for {assay.researchArea}, supported by a Pakistan-based technical team.
               </p>
+              {assay.roomTemperatureStable && (
+                <p className="mt-4 inline-flex rounded-full border border-cyan/40 bg-white px-4 py-2 text-sm font-bold text-navy">
+                  Room-temperature stable · unopened and dry
+                </p>
+              )}
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link
                   href={`/contact?topic=enquire&product=${encodeURIComponent(assay.fullName)}`}

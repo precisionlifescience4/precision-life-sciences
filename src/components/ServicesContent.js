@@ -13,7 +13,7 @@ const FALLBACK_SERVICES = [
     name: 'Mugen-Plex HBV Real-Time PCR Assay',
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for hepatitis B virus research workflows.',
     sample_type: 'Plasma',
-    storage_condition: '2–8 °C',
+    storage_condition: 'Room-temperature stable (unopened, dry)',
     price: '24/48/96 Tests · RUO',
     color: 'hbv',
   },
@@ -23,7 +23,7 @@ const FALLBACK_SERVICES = [
     name: 'Mugen-Plex HCV Real-Time PCR Assay',
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for hepatitis C virus research workflows.',
     sample_type: 'Plasma',
-    storage_condition: '2–8 °C',
+    storage_condition: 'Room-temperature stable (unopened, dry)',
     price: '24/48/96 Tests · RUO',
     color: 'hcv',
   },
@@ -33,7 +33,7 @@ const FALLBACK_SERVICES = [
     name: 'Mugen-Plex HIV Real-Time PCR Assay',
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for human immunodeficiency virus research workflows.',
     sample_type: 'Plasma',
-    storage_condition: '2–8 °C',
+    storage_condition: 'Room-temperature stable (unopened, dry)',
     price: '24/48/96 Tests · RUO',
     color: 'hiv',
   },
@@ -43,7 +43,7 @@ const FALLBACK_SERVICES = [
     name: 'Mugen-Plex Dengue / Chikungunya Real-Time PCR Assay',
     description: 'A combined RUO arbovirus assay available in 24-, 48-, and 96-test kit formats.',
     sample_type: 'Plasma',
-    storage_condition: '2–8 °C',
+    storage_condition: 'Room-temperature stable (unopened, dry)',
     price: '24/48/96 Tests · RUO',
     color: 'dengue',
   },
@@ -53,7 +53,7 @@ const FALLBACK_SERVICES = [
     name: 'Mugen-Plex Influenza A & B Real-Time PCR Assay',
     description: 'An RUO assay available in 24-, 48-, and 96-test kit formats for influenza A and B research workflows.',
     sample_type: 'Nasopharyngeal swab',
-    storage_condition: '2–8 °C',
+    storage_condition: 'Room-temperature stable (unopened, dry)',
     price: '24/48/96 Tests · RUO',
     color: 'flu',
   },
@@ -63,7 +63,7 @@ const FALLBACK_SERVICES = [
     name: 'Mugen-Plex CCHF Real-Time PCR Assay',
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for Crimean-Congo haemorrhagic fever virus research.',
     sample_type: 'Plasma',
-    storage_condition: '2–8 °C',
+    storage_condition: 'Confirm with PLS',
     price: '24/48/96 Tests · RUO',
     color: 'cchf',
   },
@@ -428,7 +428,7 @@ export default function ServicesContent() {
         <div className="max-w-2xl">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyandark">Mugen-Prep · in development</p>
           <h2 className="mt-2 text-xl font-extrabold text-navy">Column-based DNA and RNA extraction kits</h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">A separate RUO preparation line planned alongside Mugen-Plex PCR assays.</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">RUO extraction kits that are room-temperature stable when unopened, planned alongside Mugen-Plex PCR assays.</p>
         </div>
         <Link href="/extraction-kits" className="shrink-0 text-sm font-bold text-cyandark hover:text-navy">Explore extraction kits →</Link>
       </div>

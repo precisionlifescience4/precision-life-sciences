@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 const FALLBACK_BADGES = [
   { id: 'ruo', title: 'Clear RUO positioning', description: 'Product status is stated consistently across the portfolio and customer journey.' },
   { id: 'format', title: '24/48/96-test formats', description: 'A shared presentation helps laboratories move between assays with less friction.' },
-  { id: 'storage', title: '2–8 °C storage', description: 'The stated storage range is surfaced clearly where customers compare products.' },
+  { id: 'storage', title: 'Room-temperature-stable options', description: 'Selected unopened Mugen-Plex kits are stable when kept dry at room temperature; follow product-specific instructions.' },
   { id: 'support', title: 'Pakistan-based support', description: 'A local team is available for product information, research discussion and follow-up.' },
 ];
 

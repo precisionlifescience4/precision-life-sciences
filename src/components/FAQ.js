@@ -16,7 +16,7 @@ const FAQS = [
   {
     id: 'storage',
     question: 'How should the kits be stored?',
-    answer: 'The stated storage condition for the current Mugen-Plex portfolio is 2–8 °C. Always follow the product-specific documentation supplied with the kit.',
+    answer: 'The unopened, dry HBV, HCV, HIV, Dengue/Chikungunya and Influenza A & B kits are room-temperature stable. CCHF storage is pending product-specific confirmation. Always follow the handling instructions supplied with each kit.',
   },
   {
     id: 'specimens',

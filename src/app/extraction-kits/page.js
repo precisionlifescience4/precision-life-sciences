@@ -4,11 +4,11 @@ import { SITE_URL } from '@/lib/site';
 
 export const metadata = {
   title: 'Mugen-Prep DNA & RNA Extraction Kits',
-  description: 'Explore Mugen-Prep column-based DNA and RNA extraction kit concepts for molecular research. Both are in development and for research use only.',
+  description: 'Explore Mugen-Prep column-based DNA and RNA extraction kit concepts for molecular research. Unopened kits are room-temperature stable. In development; RUO.',
   alternates: { canonical: '/extraction-kits' },
   openGraph: {
     title: 'Mugen-Prep DNA & RNA Extraction Kits | Precision Life Sciences',
-    description: 'Column-based DNA and RNA extraction kit concepts for research workflows. In development; RUO.',
+    description: 'Column-based DNA and RNA extraction kit concepts for research workflows. Unopened kits are room-temperature stable. In development; RUO.',
     url: `${SITE_URL}/extraction-kits`,
   },
 };
@@ -26,11 +26,12 @@ export default function ExtractionKitsPage() {
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Precision Life Sciences · research pipeline</p>
           <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-navy md:text-5xl">Mugen-Prep</h1>
           <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-600">
-            Our planned column-based line for DNA and RNA extraction—an upstream companion to the Mugen-Plex real-time PCR portfolio.
+            Column-based DNA and RNA extraction kits for molecular research—room-temperature stable when unopened, and an upstream companion to the Mugen-Plex real-time PCR portfolio.
           </p>
           <div className="mt-6 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
             <span className="rounded-full border border-navy/15 bg-white px-4 py-2 text-navy">In development</span>
             <span className="rounded-full border border-navy/15 bg-white px-4 py-2 text-navy">Research use only</span>
+            <span className="rounded-full border border-cyan/40 bg-white px-4 py-2 text-navy">Room-temperature stable · unopened</span>
           </div>
         </div>
       </section>
@@ -48,6 +49,7 @@ export default function ExtractionKitsPage() {
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">In development · RUO</p>
                 <h3 className="mt-2 text-2xl font-extrabold text-navy">{kit.molecule} Extraction Kit</h3>
                 <p className="mt-4 leading-relaxed text-slate-600">{kit.description}</p>
+                <p className="mt-4 text-sm font-bold text-navy">Storage: {kit.storage}</p>
                 <Link
                   href={`/contact?topic=interest&product=${encodeURIComponent(kit.name)}`}
                   className="mt-7 inline-flex self-start rounded-full bg-navy px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-navylight"
@@ -58,7 +60,7 @@ export default function ExtractionKitsPage() {
             ))}
           </div>
           <p className="mt-6 text-sm leading-relaxed text-slate-500">
-            Intended sample types, preparation capacity, storage, kit contents and performance have not yet been established. These concepts are not for use in diagnostic procedures.
+            Intended sample types, preparation capacity, kit contents and performance have not yet been established. Follow the product-specific storage and handling instructions supplied with each kit. These concepts are not for use in diagnostic procedures.
           </p>
         </div>
       </section>

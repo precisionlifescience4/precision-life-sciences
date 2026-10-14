@@ -18,7 +18,7 @@ const ASSAY_MARKERS = [
 
 const PROOF_POINTS = [
   { value: '24/48/96', label: 'tests per kit' },
-  { value: '2–8 °C', label: 'storage' },
+  { value: 'Room temperature', label: 'selected unopened kits' },
   { value: '6', label: 'infectious assays' },
   { value: '1', label: 'consistent family' },
 ];
@@ -50,7 +50,7 @@ export default function Home() {
               One family. Many assays. Total consistency.
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg lg:mx-0">
-              A unified RUO assay family in 24-, 48-, and 96-test formats, with clear colour-coding and responsive local support.
+              Room-temperature-stable RUO kit options in 24-, 48-, and 96-test formats, with clear colour-coding and responsive local support.
             </p>
 
             <div className="mx-auto mt-7 max-w-sm overflow-hidden rounded-2xl border border-white/20 bg-white lg:hidden">
@@ -147,7 +147,7 @@ export default function Home() {
           <article className="rounded-2xl border border-navy/10 bg-white p-7">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyandark">Mugen-Prep · in development</p>
             <h2 className="mt-3 text-2xl font-extrabold text-navy">Prepare DNA or RNA.</h2>
-            <p className="mt-3 leading-relaxed text-slate-600">Explore our planned column-based extraction kit line for molecular research.</p>
+            <p className="mt-3 leading-relaxed text-slate-600">Explore column-based DNA and RNA extraction kits that are room-temperature stable when unopened.</p>
             <Link href="/extraction-kits" className="mt-6 inline-block font-bold text-cyandark hover:text-navy">Explore extraction kits →</Link>
           </article>
           <article className="rounded-2xl border border-navy/10 bg-navy p-7 text-white">
