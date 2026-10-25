@@ -21,6 +21,13 @@ export const metadata = {
 
 const RESOURCE_ROUTES = [
   {
+    title: 'Sample Transport Guidance',
+    text: 'Plan an agreed research submission: labelling, protective packaging and the requirements to confirm before dispatch.',
+    label: 'Read the transport guide',
+    href: '/sample-transport',
+    icon: 'M21 8l-9 5-9-5M12 13v9M3 8l9-5 9 5v10l-9 5-9-5z',
+  },
+  {
     title: 'Product Datasheets',
     text: 'Ask for the current product information available for the Mugen-Plex assay relevant to your work.',
     label: 'Request product information',

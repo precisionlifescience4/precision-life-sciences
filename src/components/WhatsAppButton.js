@@ -8,10 +8,10 @@ export default function WhatsAppButton() {
   const pathname = usePathname();
 
   useEffect(() => {
-    fetch('/api/settings').then(r => r.json()).then(d => setWhatsapp(d.whatsapp));
+    fetch('/api/settings').then(r => r.json()).then(d => setWhatsapp(d.whatsapp)).catch(() => setWhatsapp(null));
   }, []);
 
-  if (!whatsapp || pathname === '/contact') return null;
+  if (!whatsapp || pathname === '/contact' || pathname.startsWith('/admin')) return null;
 
   return (
     <motion.a
@@ -23,7 +23,7 @@ export default function WhatsAppButton() {
       transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
       whileHover={{ scale: 1.1 }}
       className="fixed right-3 z-40 flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-green-600 text-white transition-colors hover:bg-green-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy sm:right-6 sm:h-14 sm:w-14"
-      style={{ bottom: 'max(1rem, env(safe-area-inset-bottom))' }}
+      style={{ bottom: 'calc(max(1rem, env(safe-area-inset-bottom)) + 4rem)' }}
       aria-label="Chat on WhatsApp"
     >
       <svg viewBox="0 0 32 32" width="28" height="28" fill="white">

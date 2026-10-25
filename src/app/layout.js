@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import ChatAssistant from '@/components/ChatAssistant';
 import { supabase } from '@/lib/supabase';
 import { INCORPORATION_DATE, LEGAL_NAME, SECP_CUIN, SECP_VERIFICATION_URL, SITE_URL, SITE_NAME } from '@/lib/site';
 import PrelaunchBanner, { DEFAULT_NOTICE } from '@/components/PrelaunchBanner';
@@ -104,6 +105,7 @@ export default async function RootLayout({ children }) {
         {children}
         <Footer />
         <WhatsAppButton />
+        <ChatAssistant />
       </body>
     </html>
   );

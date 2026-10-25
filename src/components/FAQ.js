@@ -61,15 +61,19 @@ export default function FAQ() {
             className="border border-gray-200 rounded-xl overflow-hidden"
           >
             <button
+              type="button"
+              aria-expanded={open === item.id}
+              aria-controls={`faq-answer-${item.id}`}
               onClick={() => setOpen(open === item.id ? null : item.id)}
               className="w-full flex justify-between items-center text-left px-5 py-4 font-semibold text-navy bg-graybg hover:bg-gray-100 transition-colors"
             >
               {item.question}
-              <span className={`text-cyandark text-xl transition-transform ${open === item.id ? 'rotate-45' : ''}`}>+</span>
+              <span aria-hidden="true" className={`text-cyandark text-xl transition-transform ${open === item.id ? 'rotate-45' : ''}`}>+</span>
             </button>
             <AnimatePresence>
               {open === item.id && (
                 <motion.div
+                  id={`faq-answer-${item.id}`}
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}

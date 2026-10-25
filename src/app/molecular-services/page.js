@@ -67,6 +67,7 @@ export default function MolecularServicesPage() {
           <Link href="/contact?topic=service" className="mt-8 inline-block rounded-full bg-cyan px-7 py-3.5 font-bold text-navy hover:bg-white">
             Request a quotation
           </Link>
+          <Link href="/sample-transport" className="mx-auto mt-4 flex min-h-11 w-fit items-center text-sm font-semibold text-white underline underline-offset-4 hover:text-sky-200">Read sample transport guidance →</Link>
         </div>
       </section>
 

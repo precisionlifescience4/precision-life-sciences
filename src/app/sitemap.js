@@ -12,6 +12,8 @@ export default function sitemap() {
     '/molecular-services',
     '/resources',
     '/contact',
+    '/request-sample',
+    '/sample-transport',
     ...INFECTIOUS_ASSAYS.map((assay) => `/assays/${assay.slug}`),
     ...LAB_SERVICES.map((service) => `/molecular-services/${service.slug}`),
   ];

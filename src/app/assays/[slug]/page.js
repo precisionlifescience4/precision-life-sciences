@@ -103,9 +103,10 @@ export default async function AssayPage({ params }) {
                 </p>
               )}
               <div className="mt-7 flex flex-wrap gap-3">
+                <Link href={`/request-sample?product=${assay.slug}`} className="rounded-full bg-navy px-6 py-3 font-bold text-white transition-colors hover:bg-navylight">Request a sample kit</Link>
                 <Link
                   href={`/contact?topic=enquire&product=${encodeURIComponent(assay.fullName)}`}
-                  className="rounded-full bg-navy px-6 py-3 font-bold text-white transition-colors hover:bg-navylight"
+                  className="rounded-full border border-navy/25 bg-white px-6 py-3 font-bold text-navy transition-colors hover:border-navy"
                 >
                   Request information
                 </Link>

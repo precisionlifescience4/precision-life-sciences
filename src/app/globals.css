@@ -18,6 +18,39 @@
 
 body {
   font-family: var(--font-inter), system-ui, sans-serif;
+  color: #334155;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+html { scroll-padding-top: 7rem; }
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--color-cyandark);
+  outline-offset: 3px;
+}
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), summary { cursor: pointer; }
+::selection { background: #ccecf8; color: var(--color-navy); }
+
+.pls-chat-dialog {
+  position: fixed;
+  inset: auto 1rem max(1rem, env(safe-area-inset-bottom)) auto;
+  margin: 0;
+  width: min(420px, calc(100vw - 2rem));
+  max-width: none;
+  height: min(650px, calc(100dvh - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 1px solid #dce5ee;
+  border-radius: 1rem;
+  box-shadow: 0 20px 80px #00205b30;
+  color: #334155;
+}
+.pls-chat-dialog::backdrop { background: #00102f30; }
+.pls-chat-dialog[open] { display: flex; flex-direction: column; }
+@media (max-width: 480px) {
+  .pls-chat-dialog { inset: auto .5rem max(.5rem, env(safe-area-inset-bottom)) .5rem; width: calc(100vw - 1rem); }
+  input, select, textarea { font-size: 16px; }
 }
 
 .skip-link {

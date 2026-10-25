@@ -1,9 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import FAQ from '@/components/FAQ';
-import TM from '@/components/TM';
 import { EMERGENCY_PANELS } from '@/lib/emergencyPanels';
 
 const FALLBACK_SERVICES = [
@@ -194,8 +192,8 @@ const ASSAY_DETAIL_PATHS = {
 function SpecChip({ label, value }) {
   return (
     <div className="bg-graybg rounded-lg px-3 py-2">
-      <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">{label}</p>
-      <p className="text-xs font-medium text-navy leading-snug">{value}</p>
+      <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">{label}</p>
+      <p className="mt-1 text-sm font-medium text-navy leading-snug">{value}</p>
     </div>
   );
 }
@@ -235,15 +233,15 @@ export default function ServicesContent() {
     dengue: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
     denv: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
     chikv: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
-    flu: { border: 'border-flu', text: 'text-flu', bg: 'bg-flu' },
-    cchf: { border: 'border-cchf', text: 'text-cchf', bg: 'bg-cchf' },
+    flu: { border: 'border-flu', text: 'text-cyandark', bg: 'bg-flu' },
+    cchf: { border: 'border-cchf', text: 'text-[#9f4718]', bg: 'bg-cchf' },
     navy: { border: 'border-navy', text: 'text-navy', bg: 'bg-navy' },
   };
 
   const serviceGroups = [
     {
       id: 'infectious',
-      tabLabel: 'I need an infectious assay',
+      tabLabel: 'Infectious assays',
       eyebrow: 'Mugen-Plex Infectious',
       title: 'Choose an infectious-disease assay',
       description: 'Six clearly differentiated assays presented in one consistent RUO kit family.',
@@ -251,7 +249,7 @@ export default function ServicesContent() {
     },
     {
       id: 'emergency-panels',
-      tabLabel: 'I am exploring emergency panels',
+      tabLabel: 'Emergency panels',
       eyebrow: 'Emergency medicine research pipeline',
       title: 'Explore the respiratory and meningitis panel concepts',
       description: 'Both multiplex real-time PCR panels are in development. Target coverage, specimen requirements, format and performance have not been established; neither is intended for clinical decision-making.',
@@ -259,7 +257,7 @@ export default function ServicesContent() {
     },
     {
       id: 'myeloid',
-      tabLabel: 'I am exploring myeloid assays',
+      tabLabel: 'Myeloid assays',
       eyebrow: 'Mugen-Plex Myeloid',
       title: 'Explore the myeloid assay pipeline',
       description: 'A focused molecular-haematology line currently in development.',
@@ -267,7 +265,7 @@ export default function ServicesContent() {
     },
     {
       id: 'laboratory-services',
-      tabLabel: 'I need a laboratory service',
+      tabLabel: 'Lab services',
       eyebrow: 'Commercial molecular services',
       title: 'Build a defined research workflow',
       description: 'Access individual services or discuss an integrated workflow from sample preparation through Sanger sequencing.',
@@ -275,7 +273,7 @@ export default function ServicesContent() {
     },
     {
       id: 'collaboration',
-      tabLabel: 'I want to collaborate',
+      tabLabel: 'Collaboration',
       eyebrow: 'Work with PLS',
       title: 'Development and technical collaboration',
       description: 'Start with a defined assay requirement, implementation question or research objective.',
@@ -284,80 +282,131 @@ export default function ServicesContent() {
   ].filter((group) => group.items.length);
 
   const [activeJourney, setActiveJourney] = useState('infectious');
+  const [query, setQuery] = useState('');
+  const searchInput = useRef(null);
 
   useEffect(() => {
     const selectFromHash = () => {
       const requested = window.location.hash.replace('#', '');
-      if (JOURNEY_IDS.has(requested)) setActiveJourney(requested);
+      setActiveJourney(JOURNEY_IDS.has(requested) ? requested : 'infectious');
+      setQuery('');
     };
     selectFromHash();
     window.addEventListener('hashchange', selectFromHash);
-    return () => window.removeEventListener('hashchange', selectFromHash);
+    window.addEventListener('popstate', selectFromHash);
+    return () => {
+      window.removeEventListener('hashchange', selectFromHash);
+      window.removeEventListener('popstate', selectFromHash);
+    };
   }, []);
 
   const activeGroup = serviceGroups.find((group) => group.id === activeJourney) || serviceGroups[0];
+  const searchTerms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  const visibleItems = activeGroup.items.filter((service) => {
+    const searchable = [service.name, service.description, service.sample_type, service.storage_condition, service.price]
+      .filter(Boolean).join(' ').toLowerCase();
+    return searchTerms.every((term) => searchable.includes(term));
+  });
 
   const chooseJourney = (id) => {
+    if (id === activeJourney) return;
     setActiveJourney(id);
-    window.history.replaceState(null, '', `#${id}`);
+    setQuery('');
+    window.history.pushState(null, '', `#${id}`);
+  };
+
+  const clearSearch = () => {
+    setQuery('');
+    searchInput.current?.focus();
   };
 
   return (
-    <main id="main-content" className="max-w-6xl mx-auto px-4 py-14 md:py-16">
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="text-4xl font-bold text-navy mb-2 text-center"
-      >
-        <TM text="Choose your route into Mugen-Plex" />
-      </motion.h1>
-      <p className="mx-auto mb-10 max-w-2xl text-center text-gray-600">
-        Start with the outcome you need. Each route shows only the relevant assays, services and next step.
-      </p>
+    <main id="main-content" className="max-w-6xl mx-auto px-5 py-12 sm:px-6 md:py-16">
+      <div className="mb-9 max-w-3xl">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Explore the PLS portfolio</p>
+        <h1 className="mt-4 text-3xl font-bold leading-tight text-navy sm:text-4xl md:text-5xl">Assays &amp; laboratory services</h1>
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600">
+          Find a research assay, explore our development pipeline, or choose a service for your laboratory workflow.
+        </p>
+      </div>
 
-      <nav aria-label="Customer journeys" className="mx-auto mb-12 grid max-w-6xl gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mb-8 flex flex-col items-start justify-between gap-3 rounded-lg border border-cyan/20 bg-graybg px-5 py-4 sm:flex-row sm:items-center">
+        <p className="text-sm text-slate-600"><span className="font-semibold text-navy">Planning to send samples?</span> Confirm acceptance and transport requirements first.</p>
+        <Link href="/sample-transport" className="inline-flex min-h-11 shrink-0 items-center text-sm font-bold text-cyandark hover:text-navy">Sample transport guide →</Link>
+      </div>
+
+      <nav aria-label="Portfolio categories" className="mb-8 flex flex-wrap gap-2 border-b border-slate-200 pb-6">
         {serviceGroups.map((group) => (
           <button
             key={group.id}
             type="button"
             aria-pressed={activeGroup.id === group.id}
+            aria-controls="catalogue-results"
             onClick={() => chooseJourney(group.id)}
-            className={`min-h-16 rounded-xl border px-4 py-3 text-left text-sm font-bold leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+            className={`inline-flex min-h-12 items-center gap-3 rounded-lg border px-4 py-3 text-left text-sm font-semibold leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
               activeGroup.id === group.id
                 ? 'border-navy bg-navy text-white'
                 : 'border-navy/15 bg-graybg text-navy hover:border-cyan'
             }`}
           >
             {group.tabLabel}
+            <span aria-hidden="true" className={`rounded px-1.5 py-0.5 text-[11px] ${activeGroup.id === group.id ? 'bg-white/15 text-white' : 'bg-white text-slate-500'}`}>{group.items.length}</span>
           </button>
         ))}
       </nav>
 
-      <div>
+      <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="w-full sm:max-w-md">
+          <label htmlFor="catalogue-search" className="text-sm font-semibold text-navy">Search {activeGroup.tabLabel.toLowerCase()}</label>
+          <div className="relative mt-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="pointer-events-none absolute left-3.5 top-3.5 h-5 w-5 text-slate-400" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4.5 4.5" /></svg>
+            <input
+              ref={searchInput}
+              id="catalogue-search"
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search by name, target or sample type"
+              aria-controls="catalogue-results"
+              className="min-h-12 w-full rounded-lg border border-slate-300 bg-white py-3 pl-11 pr-4 text-sm text-navy placeholder:text-slate-500 focus:border-cyandark focus:outline-none focus:ring-2 focus:ring-cyan/20"
+            />
+          </div>
+        </div>
+        <div className="flex min-h-8 items-center gap-4 text-sm">
+          <p role="status" aria-atomic="true" className="text-slate-600">Showing <span className="font-semibold text-navy">{visibleItems.length}</span> of {activeGroup.items.length} in {activeGroup.tabLabel.toLowerCase()}</p>
+          {query && <button type="button" onClick={clearSearch} className="min-h-11 shrink-0 font-semibold text-cyandark underline underline-offset-4 hover:text-navy">Clear search</button>}
+        </div>
+      </div>
+
+      <div id="catalogue-results">
         {[activeGroup].map((group) => (
-          <motion.section
+          <section
             id={`${group.id}-panel`}
             key={group.id}
-            aria-live="polite"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            aria-labelledby={`${group.id}-heading`}
           >
             <div className="mb-8 max-w-2xl">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">{group.eyebrow}</p>
-              <h2 className="mt-2 text-2xl font-extrabold text-navy md:text-3xl">{group.title}</h2>
+              <h2 id={`${group.id}-heading`} className="mt-2 text-2xl font-extrabold text-navy md:text-3xl">{group.title}</h2>
               <p className="mt-3 leading-relaxed text-slate-600">{group.description}</p>
             </div>
 
-            <div className={`grid gap-6 ${
+            {visibleItems.length === 0 && (
+              <div className="rounded-xl border border-dashed border-slate-300 bg-graybg px-6 py-10 text-center">
+                <h3 className="text-xl font-bold text-navy">No matching results</h3>
+                <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-600">Try a shorter name or a different search term, or choose another category above.</p>
+                <button type="button" onClick={clearSearch} className="mt-5 min-h-11 rounded-lg bg-navy px-5 py-3 text-sm font-semibold text-white hover:bg-navylight">Show all {group.tabLabel.toLowerCase()}</button>
+              </div>
+            )}
+
+            <div className={`grid gap-5 ${
               group.id === 'collaboration'
                 ? 'md:grid-cols-1'
                 : group.id === 'laboratory-services'
                   ? 'md:grid-cols-2 lg:grid-cols-3'
                   : 'md:grid-cols-2'
             }`}>
-              {group.items.map((s, i) => {
+              {visibleItems.map((s) => {
                 const c = colorMap[s.color] || colorMap.navy;
                 // General, public-facing specs only. Gene regions and reaction details stay in the datasheet.
                 const chips = [
@@ -367,13 +416,9 @@ export default function ServicesContent() {
                   ['Shelf life', s.shelf_life],
                 ].filter(([, v]) => v);
                 return (
-                  <motion.article
+                  <article
                     key={s.id}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: (i % 2) * 0.08, duration: 0.5, ease: 'easeOut' }}
-                    className={`flex h-full flex-col border-t-4 ${c.border} rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md`}
+                    className={`flex h-full flex-col rounded-xl border border-slate-200 border-t-4 ${c.border} bg-white p-5 transition-shadow hover:shadow-[0_8px_30px_rgba(0,32,91,0.06)] sm:p-6`}
                   >
                     <h3 className="mb-2 text-lg font-bold text-navy">{s.name}</h3>
                     <p className="mb-4 text-sm leading-relaxed text-gray-600">{s.description}</p>
@@ -393,7 +438,8 @@ export default function ServicesContent() {
                           <Link
                             key={act.label}
                             href={act.href}
-                            className={`rounded-full px-3.5 py-2 text-xs font-semibold transition-colors ${
+                            aria-label={`${act.label}: ${s.name}`}
+                            className={`inline-flex min-h-11 items-center rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
                               act.primary
                                 ? 'bg-navy text-white hover:bg-navylight'
                                 : 'border border-navy/25 text-navy hover:border-navy'
@@ -404,7 +450,7 @@ export default function ServicesContent() {
                         ))}
                       </div>
                     </div>
-                  </motion.article>
+                  </article>
                 );
               })}
             </div>
@@ -420,7 +466,7 @@ export default function ServicesContent() {
                 </Link>
               </div>
             )}
-          </motion.section>
+          </section>
         ))}
       </div>
 

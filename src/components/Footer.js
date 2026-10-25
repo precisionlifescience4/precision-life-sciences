@@ -1,16 +1,47 @@
 'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { LEGAL_NAME, SECP_CUIN } from '@/lib/site';
 
-const LAB_SERVICE_LINKS = [
-  ['DNA Extraction', '/molecular-services/dna-extraction'],
-  ['DNA/RNA Quantification', '/molecular-services/dna-rna-quantification'],
-  ['PCR Amplification', '/molecular-services/pcr-amplification'],
-  ['Gel Electrophoresis', '/molecular-services/gel-electrophoresis'],
-  ['Sanger Sequencing', '/molecular-services/sanger-sequencing'],
+const LINK_GROUPS = [
+  {
+    title: 'Products',
+    links: [
+      ['Infectious disease assays', '/services#infectious'],
+      ['Mugen-Prep extraction kits', '/extraction-kits'],
+      ['Myeloid assay pipeline', '/services#myeloid'],
+      ['Emergency research panels', '/services#emergency-panels'],
+      ['All assays & services', '/services'],
+      ['Request a sample kit', '/request-sample'],
+    ],
+  },
+  {
+    title: 'Laboratory services',
+    links: [
+      ['DNA extraction', '/molecular-services/dna-extraction'],
+      ['DNA/RNA quantification', '/molecular-services/dna-rna-quantification'],
+      ['PCR amplification', '/molecular-services/pcr-amplification'],
+      ['Gel electrophoresis', '/molecular-services/gel-electrophoresis'],
+      ['Sanger sequencing', '/molecular-services/sanger-sequencing'],
+      ['All laboratory services', '/molecular-services'],
+      ['Sample transport guidance', '/sample-transport'],
+    ],
+  },
+  {
+    title: 'Precision Life Sciences',
+    links: [
+      ['Home', '/'],
+      ['About PLS', '/about'],
+      ['Resources & safety data', '/resources'],
+      ['Corporate credentials', '/resources#corporate-credentials'],
+      ['Contact', '/contact'],
+    ],
+  },
 ];
+
+const linkClass = 'inline-block py-1 transition-colors hover:text-white hover:underline underline-offset-4';
 
 export default function Footer() {
   const [settings, setSettings] = useState(null);
@@ -24,85 +55,61 @@ export default function Footer() {
     : null;
 
   return (
-    <footer className="bg-navy text-white">
-      <div className="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div>
-          <Image src="/images/logo-dark.svg" alt="Precision Life Sciences" width={180} height={45} className="mb-4" />
-          <p className="text-gray-300 text-sm">
-            Molecular assay development and the Mugen-Plex RUO real-time PCR portfolio, based in Peshawar, Pakistan.
-          </p>
+    <footer className="border-t border-white/10 bg-navy text-white">
+      <div className="mx-auto max-w-7xl px-5 pb-8 pt-12 sm:px-6 md:pt-16">
+        <div className="flex flex-col justify-between gap-6 border-b border-white/15 pb-9 md:flex-row md:items-center">
+          <div>
+            <Link href="/" className="inline-block rounded-sm" aria-label="Precision Life Sciences home">
+              <Image src="/images/logo-dark.svg" alt="Precision Life Sciences" width={210} height={54} className="mb-4 h-auto w-[210px]" />
+            </Link>
+            <p className="max-w-md text-sm leading-relaxed text-slate-300">Molecular assay development and the Mugen-Plex RUO real-time PCR portfolio, based in Peshawar, Pakistan.</p>
+          </div>
+          <Link href="/contact?topic=enquire" className="inline-flex min-h-12 items-center justify-center gap-6 self-start rounded-lg border border-white/30 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 md:self-center">
+            Request product information <span aria-hidden="true">↗</span>
+          </Link>
         </div>
-        <div>
-          <p className="font-semibold mb-3">Laboratory Services</p>
-          <ul className="space-y-2 text-sm text-gray-300">
-            {LAB_SERVICE_LINKS.map(([label, href]) => (
-              <li key={href}><Link href={href} className="hover:text-cyan transition-colors">{label}</Link></li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <p className="font-semibold mb-3">Quick Links</p>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li><Link href="/" className="hover:text-cyan transition-colors">Home</Link></li>
-            <li><Link href="/about" className="hover:text-cyan transition-colors">About Us</Link></li>
-            <li><Link href="/services" className="hover:text-cyan transition-colors">Assays &amp; Services</Link></li>
-            <li><Link href="/extraction-kits" className="hover:text-cyan transition-colors">Mugen-Prep Extraction Kits</Link></li>
-            <li><Link href="/molecular-services" className="hover:text-cyan transition-colors">Laboratory Services</Link></li>
-            <li><Link href="/resources" className="hover:text-cyan transition-colors">Resources</Link></li>
-            <li><Link href="/contact" className="hover:text-cyan transition-colors">Contact</Link></li>
-          </ul>
-        </div>
-        <div>
-          <p className="font-semibold mb-3">Contact</p>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li>
-              {publicDomainEmail ? (
-                <a href={`mailto:${publicDomainEmail}`} className="hover:text-cyan transition-colors">{publicDomainEmail}</a>
-              ) : <Link href="/contact" className="hover:text-cyan transition-colors">Use the enquiry form →</Link>}
-            </li>
-            <li>
-              {settings?.phone ? (
-                <a href={`tel:${settings.phone}`} className="hover:text-cyan transition-colors">{settings.phone}</a>
-              ) : <Link href="/contact" className="hover:text-cyan transition-colors">Request a call →</Link>}
-            </li>
-            <li>
-              {settings?.address ? (
-                settings?.maps_link ? (
-                  <a href={settings.maps_link} target="_blank" rel="noopener noreferrer" className="hover:text-cyan transition-colors">{settings.address}</a>
-                ) : settings.address
-              ) : 'Peshawar, Khyber Pakhtunkhwa, Pakistan'}
-            </li>
-          </ul>
-          <div className="flex gap-4 mt-4 text-sm">
-            {settings?.facebook && <a href={settings.facebook} target="_blank" className="hover:text-cyan">Facebook</a>}
-            {settings?.instagram && <a href={settings.instagram} target="_blank" className="hover:text-cyan">Instagram</a>}
-            {settings?.youtube && <a href={settings.youtube} target="_blank" className="hover:text-cyan">YouTube</a>}
+
+        <div className="grid gap-x-8 gap-y-9 py-10 sm:grid-cols-2 lg:grid-cols-4">
+          {LINK_GROUPS.map((group) => (
+            <nav key={group.title} aria-label={group.title}>
+              <h2 className="mb-4 text-sm font-semibold text-white">{group.title}</h2>
+              <ul className="space-y-1 text-sm leading-relaxed text-slate-300">
+                {group.links.map(([label, href]) => (
+                  <li key={href}><Link href={href} className={linkClass}>{label}</Link></li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+
+          <div>
+            <h2 className="mb-4 text-sm font-semibold text-white">Get in touch</h2>
+            <ul className="space-y-3 text-sm leading-relaxed text-slate-300">
+              <li className="break-words">
+                {publicDomainEmail ? <a href={`mailto:${publicDomainEmail}`} className={linkClass}>{publicDomainEmail}</a> : <Link href="/contact" className={linkClass}>Use the enquiry form ↗</Link>}
+              </li>
+              <li>
+                {settings?.phone ? <a href={`tel:${settings.phone}`} className={linkClass}>{settings.phone}</a> : <Link href="/contact" className={linkClass}>Request a call ↗</Link>}
+              </li>
+              <li>
+                {settings?.address ? (
+                  settings?.maps_link ? <a href={settings.maps_link} target="_blank" rel="noopener noreferrer" className={linkClass}>{settings.address}</a> : settings.address
+                ) : 'Peshawar, Khyber Pakhtunkhwa, Pakistan'}
+              </li>
+            </ul>
+            <div className="mt-4 flex flex-wrap gap-4 text-sm text-slate-300">
+              {settings?.facebook && <a href={settings.facebook} target="_blank" rel="noopener noreferrer" className={linkClass}>Facebook</a>}
+              {settings?.instagram && <a href={settings.instagram} target="_blank" rel="noopener noreferrer" className={linkClass}>Instagram</a>}
+              {settings?.youtube && <a href={settings.youtube} target="_blank" rel="noopener noreferrer" className={linkClass}>YouTube</a>}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="border-t border-white/10 py-4 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-gray-400">
-          <p className="text-center md:text-left">
-            © {new Date().getFullYear()} {LEGAL_NAME}.{' '}
-            <Link href="/resources#corporate-credentials" className="hover:text-cyan transition-colors">
-              SECP CUIN {SECP_CUIN}
-            </Link>. RUO.
-            {' '}Mugen-Plex™ — trademark application in progress.
-          </p>
-          <Link href="/contact?topic=enquire" className="font-semibold text-cyan transition hover:text-white">Request product information →</Link>
-        </div>
-        <div className="max-w-7xl mx-auto flex justify-center md:justify-end mt-2">
-          <p className="text-[11px] text-gray-500">
-            Developed by{' '}
-            <a
-              href="https://share.google/AkFM4pQJHLmPGV1o4"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-cyan transition-colors"
-            >
-              Ibadullah
-            </a>
-          </p>
+
+        <div className="flex flex-col justify-between gap-4 border-t border-white/15 pt-6 text-xs leading-relaxed text-slate-300 md:flex-row md:items-start">
+          <div className="max-w-3xl">
+            <p>© {new Date().getFullYear()} {LEGAL_NAME}. <Link href="/resources#corporate-credentials" className="underline decoration-white/40 underline-offset-4 hover:text-white">SECP CUIN {SECP_CUIN}</Link>.</p>
+            <p className="mt-2">RUO. Mugen-Plex™ — trademark application in progress.</p>
+          </div>
+          <p className="shrink-0">Developed by <a href="https://share.google/AkFM4pQJHLmPGV1o4" target="_blank" rel="noopener noreferrer" className="underline decoration-white/40 underline-offset-4 hover:text-white">Ibadullah</a></p>
         </div>
       </div>
     </footer>
