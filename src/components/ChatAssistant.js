@@ -91,21 +91,21 @@ export default function ChatAssistant() {
     <>
       <button ref={launcher} onClick={show} type="button" aria-haspopup="dialog" aria-controls="pls-assistant" aria-expanded={open} className="fixed right-3 z-40 flex min-h-12 items-center gap-2.5 rounded-full border-2 border-white bg-navy px-5 py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-navylight sm:right-6" style={{ bottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
         <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M20 11.5a8 8 0 0 1-8 8H5l-3 3V11.5a9 9 0 0 1 18 0Z"/><path d="M7 10h8M7 14h5"/></svg>
-        Ask PLS
+        Ask DeeNA
       </button>
       <dialog ref={dialog} id="pls-assistant" aria-labelledby="pls-assistant-title" aria-describedby="pls-assistant-description" className="pls-chat-dialog" onClose={() => { setOpen(false); launcher.current?.focus(); }} onClick={event => { if (event.target === dialog.current) { const r = dialog.current.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) close(); } }}>
         <div className="flex shrink-0 items-center justify-between gap-3 bg-navy px-5 py-4 text-white">
-          <div><h2 id="pls-assistant-title" className="text-base font-semibold">PLS assistant</h2><p className="mt-1 text-xs text-slate-300">AI help with PLS information & enquiries</p></div>
-          <button type="button" onClick={close} aria-label="Close PLS assistant" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xl hover:bg-white/10">×</button>
+          <div><h2 id="pls-assistant-title" className="text-base font-semibold">DeeNA</h2><p className="mt-1 text-xs text-slate-300">PLS information & enquiries assistant</p></div>
+          <button type="button" onClick={close} aria-label="Close DeeNA" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xl hover:bg-white/10">×</button>
         </div>
-        <div ref={log} role="log" aria-label="Conversation with PLS assistant" aria-live="polite" aria-relevant="additions text" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5">
+        <div ref={log} role="log" aria-label="Conversation with DeeNA" aria-live="polite" aria-relevant="additions text" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5">
           <p id="pls-assistant-description" className="text-sm leading-relaxed text-slate-600">I can help you find PLS assays, laboratory services and sample information. I can’t confirm availability or accept a shipment.</p>
           {availability === 'checking' && <p role="status" className="mt-4 text-sm text-slate-500">Checking assistant availability…</p>}
           {availability === 'unavailable' && <div role="status" className="mt-4 rounded-lg border border-slate-200 bg-graybg p-4 text-sm leading-relaxed text-slate-600">AI chat is currently unavailable. You can use the links below or contact the PLS team for help.</div>}
           {availability === 'available' && messages.length === 0 && <div className="mt-5 space-y-2">{STARTERS.map(text => <button type="button" key={text} onClick={() => ask(text)} disabled={sending} className="block w-full rounded-lg border border-navy/15 bg-graybg px-3 py-3 text-left text-sm text-navy transition-colors hover:border-cyandark disabled:opacity-50">{text} <span aria-hidden="true">↗</span></button>)}</div>}
           <div className="mt-5 space-y-4">
             {messages.map((message, index) => <div key={index} className={`rounded-xl px-4 py-3 text-sm leading-relaxed ${message.role === 'user' ? 'ml-7 bg-navy text-white' : 'mr-3 border border-slate-200 bg-graybg text-slate-700'}`}>
-              <p className={`mb-1 text-[10px] font-bold uppercase tracking-wider ${message.role === 'user' ? 'text-slate-300' : 'text-cyandark'}`}>{message.role === 'user' ? 'You' : 'PLS AI assistant'}</p>
+              <p className={`mb-1 text-[10px] font-bold uppercase tracking-wider ${message.role === 'user' ? 'text-slate-300' : 'text-cyandark'}`}>{message.role === 'user' ? 'You' : 'DeeNA'}</p>
               <p className="whitespace-pre-wrap break-words">{message.content}</p>
               {message.sources?.length > 0 && <ul aria-label="Related PLS pages" className="mt-3 space-y-2 border-t border-navy/10 pt-3">{message.sources.map(source => <li key={source.href}><Link href={source.href} onClick={close} className="font-semibold text-cyandark underline underline-offset-4">{source.title} →</Link></li>)}</ul>}
             </div>)}

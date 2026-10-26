@@ -6,7 +6,7 @@
 - Searchable assay/service catalogue with category links, empty states and browser back/forward support.
 - `/request-sample`: evaluation-interest form, product-specific prefills, server validation, existing enquiry storage and notification routing. Requests are stored under the existing `General` inquiry type with a clearly labelled sample evaluation message, avoiding a database migration. Email subjects identify sample-kit evaluation.
 - `/sample-transport`: public planning guidance with WHO, CDC and IATA references. No unverified specimen acceptance, volumes, temperatures, transit times or shipping classifications are promised.
-- `Ask PLS`: accessible dialog with a server-side OpenAI Responses API integration, grounded in the public PLS catalogue and transport guide. No action tools, private enquiry access, patient advice or shipment approval. Links returned to visitors are selected from the approved PLS page list.
+- `DeeNA`: accessible AI assistant dialog with a server-side Responses API integration, grounded in the public PLS catalogue and transport guide. No action tools, private enquiry access, patient advice or shipment approval. Links returned to visitors are selected from the approved PLS page list.
 
 ## AI replies — updated 26 October 2026
 
