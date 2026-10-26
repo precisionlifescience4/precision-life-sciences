@@ -118,7 +118,7 @@ export default function ChatAssistant() {
           {availability === 'available' && <form onSubmit={event => { event.preventDefault(); ask(question); }}>
             <label htmlFor="pls-chat-question" className="sr-only">Your question about PLS</label>
             <div className="flex gap-2"><input ref={input} id="pls-chat-question" value={question} onChange={event => setQuestion(event.target.value)} maxLength={1200} autoComplete="off" placeholder="Ask about PLS…" disabled={sending} className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-3 text-base disabled:bg-slate-50" /><button type="submit" disabled={sending || !question.trim()} className="rounded-lg bg-navy px-4 text-sm font-semibold text-white disabled:opacity-40">Send</button></div>
-            <p className="mt-2 text-[11px] leading-relaxed text-slate-500">Messages are sent to OpenAI to generate replies. Don’t include patient data or confidential information. AI can make mistakes; confirm details with PLS.</p>
+            <p className="mt-2 text-[11px] leading-relaxed text-slate-500">Messages are processed by AI providers through OpenAI or Vercel AI Gateway. Don’t include patient data or confidential information. AI can make mistakes; confirm details with PLS.</p>
           </form>}
           {messages.length > 0 && <button type="button" disabled={sending} onClick={() => { setMessages([]); setError(''); setQuestion(''); input.current?.focus(); }} className="mt-2 min-h-8 text-xs font-semibold text-slate-500 underline underline-offset-4 disabled:opacity-40">Clear conversation</button>}
         </div>

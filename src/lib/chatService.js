@@ -8,8 +8,29 @@ export function validateChatMessages(body) {
   return messages.map(({ role, content }) => ({ role, content: content.trim() }));
 }
 
-export async function generateChatReply({ messages, apiKey, model, instructions, sources, fetchImpl = fetch }) {
-  const response = await fetchImpl('https://api.openai.com/v1/responses', {
+export async function resolveChatProvider(env, getOidcToken) {
+  if (env.PLS_CHAT_ENABLED === 'false') return null;
+  if (env.OPENAI_API_KEY) return { provider: 'openai', apiKey: env.OPENAI_API_KEY, model: env.OPENAI_CHAT_MODEL || 'gpt-6-luna', reasoningEffort: 'none' };
+  let apiKey = env.AI_GATEWAY_API_KEY;
+  // Resolve Vercel's short-lived identity for each request, never cache or expose it.
+  // Local development uses an explicit key, without looking for CLI credentials.
+  if (!apiKey && env.VERCEL === '1') {
+    try { apiKey = await getOidcToken(); } catch { return null; }
+  }
+  if (!apiKey) return null;
+  return { provider: 'vercel', apiKey, model: env.PLS_CHAT_GATEWAY_MODEL || 'openai/gpt-4.1-mini' };
+}
+
+export class ChatProviderError extends Error {
+  constructor(status) {
+    super('Provider unavailable');
+    this.status = status;
+  }
+}
+
+export async function generateChatReply({ messages, apiKey, model, provider = 'openai', reasoningEffort, instructions, sources, fetchImpl = fetch }) {
+  const endpoint = provider === 'vercel' ? 'https://ai-gateway.vercel.sh/v1/responses' : 'https://api.openai.com/v1/responses';
+  const response = await fetchImpl(endpoint, {
     method: 'POST',
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     signal: AbortSignal.timeout(25000),
@@ -19,7 +40,7 @@ export async function generateChatReply({ messages, apiKey, model, instructions,
       instructions,
       input: messages,
       max_output_tokens: 700,
-      reasoning: { effort: 'none' },
+      ...(reasoningEffort ? { reasoning: { effort: reasoningEffort } } : {}),
       text: { format: {
         type: 'json_schema', name: 'pls_answer', strict: true,
         schema: {
@@ -33,7 +54,7 @@ export async function generateChatReply({ messages, apiKey, model, instructions,
       } },
     }),
   });
-  if (!response.ok) throw new Error('Provider unavailable');
+  if (!response.ok) throw new ChatProviderError(response.status);
   const data = await response.json();
   if (data.status !== 'completed') throw new Error('Incomplete response');
   const output = (data.output || []).filter(i => i.type === 'message').flatMap(i => i.content || []);
