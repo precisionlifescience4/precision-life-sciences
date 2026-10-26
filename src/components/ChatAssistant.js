@@ -11,6 +11,21 @@ const QUICK_LINKS = [
   ['Contact the team', '/contact'],
 ];
 
+function DeenaIcon({ className = 'h-6 w-6' }) {
+  return (
+    <svg aria-hidden="true" focusable="false" className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m13 17-6-5 8-1-2-8 7 6 4-7 3 8 8-5-2 8 8 2-7 5" />
+      <path d="M13 18v7c0 7 5 12 11 12s11-5 11-12v-7" />
+      <circle cx="19" cy="23" r="4" />
+      <circle cx="29" cy="23" r="4" />
+      <path d="M23 23h2M15 22l-3-1m21 1 3-1M20 30c2.2 2 5.8 2 8 0" />
+      <path d="M8 46c1-6 6-10 12-10l4 5 4-5c6 0 11 4 12 10M24 41v5" />
+      <circle cx="40" cy="7" r="2" fill="currentColor" stroke="none" />
+      <circle cx="44" cy="12" r="1.25" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export default function ChatAssistant() {
   const pathname = usePathname();
   const dialog = useRef(null);
@@ -90,12 +105,15 @@ export default function ChatAssistant() {
   return (
     <>
       <button ref={launcher} onClick={show} type="button" aria-haspopup="dialog" aria-controls="pls-assistant" aria-expanded={open} className="fixed right-3 z-40 flex min-h-12 items-center gap-2.5 rounded-full border-2 border-white bg-navy px-5 py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-navylight sm:right-6" style={{ bottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
-        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M20 11.5a8 8 0 0 1-8 8H5l-3 3V11.5a9 9 0 0 1 18 0Z"/><path d="M7 10h8M7 14h5"/></svg>
+        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-cyan text-navy shadow-inner"><DeenaIcon /></span>
         Ask DeeNA
       </button>
       <dialog ref={dialog} id="pls-assistant" aria-labelledby="pls-assistant-title" aria-describedby="pls-assistant-description" className="pls-chat-dialog" onClose={() => { setOpen(false); launcher.current?.focus(); }} onClick={event => { if (event.target === dialog.current) { const r = dialog.current.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) close(); } }}>
         <div className="flex shrink-0 items-center justify-between gap-3 bg-navy px-5 py-4 text-white">
-          <div><h2 id="pls-assistant-title" className="text-base font-semibold">DeeNA</h2><p className="mt-1 text-xs text-slate-300">PLS information & enquiries assistant</p></div>
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-cyan text-navy shadow-inner"><DeenaIcon className="h-8 w-8" /></span>
+            <div><h2 id="pls-assistant-title" className="text-base font-semibold">DeeNA</h2><p className="mt-1 text-xs text-slate-300">PLS information & enquiries assistant</p></div>
+          </div>
           <button type="button" onClick={close} aria-label="Close DeeNA" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xl hover:bg-white/10">×</button>
         </div>
         <div ref={log} role="log" aria-label="Conversation with DeeNA" aria-live="polite" aria-relevant="additions text" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5">
