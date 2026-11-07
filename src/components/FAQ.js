@@ -26,7 +26,7 @@ const FAQS = [
   {
     id: 'commercial-services',
     question: 'Which commercial molecular services are available?',
-    answer: 'Research services include DNA extraction, DNA/RNA quantification, PCR amplification, gel electrophoresis and Sanger sequencing. Contact us to confirm scope, sample requirements, pricing and turnaround time before sending samples.',
+    answer: 'Research services include biobanking and sample storage, DNA extraction, DNA/RNA quantification, PCR amplification, gel electrophoresis and Sanger sequencing. Contact us to confirm scope, sample requirements, pricing and turnaround time before sending samples.',
   },
   {
     id: 'contact',

@@ -109,6 +109,28 @@ export const LAB_SERVICES = [
       ['Are turnaround time and deliverables fixed?', 'They are confirmed for the specific project before samples are accepted, along with pricing and submission requirements.'],
     ],
   },
+  {
+    slug: 'biobanking-storage',
+    name: 'Biobanking & Storage Solutions',
+    pageTitle: 'Research Biobanking and Sample Storage in Peshawar',
+    shortDescription: 'Project-based biobanking and storage support for research samples, with handling and access agreed in advance.',
+    intro: 'Plan a documented research sample collection and storage workflow around your study, with acceptance criteria and storage arrangements confirmed before material is transferred.',
+    supports: [
+      'Research teams that need organised sample intake, inventory and retrieval',
+      'Projects requiring an agreed storage plan alongside molecular laboratory services',
+      'Studies that need sample custody, access and retention requirements defined before handover',
+    ],
+    planning: [
+      'Sample type, quantity and current condition',
+      'Required storage conditions, duration and retrieval frequency',
+      'Consent or ethics documentation, ownership and access requirements where applicable',
+    ],
+    faqs: [
+      ['Can I send samples directly?', 'Please discuss the project and sample requirements first. Acceptance and storage arrangements are confirmed before transfer.'],
+      ['Are storage conditions fixed?', 'Conditions, duration, capacity and retrieval arrangements are agreed for each project before acceptance.'],
+      ['Can storage be combined with laboratory services?', 'Yes. A storage plan can be discussed alongside an agreed extraction, PCR or other research workflow.'],
+    ],
+  },
 ];
 
 export function getLabService(slug) {

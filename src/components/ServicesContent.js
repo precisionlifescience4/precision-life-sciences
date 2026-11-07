@@ -169,6 +169,15 @@ const COMMERCIAL_SERVICES = [
     price: 'Pricing on request',
     color: 'navy',
   },
+  {
+    id: 'biobanking-storage',
+    slug: 'biobanking-storage',
+    kind: 'laboratory-service',
+    name: 'Biobanking & Storage Solutions',
+    description: 'Project-based research sample storage, inventory and retrieval support.',
+    price: 'Pricing on request',
+    color: 'navy',
+  },
 ];
 
 const JOURNEY_IDS = new Set(['infectious', 'emergency-panels', 'myeloid', 'laboratory-services', 'collaboration']);
@@ -268,7 +277,7 @@ export default function ServicesContent() {
       tabLabel: 'Lab services',
       eyebrow: 'Commercial molecular services',
       title: 'Build a defined research workflow',
-      description: 'Access individual services or discuss an integrated workflow from sample preparation through Sanger sequencing.',
+      description: 'Access individual services or discuss an integrated workflow, including sample storage and molecular analysis.',
       items: COMMERCIAL_SERVICES,
     },
     {

@@ -25,6 +25,7 @@ const LINK_GROUPS = [
       ['PCR amplification', '/molecular-services/pcr-amplification'],
       ['Gel electrophoresis', '/molecular-services/gel-electrophoresis'],
       ['Sanger sequencing', '/molecular-services/sanger-sequencing'],
+      ['Biobanking & storage', '/molecular-services/biobanking-storage'],
       ['All laboratory services', '/molecular-services'],
       ['Sample transport guidance', '/sample-transport'],
     ],

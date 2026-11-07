@@ -4,7 +4,7 @@ import { LAB_SERVICES } from '@/lib/labServices';
 
 export const metadata = {
   title: 'Molecular Biology Laboratory Services in Peshawar',
-  description: 'Research molecular biology services in Peshawar, Pakistan: DNA extraction, DNA/RNA quantification, PCR amplification, gel electrophoresis and Sanger sequencing support.',
+  description: 'Research molecular biology services in Peshawar, Pakistan: sample biobanking and storage, DNA extraction, quantification, PCR, electrophoresis and Sanger sequencing.',
   alternates: { canonical: '/molecular-services' },
   openGraph: {
     title: `Molecular Biology Laboratory Services in Peshawar | ${SITE_NAME}`,
@@ -62,7 +62,7 @@ export default function MolecularServicesPage() {
             Molecular biology laboratory services for defined research workflows.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">
-            Request one service or discuss an integrated workflow from nucleic-acid preparation through Sanger sequencing.
+            Request one service or discuss an integrated workflow for sample storage and molecular analysis.
           </p>
           <Link href="/contact?topic=service" className="mt-8 inline-block rounded-full bg-cyan px-7 py-3.5 font-bold text-navy hover:bg-white">
             Request a quotation
