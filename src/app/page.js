@@ -23,7 +23,7 @@ const ROUTES = [
     number: '03',
     label: 'Laboratory services',
     title: 'Plan your workflow',
-    description: 'Find extraction, quantification, PCR, electrophoresis and sequencing services.',
+    description: 'Explore sequencing, primer design, cloning, PCR cleanup and sample preparation services.',
     href: '/molecular-services',
   },
 ];

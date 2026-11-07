@@ -131,6 +131,140 @@ export const LAB_SERVICES = [
       ['Can storage be combined with laboratory services?', 'Yes. A storage plan can be discussed alongside an agreed extraction, PCR or other research workflow.'],
     ],
   },
+  {
+    slug: 'ngs-sequencing',
+    name: 'Next-Generation Sequencing (NGS)',
+    pageTitle: 'NGS and Research Sequencing Services in Peshawar',
+    shortDescription: 'Project-scoped NGS support, from study and sample review to agreed sequencing and data deliverables.',
+    intro: 'Discuss a sequencing project around the research question, sample inputs and data you need. The platform, workflow and delivery route are confirmed during technical review.',
+    supports: [
+      'Research projects requiring targeted or broader sequencing approaches',
+      'Teams that need sample preparation, sequencing and analysis considered as one project',
+      'Researchers comparing NGS with Sanger sequencing for a defined question',
+    ],
+    planning: [
+      'Research objective, organism or target region, and intended analysis',
+      'Sample material, count, quality information and available input',
+      'Required data format, analysis scope and any platform preference',
+    ],
+    faqs: [
+      ['Which NGS platforms are available?', 'Platform and workflow options are confirmed for each project; no platform is assumed from this website listing.'],
+      ['Can analysis be included?', 'Discuss the required data and analysis deliverables during scoping so they can be included in the quotation where feasible.'],
+      ['Can I send samples now?', 'Please obtain sample acceptance and transport instructions from the technical team before dispatch.'],
+    ],
+  },
+  {
+    slug: 'primer-design',
+    name: 'Primer & Probe Design',
+    pageTitle: 'PCR Primer and Probe Design Service in Peshawar',
+    shortDescription: 'In-silico primer and probe design for defined PCR, qPCR and sequencing research applications.',
+    intro: 'Start with a target and intended application. Design criteria, sequence coverage and the deliverable are agreed before design work begins.',
+    supports: [
+      'PCR or qPCR projects needing candidate primer or probe sets',
+      'Sequencing projects that require a planned amplification or read primer',
+      'Assay development projects needing an in-silico design review',
+    ],
+    planning: [
+      'Target sequence or accession, organism and intended application',
+      'Known variants, regions to include or avoid, and assay constraints',
+      'Whether design only or laboratory evaluation is required',
+    ],
+    faqs: [
+      ['Does a design include laboratory validation?', 'Laboratory testing is a separate project step and is included only when agreed in the scope.'],
+      ['Can you review an existing primer set?', 'Yes. Share the sequences and target information so the team can assess the requested review.'],
+      ['Are oligonucleotides supplied?', 'Design and physical oligonucleotide supply are scoped separately. Confirm the required deliverables when requesting a quote.'],
+    ],
+  },
+  {
+    slug: 'cloning-constructs',
+    name: 'Cloning & Construct Services',
+    pageTitle: 'Molecular Cloning and Construct Services in Peshawar',
+    shortDescription: 'Project-based cloning, subcloning and construct planning for defined molecular research goals.',
+    intro: 'Discuss the source material, insert, vector and intended construct so feasibility, verification and handover can be specified before work begins.',
+    supports: [
+      'Research projects requiring an insert moved into an agreed vector',
+      'Construct planning with a defined verification or sequencing step',
+      'Integrated workflows linking PCR, cleanup, cloning and sequence review',
+    ],
+    planning: [
+      'Insert sequence or source material and vector information',
+      'Intended construct, permitted material and relevant institutional requirements',
+      'Requested verification and final material or data deliverables',
+    ],
+    faqs: [
+      ['Can I provide my own vector?', 'Vector suitability and submission requirements are reviewed during project scoping.'],
+      ['How is a construct verified?', 'The verification approach and deliverables are agreed for the specific construct before the project is accepted.'],
+      ['Do you accept every cloning project?', 'Acceptance depends on technical feasibility, material requirements and the agreed research scope.'],
+    ],
+  },
+  {
+    slug: 'pcr-cleanup',
+    name: 'PCR Cleanup & Purification',
+    pageTitle: 'PCR Product Cleanup and Purification in Peshawar',
+    shortDescription: 'Cleanup of PCR products for agreed downstream sequencing, cloning or analysis workflows.',
+    intro: 'Prepare an amplified product for its next research step. The cleanup approach and acceptance criteria depend on the product and downstream application.',
+    supports: [
+      'PCR products intended for Sanger sequencing or another agreed readout',
+      'Amplified material needing purification before cloning or further analysis',
+      'Integrated PCR-to-sequencing research workflows',
+    ],
+    planning: [
+      'Product size, reaction volume and available gel or quality information',
+      'Number of reactions and any visible non-specific products',
+      'The intended downstream application and required handover format',
+    ],
+    faqs: [
+      ['Can unpurified PCR reactions be submitted?', 'The team reviews the reaction information and intended use before confirming whether the material can be accepted.'],
+      ['Is cleanup the same as sequencing?', 'No. Cleanup prepares a product for an agreed downstream step; sequencing is scoped separately.'],
+      ['Can cleanup be combined with PCR or Sanger sequencing?', 'Yes. A combined research workflow can be discussed and quoted after the sample and target requirements are reviewed.'],
+    ],
+  },
+  {
+    slug: 'custom-molecular-biology',
+    name: 'Custom Molecular Biology Projects',
+    pageTitle: 'Custom Molecular Biology Research Services in Peshawar',
+    shortDescription: 'A scoped molecular biology workflow for research questions that span several laboratory steps.',
+    intro: 'Bring a defined research question to the PLS team. We will review the required design, preparation, amplification and analysis steps as one project.',
+    supports: [
+      'Projects needing a coordinated workflow rather than a single laboratory step',
+      'Assay development or optimisation questions with agreed research deliverables',
+      'Teams seeking technical input on sample-to-result study planning',
+    ],
+    planning: [
+      'Research objective and the decision the results should support',
+      'Available samples, protocols, target information and prior data',
+      'Proposed milestones, reporting needs and any project constraints',
+    ],
+    faqs: [
+      ['Is this a fixed package?', 'No. The workflow, milestones, deliverables and quotation are defined for each research project.'],
+      ['Can PLS combine several listed services?', 'Yes. The team can assess a combined workflow and confirm which steps can be included.'],
+      ['Is this a clinical diagnostic service?', 'No. This listing is for research projects; clinical use is outside the stated service scope.'],
+    ],
+  },
+];
+
+export const SERVICE_PACKAGES = [
+  {
+    id: 'sequencing-genomics',
+    name: 'Sequencing & genomics',
+    description: 'Choose a defined Sanger read or discuss an NGS project with the data deliverable in mind.',
+    accent: 'border-t-navy',
+    slugs: ['sanger-sequencing', 'ngs-sequencing'],
+  },
+  {
+    id: 'design-build',
+    name: 'Design & build',
+    description: 'Plan primers, probes, constructs or a custom research workflow around your target.',
+    accent: 'border-t-hiv',
+    slugs: ['primer-design', 'cloning-constructs', 'custom-molecular-biology'],
+  },
+  {
+    id: 'sample-preparation',
+    name: 'Sample preparation & storage',
+    description: 'Select a practical laboratory step, from intake and extraction to PCR cleanup and storage.',
+    accent: 'border-t-cyan',
+    slugs: ['dna-extraction', 'dna-rna-quantification', 'pcr-amplification', 'gel-electrophoresis', 'pcr-cleanup', 'biobanking-storage'],
+  },
 ];
 
 export function getLabService(slug) {

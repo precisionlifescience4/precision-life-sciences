@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { LAB_SERVICES, getLabService } from '@/lib/labServices';
+import { LAB_SERVICES, SERVICE_PACKAGES, getLabService } from '@/lib/labServices';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 export function generateStaticParams() {
@@ -31,7 +31,8 @@ export default async function LabServicePage({ params }) {
   if (!service) notFound();
 
   const pageUrl = `${SITE_URL}/molecular-services/${service.slug}`;
-  const relatedServices = LAB_SERVICES.filter((item) => item.slug !== service.slug).slice(0, 3);
+  const servicePackage = SERVICE_PACKAGES.find((item) => item.slugs.includes(service.slug));
+  const relatedServices = LAB_SERVICES.filter((item) => item.slug !== service.slug && servicePackage?.slugs.includes(item.slug)).slice(0, 3);
   const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -94,13 +95,13 @@ export default async function LabServicePage({ params }) {
 
           <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Research laboratory service · Peshawar</p>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">{servicePackage.name} · Research service · Peshawar</p>
               <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy md:text-5xl">{service.pageTitle}</h1>
               <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-600">{service.intro}</p>
             </div>
             <div className="rounded-2xl border border-navy/15 bg-white p-6">
-              <p className="text-sm font-extrabold text-navy">Before samples are submitted</p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">The team confirms feasibility, sample requirements, pricing, turnaround time and deliverables for the specific research request.</p>
+              <p className="text-sm font-extrabold text-navy">Before work begins</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">The team confirms feasibility, inputs, sample requirements where relevant, pricing, turnaround time and deliverables for the specific research request.</p>
               <Link href={`/contact?topic=service&product=${encodeURIComponent(service.name)}`} className="mt-5 inline-block rounded-full bg-navy px-6 py-3 text-sm font-bold text-white hover:bg-navylight">
                 Request a quotation
               </Link>
@@ -142,7 +143,7 @@ export default async function LabServicePage({ params }) {
       <section className="bg-graybg px-4 py-14 md:py-16">
         <div className="mx-auto max-w-5xl">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Common questions</p>
-          <h2 className="mt-2 text-3xl font-extrabold text-navy">Plan before you dispatch material.</h2>
+          <h2 className="mt-2 text-3xl font-extrabold text-navy">Plan the work before it starts.</h2>
           <div className="mt-7 grid gap-4 md:grid-cols-3">
             {service.faqs.map(([question, answer]) => (
               <article key={question} className="rounded-xl border border-slate-200 bg-white p-6">
@@ -159,9 +160,9 @@ export default async function LabServicePage({ params }) {
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Related services</p>
-              <h2 className="mt-2 text-2xl font-extrabold text-navy">Build an integrated research workflow.</h2>
+              <h2 className="mt-2 text-2xl font-extrabold text-navy">More in {servicePackage.name.toLowerCase()}.</h2>
             </div>
-            <Link href="/molecular-services" className="font-bold text-cyandark hover:text-navy">View all services →</Link>
+            <Link href={`/molecular-services#${servicePackage.id}`} className="font-bold text-cyandark hover:text-navy">View the package →</Link>
           </div>
           <div className="mt-7 grid gap-4 sm:grid-cols-3">
             {relatedServices.map((related) => (

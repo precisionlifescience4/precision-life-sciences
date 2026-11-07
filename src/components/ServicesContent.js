@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import FAQ from '@/components/FAQ';
 import { EMERGENCY_PANELS } from '@/lib/emergencyPanels';
+import { LAB_SERVICES, SERVICE_PACKAGES } from '@/lib/labServices';
 
 const FALLBACK_SERVICES = [
   {
@@ -123,64 +124,18 @@ const FALLBACK_SERVICES = [
   },
 ];
 
-const COMMERCIAL_SERVICES = [
-  {
-    id: 'dna-extraction',
-    slug: 'dna-extraction',
-    kind: 'laboratory-service',
-    name: 'DNA Extraction',
-    description: 'DNA extraction for sequencing and other molecular research workflows.',
-    price: 'Pricing on request',
-    color: 'navy',
-  },
-  {
-    id: 'nucleic-acid-quantification',
-    slug: 'dna-rna-quantification',
-    kind: 'laboratory-service',
-    name: 'DNA/RNA Quantification',
-    description: 'DNA/RNA quantification for molecular research workflows.',
-    price: 'Pricing on request',
-    color: 'navy',
-  },
-  {
-    id: 'pcr-amplification',
-    slug: 'pcr-amplification',
-    kind: 'laboratory-service',
-    name: 'PCR Amplification',
-    description: 'Target amplification for defined molecular research projects.',
-    price: 'Pricing on request',
-    color: 'navy',
-  },
-  {
-    id: 'gel-electrophoresis',
-    slug: 'gel-electrophoresis',
-    kind: 'laboratory-service',
-    name: 'Gel Electrophoresis',
-    description: 'Gel electrophoresis for molecular research workflows.',
-    price: 'Pricing on request',
-    color: 'navy',
-  },
-  {
-    id: 'sanger-sequencing',
-    slug: 'sanger-sequencing',
-    kind: 'laboratory-service',
-    name: 'Sanger Sequencing',
-    description: 'Sanger sequencing for submitted PCR products and integrated molecular workflows.',
-    price: 'Pricing on request',
-    color: 'navy',
-  },
-  {
-    id: 'biobanking-storage',
-    slug: 'biobanking-storage',
-    kind: 'laboratory-service',
-    name: 'Biobanking & Storage Solutions',
-    description: 'Project-based research sample storage, inventory and retrieval support.',
-    price: 'Pricing on request',
-    color: 'navy',
-  },
-];
+const COMMERCIAL_SERVICES = LAB_SERVICES.map((service) => ({
+  id: service.slug,
+  slug: service.slug,
+  kind: 'laboratory-service',
+  name: service.name,
+  description: service.shortDescription,
+  price: 'Project quote',
+  color: 'navy',
+}));
+const CORE_SERVICE_SLUGS = new Set(SERVICE_PACKAGES.find((servicePackage) => servicePackage.id === 'sample-preparation').slugs);
 
-const JOURNEY_IDS = new Set(['infectious', 'emergency-panels', 'myeloid', 'laboratory-services', 'collaboration']);
+const JOURNEY_IDS = new Set(['infectious', 'emergency-panels', 'myeloid', 'laboratory-services', 'advanced-services', 'collaboration']);
 const EMERGENCY_PANEL_SERVICES = EMERGENCY_PANELS.map((panel) => ({
   id: panel.id,
   slug: panel.id,
@@ -274,11 +229,19 @@ export default function ServicesContent() {
     },
     {
       id: 'laboratory-services',
-      tabLabel: 'Lab services',
-      eyebrow: 'Commercial molecular services',
-      title: 'Build a defined research workflow',
-      description: 'Access individual services or discuss an integrated workflow, including sample storage and molecular analysis.',
-      items: COMMERCIAL_SERVICES,
+      tabLabel: 'Lab essentials',
+      eyebrow: 'Sample preparation & storage',
+      title: 'Choose a practical laboratory step',
+      description: 'Extraction, PCR, cleanup, quality checks and sample storage can be requested individually or scoped together.',
+      items: COMMERCIAL_SERVICES.filter((service) => CORE_SERVICE_SLUGS.has(service.slug)),
+    },
+    {
+      id: 'advanced-services',
+      tabLabel: 'Advanced services',
+      eyebrow: 'Sequencing, design & build',
+      title: 'Take your research project further',
+      description: 'Explore Sanger and NGS sequencing, primer and probe design, cloning and custom molecular biology projects.',
+      items: COMMERCIAL_SERVICES.filter((service) => !CORE_SERVICE_SLUGS.has(service.slug)),
     },
     {
       id: 'collaboration',
@@ -411,7 +374,7 @@ export default function ServicesContent() {
             <div className={`grid gap-5 ${
               group.id === 'collaboration'
                 ? 'md:grid-cols-1'
-                : group.id === 'laboratory-services'
+                : group.id === 'laboratory-services' || group.id === 'advanced-services'
                   ? 'md:grid-cols-2 lg:grid-cols-3'
                   : 'md:grid-cols-2'
             }`}>
@@ -464,11 +427,11 @@ export default function ServicesContent() {
               })}
             </div>
 
-            {group.id === 'laboratory-services' && (
+            {(group.id === 'laboratory-services' || group.id === 'advanced-services') && (
               <div className="mt-6 flex flex-col justify-between gap-4 rounded-xl border border-navy/10 bg-graybg p-5 md:flex-row md:items-center">
                 <div>
-                  <p className="text-sm font-bold text-navy">Laboratory services overview</p>
-                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Review the workflow, submission steps and service-specific enquiry routes before sending samples.</p>
+                  <p className="text-sm font-bold text-navy">Explore the service packages</p>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-600">Compare sequencing, design and sample preparation routes before submitting a project request.</p>
                 </div>
                 <Link href="/molecular-services" className="shrink-0 text-sm font-bold text-cyandark hover:text-navy">
                   View service details →

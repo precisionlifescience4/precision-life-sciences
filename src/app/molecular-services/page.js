@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
-import { LAB_SERVICES } from '@/lib/labServices';
+import { LAB_SERVICES, SERVICE_PACKAGES } from '@/lib/labServices';
 
 export const metadata = {
-  title: 'Molecular Biology Laboratory Services in Peshawar',
-  description: 'Research molecular biology services in Peshawar, Pakistan: sample biobanking and storage, DNA extraction, quantification, PCR, electrophoresis and Sanger sequencing.',
+  title: 'NGS, Sequencing & Molecular Biology Services in Peshawar',
+  description: 'Research services in Peshawar: NGS, Sanger sequencing, primer design, cloning, PCR cleanup, molecular biology workflows, sample preparation and storage.',
   alternates: { canonical: '/molecular-services' },
   openGraph: {
-    title: `Molecular Biology Laboratory Services in Peshawar | ${SITE_NAME}`,
+    title: `NGS, Sequencing & Molecular Biology Services in Peshawar | ${SITE_NAME}`,
     description: 'Request individual molecular laboratory services or discuss an integrated research workflow with Precision Life Sciences.',
     url: `${SITE_URL}/molecular-services`,
   },
@@ -59,10 +59,10 @@ export default function MolecularServicesPage() {
         <div className="mx-auto max-w-5xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan">Commercial research services · Peshawar</p>
           <h1 className="mx-auto mt-3 max-w-4xl text-4xl font-extrabold tracking-tight md:text-5xl">
-            Molecular biology laboratory services for defined research workflows.
+            Sequencing, design and molecular biology services for research.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">
-            Request one service or discuss an integrated workflow for sample storage and molecular analysis.
+            Choose a defined service or bring us a project that needs several laboratory steps. Each request is reviewed for feasibility, sample requirements and deliverables.
           </p>
           <Link href="/contact?topic=service" className="mt-8 inline-block rounded-full bg-cyan px-7 py-3.5 font-bold text-navy hover:bg-white">
             Request a quotation
@@ -73,25 +73,35 @@ export default function MolecularServicesPage() {
 
       <section className="bg-graybg px-4 py-14 md:py-20">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-9 max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Choose a service</p>
-            <h2 className="mt-2 text-3xl font-extrabold text-navy">Start with the step your project needs.</h2>
-            <p className="mt-3 leading-relaxed text-slate-600">Scope, sample requirements, pricing and turnaround time are confirmed before samples are submitted.</p>
+          <div className="mb-10 max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Service packages</p>
+            <h2 className="mt-2 text-3xl font-extrabold text-navy">Three clear routes into the lab.</h2>
+            <p className="mt-3 leading-relaxed text-slate-600">Start with the outcome you need. Services can be quoted individually or combined into a project.</p>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {LAB_SERVICES.map((service, index) => (
-              <article key={service.name} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6">
-                <span className="text-sm font-extrabold text-cyandark">0{index + 1}</span>
-                <h3 className="mt-4 text-xl font-extrabold text-navy">{service.name}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{service.shortDescription}</p>
-                <Link
-                  href={`/molecular-services/${service.slug}`}
-                  className="mt-6 font-bold text-cyandark hover:text-navy"
-                >
-                  View service details →
-                </Link>
-              </article>
+          <div className="space-y-12">
+            {SERVICE_PACKAGES.map((servicePackage, packageIndex) => (
+              <section key={servicePackage.id} id={servicePackage.id} aria-labelledby={`${servicePackage.id}-heading`} className={`scroll-mt-24 border-t-4 ${servicePackage.accent} bg-white px-5 py-8 sm:px-8`}>
+                <div className="mb-7 max-w-2xl">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Package 0{packageIndex + 1}</p>
+                  <h3 id={`${servicePackage.id}-heading`} className="mt-2 text-2xl font-extrabold text-navy md:text-3xl">{servicePackage.name}</h3>
+                  <p className="mt-3 leading-relaxed text-slate-600">{servicePackage.description}</p>
+                </div>
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {servicePackage.slugs.map((slug) => {
+                    const service = LAB_SERVICES.find((item) => item.slug === slug);
+                    return (
+                      <article key={service.slug} className="flex flex-col rounded-xl border border-slate-200 bg-graybg p-5">
+                        <h4 className="text-lg font-extrabold text-navy">{service.name}</h4>
+                        <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{service.shortDescription}</p>
+                        <Link href={`/molecular-services/${service.slug}`} className="mt-6 inline-flex min-h-11 items-center font-bold text-cyandark hover:text-navy">
+                          View service details →
+                        </Link>
+                      </article>
+                    );
+                  })}
+                </div>
+              </section>
             ))}
           </div>
         </div>
