@@ -9,14 +9,16 @@ const MARKS = [
     alt: 'Khyber Medical University logo',
     width: 260,
     height: 105,
+    presentation: 'wordmark',
   },
   {
     role: 'Supported by',
     name: 'Directorate General of Science & Technology, KP',
-    image: '/images/partners/dgst.png',
+    image: '/images/partners/dgst-official.svg',
     alt: 'Directorate General of Science and Technology, Khyber Pakhtunkhwa logo',
-    width: 200,
-    height: 202,
+    width: 153,
+    height: 159,
+    presentation: 'emblem',
   },
   {
     role: 'Commercial partner',
@@ -25,6 +27,7 @@ const MARKS = [
     alt: 'BQ Pharma and Medical Devices identifier',
     width: 300,
     height: 86,
+    presentation: 'wordmark',
   },
   {
     role: 'Quality management',
@@ -33,6 +36,7 @@ const MARKS = [
     alt: 'ISO 9001:2015 certification of the KMU Project R and D Laboratory',
     width: 280,
     height: 131,
+    presentation: 'credential',
   },
   {
     role: 'Incorporated with',
@@ -41,35 +45,44 @@ const MARKS = [
     alt: 'SECP incorporation credential',
     width: 280,
     height: 112,
+    presentation: 'credential',
     href: INCORPORATION_CERTIFICATE_URL,
   },
   {
     role: 'Standards reference',
     name: 'PSQCA',
-    image: '/images/partners/psqca.png',
+    image: '/images/partners/psqca-official.png',
     alt: 'Pakistan Standards and Quality Control Authority logo',
-    width: 180,
-    height: 180,
+    width: 594,
+    height: 69,
+    presentation: 'wordmark',
   },
   {
     role: 'Science reference',
     name: 'PCSIR',
-    image: '/images/partners/pcsir.png',
+    image: '/images/partners/pcsir-official.png',
     alt: 'Pakistan Council of Scientific and Industrial Research logo',
-    width: 160,
-    height: 160,
+    width: 500,
+    height: 110,
+    presentation: 'wordmark',
   },
 ];
 
 function MarkTile({ mark }) {
+  const presentationClass = {
+    emblem: 'max-h-[72%] max-w-[72%]',
+    credential: 'max-h-[62%] max-w-[84%]',
+    wordmark: 'max-h-[42%] max-w-[88%]',
+  }[mark.presentation] || 'max-h-[60%] max-w-[82%]';
+
   const logo = (
-    <div className="flex aspect-square items-center justify-center rounded-2xl border border-slate-200 bg-graybg p-5 transition-colors group-hover:border-cyandark group-focus-visible:border-cyandark">
+    <div className="flex aspect-square items-center justify-center rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_1px_0_rgba(15,43,91,0.04)] transition-colors group-hover:border-cyandark group-focus-visible:border-cyandark">
       <Image
         src={mark.image}
         alt={mark.alt}
         width={mark.width}
         height={mark.height}
-        className="h-auto max-h-full w-auto max-w-full object-contain"
+        className={`h-auto w-auto object-contain ${presentationClass}`}
       />
     </div>
   );
