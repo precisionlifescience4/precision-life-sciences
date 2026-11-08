@@ -5,19 +5,19 @@ const MARKS = [
   {
     role: 'Developed at',
     name: 'Khyber Medical University',
-    image: '/images/partners/kmu.png',
+    image: '/images/partners/kmu-official.png',
     alt: 'Khyber Medical University logo',
-    width: 260,
-    height: 105,
-    presentation: 'wordmark',
+    width: 180,
+    height: 106,
+    presentation: 'fullWordmark',
   },
   {
     role: 'Supported by',
     name: 'Directorate General of Science & Technology, KP',
-    image: '/images/partners/dgst-official.svg',
+    image: '/images/partners/dgst-official-user.png',
     alt: 'Directorate General of Science and Technology, Khyber Pakhtunkhwa logo',
-    width: 153,
-    height: 159,
+    width: 192,
+    height: 192,
     presentation: 'emblem',
   },
   {
@@ -51,32 +51,33 @@ const MARKS = [
   {
     role: 'Standards reference',
     name: 'PSQCA',
-    image: '/images/partners/psqca-official.png',
+    image: '/images/partners/psqca.png',
     alt: 'Pakistan Standards and Quality Control Authority logo',
-    width: 594,
-    height: 69,
-    presentation: 'wordmark',
+    width: 270,
+    height: 270,
+    presentation: 'emblem',
   },
   {
     role: 'Science reference',
     name: 'PCSIR',
-    image: '/images/partners/pcsir-official.png',
+    image: '/images/partners/pcsir.png',
     alt: 'Pakistan Council of Scientific and Industrial Research logo',
-    width: 500,
-    height: 110,
-    presentation: 'wordmark',
+    width: 125,
+    height: 125,
+    presentation: 'emblem',
   },
 ];
 
 function MarkTile({ mark }) {
   const presentationClass = {
-    emblem: 'max-h-[72%] max-w-[72%]',
+    emblem: 'max-h-[76%] max-w-[66%]',
     credential: 'max-h-[62%] max-w-[84%]',
-    wordmark: 'max-h-[42%] max-w-[88%]',
+    fullWordmark: 'max-h-[78%] max-w-[90%]',
+    wordmark: 'max-h-[58%] max-w-[90%]',
   }[mark.presentation] || 'max-h-[60%] max-w-[82%]';
 
   const logo = (
-    <div className="flex aspect-square items-center justify-center rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_1px_0_rgba(15,43,91,0.04)] transition-colors group-hover:border-cyandark group-focus-visible:border-cyandark">
+    <div className="flex h-40 items-center justify-center rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_1px_0_rgba(15,43,91,0.04)] transition-colors group-hover:border-cyandark group-focus-visible:border-cyandark sm:h-44">
       <Image
         src={mark.image}
         alt={mark.alt}
