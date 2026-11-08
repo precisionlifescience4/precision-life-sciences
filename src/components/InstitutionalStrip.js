@@ -31,7 +31,7 @@ const MARKS = [
   },
   {
     role: 'Quality management',
-    name: 'ISO 9001:2015 · KMU Project R&D Laboratory',
+    name: 'ISO 9001:2015 Â· KMU Project R&D Laboratory',
     image: '/images/partners/iso-9001-kmu-project-lab.svg',
     alt: 'ISO 9001:2015 certification of the KMU Project R and D Laboratory',
     width: 280,
@@ -40,31 +40,13 @@ const MARKS = [
   },
   {
     role: 'Incorporated with',
-    name: `SECP · CUIN ${SECP_CUIN}`,
+    name: `SECP Â· CUIN ${SECP_CUIN}`,
     image: '/images/partners/secp-registered.svg',
     alt: 'SECP incorporation credential',
     width: 280,
     height: 112,
     presentation: 'credential',
     href: INCORPORATION_CERTIFICATE_URL,
-  },
-  {
-    role: 'Standards reference',
-    name: 'PSQCA',
-    image: '/images/partners/psqca.png',
-    alt: 'Pakistan Standards and Quality Control Authority logo',
-    width: 270,
-    height: 270,
-    presentation: 'emblem',
-  },
-  {
-    role: 'Science reference',
-    name: 'PCSIR',
-    image: '/images/partners/pcsir.png',
-    alt: 'Pakistan Council of Scientific and Industrial Research logo',
-    width: 125,
-    height: 125,
-    presentation: 'emblem',
   },
 ];
 
