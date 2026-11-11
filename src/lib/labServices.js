@@ -155,24 +155,24 @@ export const LAB_SERVICES = [
   },
   {
     slug: 'primer-design',
-    name: 'Primer & Probe Design',
-    pageTitle: 'PCR Primer and Probe Design Service in Peshawar',
-    shortDescription: 'In-silico primer and probe design for defined PCR, qPCR and sequencing research applications.',
-    intro: 'Start with a target and intended application. Design criteria, sequence coverage and the deliverable are agreed before design work begins.',
+    name: 'Primer Design & Oligonucleotide Synthesis',
+    pageTitle: 'PCR Primer Design and Oligonucleotide Synthesis Service in Peshawar',
+    shortDescription: 'In-silico primer and probe design, with oligonucleotide synthesis coordinated for defined PCR, qPCR and sequencing research applications.',
+    intro: 'Start with a target and intended application. Design criteria, sequence coverage and whether you need design only or supplied oligonucleotides are agreed before work begins.',
     supports: [
-      'PCR or qPCR projects needing candidate primer or probe sets',
+      'PCR or qPCR projects needing candidate primer or probe sets and, where requested, corresponding oligonucleotide supply',
       'Sequencing projects that require a planned amplification or read primer',
       'Assay development projects needing an in-silico design review',
     ],
     planning: [
       'Target sequence or accession, organism and intended application',
       'Known variants, regions to include or avoid, and assay constraints',
-      'Whether design only or laboratory evaluation is required',
+      'Whether you require design only, oligonucleotide synthesis, or laboratory evaluation'
     ],
     faqs: [
       ['Does a design include laboratory validation?', 'Laboratory testing is a separate project step and is included only when agreed in the scope.'],
       ['Can you review an existing primer set?', 'Yes. Share the sequences and target information so the team can assess the requested review.'],
-      ['Are oligonucleotides supplied?', 'Design and physical oligonucleotide supply are scoped separately. Confirm the required deliverables when requesting a quote.'],
+      ['Can PLS arrange oligonucleotide synthesis?', 'Yes. Confirm the required sequences, modification requirements, purification level, scale and delivery format when requesting a quote.'],
     ],
   },
   {
@@ -254,7 +254,7 @@ export const SERVICE_PACKAGES = [
   {
     id: 'design-build',
     name: 'Design & build',
-    description: 'Plan primers, probes, constructs or a custom research workflow around your target.',
+    description: 'Plan primers, probes and oligonucleotide synthesis, constructs or a custom research workflow around your target.',
     accent: 'border-t-hiv',
     slugs: ['primer-design', 'cloning-constructs', 'custom-molecular-biology'],
   },
