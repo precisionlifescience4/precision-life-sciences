@@ -14,11 +14,29 @@ const sora = Sora({ subsets: ['latin'], weight: ['600', '700', '800'], variable:
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Mugen-Plex Real-Time PCR Kits | Precision Life Sciences',
+    default: 'PCR Kits, NGS & Molecular Biology Services | Precision Life Sciences',
     template: '%s | Precision Life Sciences',
   },
-  description: 'Mugen-Plex RUO real-time PCR assays for HBV, HCV, HIV, Influenza A&B, CCHF and Dengue/Chikungunya, developed in Peshawar, Pakistan.',
-  keywords: ['Mugen-Plex', 'real-time PCR kits Pakistan', 'molecular diagnostics Peshawar', 'HBV PCR kit', 'HCV PCR kit', 'HIV PCR kit', 'CCHF PCR kit', 'Dengue PCR kit', 'Chikungunya PCR kit', 'Precision Life Sciences'],
+  description: 'Pakistan-based molecular life-science company offering Mugen-Plex RUO PCR assays, NGS and Sanger sequencing, primer design and synthesis, cloning, PCR cleanup, nucleic-acid preparation and biobanking services.',
+  keywords: [
+    'Precision Life Sciences Pakistan',
+    'Mugen-Plex',
+    'real-time PCR kits Pakistan',
+    'molecular biology services Peshawar',
+    'NGS services Pakistan',
+    'Sanger sequencing Peshawar',
+    'primer design and synthesis Pakistan',
+    'cloning services Pakistan',
+    'PCR cleanup Pakistan',
+    'biobanking and sample storage Pakistan',
+    'DNA RNA extraction kits Pakistan',
+    'HBV PCR kit',
+    'HCV PCR kit',
+    'HIV PCR kit',
+    'CCHF PCR kit',
+    'Dengue PCR kit',
+    'Chikungunya PCR kit',
+  ],
   alternates: { canonical: '/' },
   icons: {
     icon: [
@@ -29,8 +47,8 @@ export const metadata = {
   },
   verification: { google: 'gANPx2fYCeSZmO02W1kig_qUm_prTTRFZeeM8nKwH_w' },
   openGraph: {
-    title: 'Mugen-Plex Real-Time PCR Kits | Precision Life Sciences',
-    description: 'Real-time PCR assays for HBV, HCV, HIV, Influenza A&B, CCHF and Dengue/Chikungunya, developed in Peshawar, Pakistan.',
+    title: 'PCR Kits, NGS & Molecular Biology Services | Precision Life Sciences',
+    description: 'Mugen-Plex RUO PCR assays plus molecular biology, sequencing, design and research support services from Peshawar, Pakistan.',
     url: SITE_URL,
     siteName: 'Precision Life Sciences',
     locale: 'en_PK',
@@ -55,7 +73,7 @@ export default async function RootLayout({ children }) {
     alternateName: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/images/logo.svg`,
-    description: 'Peshawar-based developer of Mugen-Plex real-time PCR assays for laboratory use.',
+    description: 'Pakistan-based developer of Mugen-Plex research-use-only PCR assays and provider of molecular biology, sequencing and research support services.',
     foundingDate: INCORPORATION_DATE,
     identifier: {
       '@type': 'PropertyValue',
@@ -66,12 +84,20 @@ export default async function RootLayout({ children }) {
     ...(settings?.phone && { telephone: settings.phone }),
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Office#09, Police Colony, Nasir Bagh Road',
+      streetAddress: 'R&D Laboratory, Basement, Daud Academic Block, Khyber Medical University, Phase 5, Hayatabad',
       addressLocality: 'Peshawar',
       addressRegion: 'Khyber Pakhtunkhwa',
       addressCountry: 'PK',
     },
-    sameAs: [SECP_VERIFICATION_URL, settings?.facebook, settings?.instagram, settings?.youtube].filter(Boolean),
+    areaServed: { '@type': 'Country', name: 'Pakistan' },
+    sameAs: [
+      SECP_VERIFICATION_URL,
+      'https://www.linkedin.com/company/precision-life-sciences-pk/',
+      'https://www.facebook.com/KMUPathLabs',
+      settings?.facebook,
+      settings?.instagram,
+      settings?.youtube,
+    ].filter(Boolean),
   };
   const website = {
     '@context': 'https://schema.org',
