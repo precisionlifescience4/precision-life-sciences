@@ -3,6 +3,18 @@ import Link from 'next/link';
 import InfectiousRange from '@/components/InfectiousRange';
 import EmergencyPanels from '@/components/EmergencyPanels';
 import InstitutionalStrip from '@/components/InstitutionalStrip';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
+
+export const metadata = {
+  title: 'PCR Kits, Sequencing & Molecular Biology Services in Pakistan',
+  description: 'Explore Mugen-Plex RUO PCR assays, Mugen-Prep extraction kits, NGS and Sanger sequencing, primer design and synthesis, cloning, PCR cleanup and biobanking services from Precision Life Sciences in Peshawar, Pakistan.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: `PCR Kits, Sequencing & Molecular Biology Services in Pakistan | ${SITE_NAME}`,
+    description: 'Mugen-Plex PCR assays, extraction kit concepts, NGS, Sanger sequencing and molecular biology research services from Peshawar, Pakistan.',
+    url: SITE_URL,
+  },
+};
 
 const ROUTES = [
   {
@@ -35,8 +47,28 @@ const SUPPORT_LINKS = [
 ];
 
 export default function Home() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${SITE_URL}/#home`,
+    name: 'Precision Life Sciences: PCR kits and molecular biology services',
+    description: metadata.description,
+    url: SITE_URL,
+    about: [
+      { '@type': 'Thing', name: 'Research-use-only real-time PCR assays' },
+      { '@type': 'Thing', name: 'NGS and Sanger sequencing services' },
+      { '@type': 'Thing', name: 'Primer design and oligonucleotide synthesis' },
+      { '@type': 'Thing', name: 'Molecular biology research services' },
+    ],
+    provider: { '@id': `${SITE_URL}/#organization` },
+  };
+
   return (
     <main id="main-content">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
+      />
       <section aria-labelledby="home-heading" className="relative overflow-hidden border-b border-navy/10 bg-[#F4F8FA] px-5 py-12 sm:px-6 md:py-16 lg:py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.03fr_0.97fr] lg:gap-12">
           <div className="relative z-10">
