@@ -8,6 +8,9 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+  experimental: {
+    agentUpgrade: 'security',
+  },
   async headers() {
     return [
       { source: '/(.*)', headers: securityHeaders },
