@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import FAQ from '@/components/FAQ';
 import { EMERGENCY_PANELS } from '@/lib/emergencyPanels';
+import { JANZY_KIT_CATEGORIES, JANZY_KITS } from '@/lib/janzyKits';
 import { LAB_SERVICES, SERVICE_PACKAGES } from '@/lib/labServices';
 
 const FALLBACK_SERVICES = [
@@ -136,7 +137,7 @@ const COMMERCIAL_SERVICES = LAB_SERVICES.map((service) => ({
 }));
 const CORE_SERVICE_SLUGS = new Set(SERVICE_PACKAGES.find((servicePackage) => servicePackage.id === 'sample-preparation').slugs);
 
-const JOURNEY_IDS = new Set(['infectious', 'emergency-panels', 'myeloid', 'laboratory-services', 'advanced-services', 'collaboration']);
+const JOURNEY_IDS = new Set(['infectious', 'janzy-kits', 'emergency-panels', 'myeloid', 'laboratory-services', 'advanced-services', 'collaboration']);
 const EMERGENCY_PANEL_SERVICES = EMERGENCY_PANELS.map((panel) => ({
   id: panel.id,
   slug: panel.id,
@@ -172,6 +173,7 @@ function actionsFor(s) {
   const inDevelopment = isInDevelopment(s);
   const link = (topic) => `/contact?topic=${topic}&product=${encodeURIComponent(s.name)}`;
   if (s.kind === 'laboratory-service') return [{ label: 'Request a quote', href: link('service'), primary: true }];
+  if (s.kind === 'janzy-kit') return [{ label: 'Request availability', href: link('enquire'), primary: true }];
   if (s.slug === 'support') return [{ label: 'Discuss your project', href: link('project'), primary: true }];
   if (inDevelopment) return [{ label: 'Register interest', href: link('interest'), primary: true }];
   if (ASSAY_DETAIL_PATHS[s.slug]) {
@@ -196,6 +198,7 @@ export default function ServicesContent() {
     hcv: { border: 'border-hcv', text: 'text-hcvdark', bg: 'bg-hcv' },
     hiv: { border: 'border-hiv', text: 'text-hiv', bg: 'bg-hiv' },
     dengue: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
+    janzy: { border: 'border-[#F58A07]', text: 'text-[#B85F00]', bg: 'bg-[#F58A07]' },
     denv: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
     chikv: { border: 'border-dengue', text: 'text-denguedark', bg: 'bg-dengue' },
     flu: { border: 'border-flu', text: 'text-cyandark', bg: 'bg-flu' },
@@ -211,6 +214,14 @@ export default function ServicesContent() {
       title: 'Choose an infectious-disease assay',
       description: 'Six clearly differentiated assays presented in one consistent RUO kit family.',
       items: services.filter((service) => service.slug !== 'support' && !isInDevelopment(service)),
+    },
+    {
+      id: 'janzy-kits',
+      tabLabel: 'Janzy catalogue',
+      eyebrow: 'Shanghai Janzy Biotechnology',
+      title: 'Browse authorised Janzy detection kits',
+      description: 'A supplied catalogue of 97 nucleic-acid detection kits for human health, bacterial and ruminant targets. Contact PLS to confirm availability, intended use and documentation for a specific product.',
+      items: JANZY_KITS,
     },
     {
       id: 'emergency-panels',
@@ -255,6 +266,7 @@ export default function ServicesContent() {
   ].filter((group) => group.items.length);
 
   const [activeJourney, setActiveJourney] = useState('infectious');
+  const [activeJanzyCategory, setActiveJanzyCategory] = useState('All targets');
   const [query, setQuery] = useState('');
   const searchInput = useRef(null);
 
@@ -262,6 +274,7 @@ export default function ServicesContent() {
     const selectFromHash = () => {
       const requested = window.location.hash.replace('#', '');
       setActiveJourney(JOURNEY_IDS.has(requested) ? requested : 'infectious');
+      setActiveJanzyCategory('All targets');
       setQuery('');
     };
     selectFromHash();
@@ -276,14 +289,19 @@ export default function ServicesContent() {
   const activeGroup = serviceGroups.find((group) => group.id === activeJourney) || serviceGroups[0];
   const searchTerms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
   const visibleItems = activeGroup.items.filter((service) => {
-    const searchable = [service.name, service.description, service.sample_type, service.storage_condition, service.price]
+    const searchable = [service.name, service.description, service.category, service.format, service.sample_type, service.storage_condition, service.price]
       .filter(Boolean).join(' ').toLowerCase();
-    return searchTerms.every((term) => searchable.includes(term));
+    const matchesSearch = searchTerms.every((term) => searchable.includes(term));
+    const matchesJanzyCategory = activeGroup.id !== 'janzy-kits'
+      || activeJanzyCategory === 'All targets'
+      || service.category === activeJanzyCategory;
+    return matchesSearch && matchesJanzyCategory;
   });
 
   const chooseJourney = (id) => {
     if (id === activeJourney) return;
     setActiveJourney(id);
+    setActiveJanzyCategory('All targets');
     setQuery('');
     window.history.pushState(null, '', `#${id}`);
   };
@@ -314,9 +332,14 @@ export default function ServicesContent() {
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
               Precision Life Sciences is authorised to sell and promote Janzy life-science consumables, instruments, reagents and enzyme raw materials in Pakistan. The current supplied nucleic-acid detection-kit catalogue includes human, bacterial and ruminant targets in 96-test formats.
             </p>
-            <Link href="/contact?topic=enquire&product=Shanghai%20Janzy%20Biotechnology%20product%20catalogue" className="mt-5 inline-flex min-h-11 items-center rounded-lg bg-navy px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-navylight">
-              Request the Janzy catalogue
-            </Link>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link href="#janzy-kits" className="inline-flex min-h-11 items-center rounded-lg bg-navy px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-navylight">
+                Browse Janzy kits
+              </Link>
+              <Link href="/contact?topic=enquire&product=Shanghai%20Janzy%20Biotechnology%20product%20catalogue" className="inline-flex min-h-11 items-center rounded-lg border border-navy/20 px-5 py-3 text-sm font-semibold text-navy transition-colors hover:border-cyan hover:text-cyandark">
+                Request availability
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -346,6 +369,29 @@ export default function ServicesContent() {
         ))}
       </nav>
 
+      {activeGroup.id === 'janzy-kits' && (
+        <fieldset className="mb-8">
+          <legend className="text-sm font-semibold text-navy">Filter Janzy kits by target group</legend>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {JANZY_KIT_CATEGORIES.map((category) => (
+              <button
+                key={category}
+                type="button"
+                aria-pressed={activeJanzyCategory === category}
+                onClick={() => setActiveJanzyCategory(category)}
+                className={`min-h-10 rounded-full border px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+                  activeJanzyCategory === category
+                    ? 'border-navy bg-navy text-white'
+                    : 'border-navy/15 bg-graybg text-navy hover:border-cyan'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </fieldset>
+      )}
+
       <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div className="w-full sm:max-w-md">
           <label htmlFor="catalogue-search" className="text-sm font-semibold text-navy">Search {activeGroup.tabLabel.toLowerCase()}</label>
@@ -357,7 +403,7 @@ export default function ServicesContent() {
               type="search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search by name, target or sample type"
+              placeholder={activeGroup.id === 'janzy-kits' ? 'Search a pathogen or kit name' : 'Search by name, target or sample type'}
               aria-controls="catalogue-results"
               className="min-h-12 w-full rounded-lg border border-slate-300 bg-white py-3 pl-11 pr-4 text-sm text-navy placeholder:text-slate-500 focus:border-cyandark focus:outline-none focus:ring-2 focus:ring-cyan/20"
             />
@@ -393,7 +439,7 @@ export default function ServicesContent() {
             <div className={`grid gap-5 ${
               group.id === 'collaboration'
                 ? 'md:grid-cols-1'
-                : group.id === 'laboratory-services' || group.id === 'advanced-services'
+                : group.id === 'janzy-kits' || group.id === 'laboratory-services' || group.id === 'advanced-services'
                   ? 'md:grid-cols-2 lg:grid-cols-3'
                   : 'md:grid-cols-2'
             }`}>
@@ -401,6 +447,8 @@ export default function ServicesContent() {
                 const c = colorMap[s.color] || colorMap.navy;
                 // General, public-facing specs only. Gene regions and reaction details stay in the datasheet.
                 const chips = [
+                  ['Category', s.category],
+                  ['Pack size', s.format],
                   ['Sample type', s.sample_type],
                   ['Turnaround', s.turnaround_time],
                   ['Storage', s.storage_condition],
