@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import FAQ from '@/components/FAQ';
 import { EMERGENCY_PANELS } from '@/lib/emergencyPanels';
@@ -301,6 +302,24 @@ export default function ServicesContent() {
           Find a research assay, explore our development pipeline, or choose a service for your laboratory workflow.
         </p>
       </div>
+
+      <section aria-labelledby="janzy-portfolio-heading" className="mb-8 overflow-hidden rounded-2xl border border-navy/10 bg-white">
+        <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
+          <div className="flex min-h-36 items-center justify-center rounded-xl border border-slate-200 bg-[#fbfcfd] p-6">
+            <Image src="/images/partners/janzy-biotechnology.png" alt="Janzy Biotechnology" width={465} height={130} className="h-auto w-full max-w-sm object-contain" />
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Authorised distribution in Pakistan</p>
+            <h2 id="janzy-portfolio-heading" className="mt-2 text-2xl font-extrabold text-navy">Shanghai Janzy Biotechnology portfolio</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
+              Precision Life Sciences is authorised to sell and promote Janzy life-science consumables, instruments, reagents and enzyme raw materials in Pakistan. The current supplied nucleic-acid detection-kit catalogue includes human, bacterial and ruminant targets in 96-test formats.
+            </p>
+            <Link href="/contact?topic=enquire&product=Shanghai%20Janzy%20Biotechnology%20product%20catalogue" className="mt-5 inline-flex min-h-11 items-center rounded-lg bg-navy px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-navylight">
+              Request the Janzy catalogue
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <div className="mb-8 flex flex-col items-start justify-between gap-3 rounded-lg border border-cyan/20 bg-graybg px-5 py-4 sm:flex-row sm:items-center">
         <p className="text-sm text-slate-600"><span className="font-semibold text-navy">Planning to send samples?</span> Confirm acceptance and transport requirements first.</p>
