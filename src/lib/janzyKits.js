@@ -1,4 +1,4 @@
-export const JANZY_KITS = [
+const JANZY_KIT_SOURCE = [
   {
     "id": "janzy-1",
     "slug": "janzy-1",
@@ -1067,6 +1067,12 @@ export const JANZY_KITS = [
     "color": "janzy"
   }
 ];
+
+export const JANZY_KITS = JANZY_KIT_SOURCE.map((kit, index) => ({
+  ...kit,
+  // PLS distribution reference only. This does not replace the manufacturer's own catalogue number.
+  plsReference: `PLS-JANZY-${String(index + 1).padStart(3, '0')}`,
+}));
 
 export const JANZY_KIT_CATEGORIES = ['All targets', 'Human health', 'Bacterial targets', 'Ruminant health'];
 
