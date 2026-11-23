@@ -30,6 +30,15 @@ const MARKS = [
     presentation: 'wordmark',
   },
   {
+    role: 'Authorised distributor in Pakistan',
+    name: 'Shanghai Janzy Biotechnology Co., Ltd.',
+    image: '/images/partners/janzy-biotechnology.png',
+    alt: 'Janzy Biotechnology logo',
+    width: 465,
+    height: 130,
+    presentation: 'wordmark',
+  },
+  {
     role: 'Quality management',
     name: 'ISO 9001:2015 Â· KMU Project R&D Laboratory',
     image: '/images/partners/iso-9001-kmu-project-lab.svg',
