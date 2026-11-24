@@ -24,6 +24,7 @@ export default function ChatAssistant() {
   const log = useRef(null);
   const busy = useRef(false);
   const restoreInputFocus = useRef(false);
+  const hasIntroducedDiaNA = useRef(false);
   const [open, setOpen] = useState(false);
   const [availability, setAvailability] = useState('checking');
   const [messages, setMessages] = useState([]);
@@ -48,7 +49,20 @@ export default function ChatAssistant() {
     }
   }, [sending]);
 
-  useEffect(() => { dialog.current?.close(); }, [pathname]);
+  useEffect(() => {
+    dialog.current?.close();
+    // The Services page is where visitors most often need help choosing a product.
+    // Use a non-modal introduction so the portfolio remains usable behind DiaNA.
+    if (pathname === '/services' && !hasIntroducedDiaNA.current) {
+      hasIntroducedDiaNA.current = true;
+      const timer = window.setTimeout(() => {
+        dialog.current?.show();
+        setOpen(true);
+      }, 450);
+      return () => window.clearTimeout(timer);
+    }
+    return undefined;
+  }, [pathname]);
 
   function close() { dialog.current?.close(); }
   function show() {
