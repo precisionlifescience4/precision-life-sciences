@@ -15,6 +15,7 @@ const FALLBACK_SERVICES = [
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for hepatitis B virus research workflows.',
     sample_type: 'Plasma',
     storage_condition: 'Room-temperature stable (unopened, dry)',
+    catalogueNumbers: 'PLS-MPX-HBV-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'hbv',
   },
@@ -25,6 +26,7 @@ const FALLBACK_SERVICES = [
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for hepatitis C virus research workflows.',
     sample_type: 'Plasma',
     storage_condition: 'Room-temperature stable (unopened, dry)',
+    catalogueNumbers: 'PLS-MPX-HCV-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'hcv',
   },
@@ -35,6 +37,7 @@ const FALLBACK_SERVICES = [
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for human immunodeficiency virus research workflows.',
     sample_type: 'Plasma',
     storage_condition: 'Room-temperature stable (unopened, dry)',
+    catalogueNumbers: 'PLS-MPX-HIV-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'hiv',
   },
@@ -45,6 +48,7 @@ const FALLBACK_SERVICES = [
     description: 'A combined RUO arbovirus assay available in 24-, 48-, and 96-test kit formats.',
     sample_type: 'Plasma',
     storage_condition: 'Room-temperature stable (unopened, dry)',
+    catalogueNumbers: 'PLS-MPX-DENVCHIK-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'dengue',
   },
@@ -55,6 +59,7 @@ const FALLBACK_SERVICES = [
     description: 'An RUO assay available in 24-, 48-, and 96-test kit formats for influenza A and B research workflows.',
     sample_type: 'Nasopharyngeal swab',
     storage_condition: 'Room-temperature stable (unopened, dry)',
+    catalogueNumbers: 'PLS-MPX-FLUAB-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'flu',
   },
@@ -65,6 +70,7 @@ const FALLBACK_SERVICES = [
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for Crimean-Congo haemorrhagic fever virus research.',
     sample_type: 'Plasma',
     storage_condition: 'Confirm with PLS',
+    catalogueNumbers: 'PLS-MPX-CCHF-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'cchf',
   },
@@ -73,6 +79,7 @@ const FALLBACK_SERVICES = [
     slug: 'bcr-abl1',
     name: 'Mugen-Plex Myeloid BCR-ABL1',
     description: 'BCR-ABL1 fusion transcript assay concept for chronic myeloid leukaemia research.',
+    catalogueNumbers: 'PLS-MPX-MY-BCRABL1-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'dengue',
   },
@@ -81,6 +88,7 @@ const FALLBACK_SERVICES = [
     slug: 'jak2',
     name: 'Mugen-Plex Myeloid JAK2',
     description: 'JAK2 mutation assay concept for myeloproliferative neoplasm research.',
+    catalogueNumbers: 'PLS-MPX-MY-JAK2-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'flu',
   },
@@ -89,6 +97,7 @@ const FALLBACK_SERVICES = [
     slug: 'mpl',
     name: 'Mugen-Plex Myeloid MPL',
     description: 'MPL mutation assay concept for myeloproliferative neoplasm research.',
+    catalogueNumbers: 'PLS-MPX-MY-MPL-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'hiv',
   },
@@ -97,6 +106,7 @@ const FALLBACK_SERVICES = [
     slug: 'calr',
     name: 'Mugen-Plex Myeloid CALR',
     description: 'CALR mutation assay concept for myeloproliferative neoplasm research.',
+    catalogueNumbers: 'PLS-MPX-MY-CALR-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'cchf',
   },
@@ -105,6 +115,7 @@ const FALLBACK_SERVICES = [
     slug: 'pml-rara',
     name: 'Mugen-Plex Myeloid PML-RARA',
     description: 'PML-RARA fusion transcript assay concept for acute promyelocytic leukaemia research.',
+    catalogueNumbers: 'PLS-MPX-MY-PMLRARA-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'dengue',
   },
@@ -113,6 +124,7 @@ const FALLBACK_SERVICES = [
     slug: 'mpn panel',
     name: 'Mugen-Plex Myeloid MPN Panel',
     description: 'JAK2, CALR and MPL assay panel concept for myeloproliferative neoplasm research.',
+    catalogueNumbers: 'PLS-MPX-MY-MPN-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'flu',
   },
@@ -143,6 +155,7 @@ const EMERGENCY_PANEL_SERVICES = EMERGENCY_PANELS.map((panel) => ({
   slug: panel.id,
   name: panel.name,
   description: panel.description,
+  catalogueNumbers: panel.catalogueNumbers,
   price: 'In development · RUO concept',
   color: panel.color,
 }));
@@ -289,7 +302,7 @@ export default function ServicesContent() {
   const activeGroup = serviceGroups.find((group) => group.id === activeJourney) || serviceGroups[0];
   const searchTerms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
   const visibleItems = activeGroup.items.filter((service) => {
-    const searchable = [service.name, service.description, service.category, service.format, service.sample_type, service.storage_condition, service.price]
+    const searchable = [service.name, service.description, service.category, service.format, service.sample_type, service.storage_condition, service.catalogueNumbers, service.plsReference, service.price]
       .filter(Boolean).join(' ').toLowerCase();
     const matchesSearch = searchTerms.every((term) => searchable.includes(term));
     const matchesJanzyCategory = activeGroup.id !== 'janzy-kits'
@@ -331,6 +344,9 @@ export default function ServicesContent() {
             <h2 id="janzy-portfolio-heading" className="mt-2 text-2xl font-extrabold text-navy">Shanghai Janzy Biotechnology portfolio</h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
               Precision Life Sciences is authorised to sell and promote Janzy life-science consumables, instruments, reagents and enzyme raw materials in Pakistan. The current supplied nucleic-acid detection-kit catalogue includes human, bacterial and ruminant targets in 96-test formats.
+            </p>
+            <p className="mt-3 max-w-2xl text-xs leading-relaxed text-slate-500">
+              Janzy products are listed with a PLS distribution reference for local quoting and traceability. The manufacturer catalogue number is confirmed with the product documentation and quotation.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link href="#janzy-kits" className="inline-flex min-h-11 items-center rounded-lg bg-navy px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-navylight">
@@ -447,6 +463,7 @@ export default function ServicesContent() {
                 const c = colorMap[s.color] || colorMap.navy;
                 // General, public-facing specs only. Gene regions and reaction details stay in the datasheet.
                 const chips = [
+                  [s.plsReference ? 'PLS reference' : 'Catalogue Nos.', s.plsReference || s.catalogueNumbers],
                   ['Category', s.category],
                   ['Pack size', s.format],
                   ['Sample type', s.sample_type],

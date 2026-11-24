@@ -47,6 +47,7 @@ export default async function AssayPage({ params }) {
         url: pageUrl,
         image: `${SITE_URL}${assay.image}`,
         category: 'Research-use-only real-time PCR assay',
+        sku: assay.catalogueNumbers,
         brand: { '@type': 'Brand', name: 'Mugen-Plex' },
         manufacturer: {
           '@type': 'Organization',
@@ -56,6 +57,7 @@ export default async function AssayPage({ params }) {
         additionalProperty: [
           { '@type': 'PropertyValue', name: 'Research-use status', value: 'RUO' },
           { '@type': 'PropertyValue', name: 'Kit formats', value: assay.formats },
+          { '@type': 'PropertyValue', name: 'Catalogue numbers', value: assay.catalogueNumbers },
           { '@type': 'PropertyValue', name: 'Specimen type', value: assay.specimen },
           { '@type': 'PropertyValue', name: 'Storage', value: assay.storage },
         ],
@@ -97,6 +99,7 @@ export default async function AssayPage({ params }) {
               <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">
                 A consistent Mugen-Plex RUO kit format for {assay.researchArea}, supported by a Pakistan-based technical team.
               </p>
+              <p className="mt-4 text-sm font-bold text-navy">Catalogue Nos.: {assay.catalogueNumbers}</p>
               {assay.roomTemperatureStable && (
                 <p className="mt-4 inline-flex rounded-full border border-cyan/40 bg-white px-4 py-2 text-sm font-bold text-navy">
                   Room-temperature stable · unopened and dry

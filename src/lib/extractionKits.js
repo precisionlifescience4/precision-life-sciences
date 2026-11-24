@@ -5,6 +5,7 @@ export const EXTRACTION_KITS = [
     molecule: 'DNA',
     description: 'A column-based DNA extraction kit concept for defined molecular research workflows.',
     storage: 'Room-temperature stable (unopened)',
+    catalogueNumbers: 'PLS-MPR-DNA-050',
     accent: '#159AA3',
   },
   {
@@ -13,6 +14,7 @@ export const EXTRACTION_KITS = [
     molecule: 'RNA',
     description: 'A column-based RNA extraction kit concept for defined molecular research workflows.',
     storage: 'Room-temperature stable (unopened)',
+    catalogueNumbers: 'PLS-MPR-RNA-050',
     accent: '#7B61A8',
   },
 ];

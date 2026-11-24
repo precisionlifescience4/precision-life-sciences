@@ -49,6 +49,7 @@ export default function ExtractionKitsPage() {
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">In development · RUO</p>
                 <h3 className="mt-2 text-2xl font-extrabold text-navy">{kit.molecule} Extraction Kit</h3>
                 <p className="mt-4 leading-relaxed text-slate-600">{kit.description}</p>
+                <p className="mt-4 text-sm font-bold text-navy">Catalogue No.: {kit.catalogueNumbers}</p>
                 <p className="mt-4 text-sm font-bold text-navy">Storage: {kit.storage}</p>
                 <Link
                   href={`/contact?topic=interest&product=${encodeURIComponent(kit.name)}`}
