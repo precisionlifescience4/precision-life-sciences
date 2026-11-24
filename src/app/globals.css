@@ -85,6 +85,10 @@ button:not(:disabled), summary { cursor: pointer; }
 .prep-card { transition: border-color 180ms ease, transform 180ms ease; }
 .prep-card:hover { border-color: #00A3E0; transform: translateY(-2px); }
 .prep-accent { transform-origin: left center; animation: prep-accent-reveal 640ms cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--memory-index, 0) * 95ms + 160ms); }
+.prep-home-tile { transition: transform 200ms ease, border-color 200ms ease; }
+.prep-home-tile:hover { transform: translateY(-5px); border-color: #0077a8; }
+.prep-home-orbit { animation: prep-orbit 3.5s ease-in-out infinite; animation-delay: var(--prep-delay, 0ms); }
+@keyframes prep-orbit { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @media (max-width: 480px) {
   .pls-chat-dialog { inset: auto .5rem max(.5rem, env(safe-area-inset-bottom)) .5rem; width: calc(100vw - 1rem); }
   input, select, textarea { font-size: 16px; }
