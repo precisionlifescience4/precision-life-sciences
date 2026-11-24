@@ -303,6 +303,7 @@ export default function ServicesContent() {
   const [activeJanzyCategory, setActiveJanzyCategory] = useState('All targets');
   const [query, setQuery] = useState('');
   const searchInput = useRef(null);
+  const quickSearchInput = useRef(null);
 
   useEffect(() => {
     const selectFromHash = () => {
@@ -345,6 +346,26 @@ export default function ServicesContent() {
     searchInput.current?.focus();
   };
 
+  const searchPortfolio = (event) => {
+    event.preventDefault();
+    const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    if (!terms.length) {
+      quickSearchInput.current?.focus();
+      return;
+    }
+    const matchedGroup = serviceGroups.find((group) => group.items.some((service) => {
+      const searchable = [service.name, service.description, service.category, service.format, service.sample_type, service.storage_condition, service.price]
+        .filter(Boolean).join(' ').toLowerCase();
+      return terms.every((term) => searchable.includes(term));
+    }));
+    if (matchedGroup) {
+      setActiveJourney(matchedGroup.id);
+      setActiveJanzyCategory('All targets');
+      window.history.pushState(null, '', `#${matchedGroup.id}`);
+    }
+    requestAnimationFrame(() => document.getElementById('catalogue-results')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
+
   return (
     <main id="main-content" className="max-w-6xl mx-auto px-5 py-12 sm:px-6 md:py-16">
       <div className="mb-9 max-w-3xl">
@@ -354,6 +375,46 @@ export default function ServicesContent() {
           Find a research assay, explore our development pipeline, or choose a service for your laboratory workflow.
         </p>
       </div>
+
+      <section aria-label="Find a kit or service" className="mb-8 rounded-2xl border border-navy/10 bg-graybg p-5 sm:p-6">
+        <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+          <form onSubmit={searchPortfolio}>
+            <label htmlFor="portfolio-search" className="text-base font-extrabold text-navy">Find a kit or service</label>
+            <p className="mt-1 text-sm leading-relaxed text-slate-600">Search a pathogen, kit, product family or service.</p>
+            <div className="mt-3 flex gap-2">
+              <div className="relative min-w-0 flex-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="pointer-events-none absolute left-3.5 top-3.5 h-5 w-5 text-slate-400" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4.5 4.5" /></svg>
+                <input
+                  ref={quickSearchInput}
+                  id="portfolio-search"
+                  type="search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="e.g. HBV, meningitis, sequencing"
+                  className="min-h-12 w-full rounded-lg border border-slate-300 bg-white py-3 pl-11 pr-4 text-sm text-navy placeholder:text-slate-500 focus:border-cyandark focus:outline-none focus:ring-2 focus:ring-cyan/20"
+                />
+              </div>
+              <button type="submit" className="min-h-12 shrink-0 rounded-lg bg-navy px-5 py-3 text-sm font-semibold text-white hover:bg-navylight">Search</button>
+            </div>
+          </form>
+          <div>
+            <p className="text-sm font-extrabold text-navy">Explore by area</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {[
+                ['infectious', 'Infectious disease'],
+                ['emergency-panels', 'Emergency medicine'],
+                ['myeloid', 'Haematology'],
+                ['advanced-services', 'Sequencing & design'],
+                ['janzy-kits', 'Partner catalogue'],
+              ].map(([id, label]) => (
+                <button key={id} type="button" onClick={() => chooseJourney(id)} className="min-h-10 rounded-full border border-navy/15 bg-white px-3 py-2 text-sm font-semibold text-navy hover:border-cyan hover:text-cyandark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section aria-labelledby="portfolio-route-heading" className="mb-8">
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
