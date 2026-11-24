@@ -116,8 +116,8 @@ export default function Home() {
 
       <section aria-label="Explore PLS products and services" className="bg-white px-5 sm:px-6">
         <div className="mx-auto grid max-w-7xl divide-y divide-navy/10 md:grid-cols-3 md:divide-x md:divide-y-0">
-          {ROUTES.map((route) => (
-            <Link key={route.href} href={route.href} className="group relative py-7 md:px-7 md:py-9 md:first:pl-0 md:last:pr-0">
+          {ROUTES.map((route, index) => (
+            <Link key={route.href} href={route.href} style={{ '--memory-index': index }} className="memory-cue group relative py-7 md:px-7 md:py-9 md:first:pl-0 md:last:pr-0">
               <div className="flex items-center justify-between gap-4"><p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-slate-500">{route.label}</p><span aria-hidden="true" className="text-xs text-slate-400">{route.number}</span></div>
               <h2 className="mt-3 flex items-center justify-between gap-4 text-xl font-bold text-navy">{route.title}<span aria-hidden="true" className="text-cyandark transition-transform group-hover:translate-x-1">↗</span></h2>
               <p className="mt-2 max-w-sm text-sm leading-relaxed text-slate-600">{route.description}</p>
@@ -141,8 +141,8 @@ export default function Home() {
               ['01', 'Prepare & quantify', 'DNA extraction and DNA/RNA quantification.', '/molecular-services/dna-extraction'],
               ['02', 'Amplify & assess', 'PCR amplification and gel electrophoresis.', '/molecular-services/pcr-amplification'],
               ['03', 'Sequence', 'Sanger sequencing for your research workflow.', '/molecular-services/sanger-sequencing'],
-            ].map(([number, title, description, href]) => (
-              <Link key={number} href={href} className="group flex items-start gap-5 py-6">
+            ].map(([number, title, description, href], index) => (
+              <Link key={number} href={href} style={{ '--memory-index': index }} className="memory-cue group flex items-start gap-5 py-6">
                 <span aria-hidden="true" className="pt-1 text-xs font-semibold text-cyandark">{number}</span>
                 <div className="flex-1"><h3 className="text-lg font-semibold text-navy">{title}</h3><p className="mt-1 text-sm leading-relaxed text-slate-600">{description}</p></div>
                 <span aria-hidden="true" className="pt-1 text-cyandark transition-transform group-hover:translate-x-1">↗</span>
@@ -155,7 +155,7 @@ export default function Home() {
       <EmergencyPanels />
 
       <section aria-labelledby="myeloid-pipeline-heading" className="bg-graybg px-5 py-12 sm:px-6 md:py-16">
-        <div className="mx-auto grid max-w-6xl gap-7 rounded-xl bg-navy p-7 text-white sm:p-10 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+        <div className="memory-cue mx-auto grid max-w-6xl gap-7 rounded-xl bg-navy p-7 text-white sm:p-10 md:grid-cols-[1.2fr_0.8fr] md:items-center" style={{ '--memory-index': 1 }}>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Mugen-Plex Myeloid · In development</p>
             <h2 id="myeloid-pipeline-heading" className="mt-3 text-2xl font-bold md:text-3xl">Follow the research pipeline.</h2>
