@@ -376,7 +376,7 @@ export default function ServicesContent() {
         </p>
       </div>
 
-      <section aria-label="Find a kit or service" className="mb-8 rounded-2xl border border-navy/10 bg-graybg p-5 sm:p-6">
+      <section aria-label="Find a kit or service" className="portfolio-enter mb-8 rounded-2xl border border-navy/10 bg-graybg p-5 sm:p-6">
         <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <form onSubmit={searchPortfolio}>
             <label htmlFor="portfolio-search" className="text-base font-extrabold text-navy">Find a kit or service</label>
@@ -416,7 +416,7 @@ export default function ServicesContent() {
         </div>
       </section>
 
-      <section aria-labelledby="portfolio-route-heading" className="mb-8">
+      <section aria-labelledby="portfolio-route-heading" className="portfolio-enter portfolio-enter-delay-1 mb-8">
         <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Start here</p>
@@ -447,7 +447,7 @@ export default function ServicesContent() {
         <Link href="/sample-transport" className="inline-flex min-h-11 shrink-0 items-center text-sm font-bold text-cyandark hover:text-navy">Sample transport guide →</Link>
       </div>
 
-      <nav aria-label="Portfolio categories" className="mb-8 border-b border-slate-200 pb-6">
+      <nav aria-label="Portfolio categories" className="portfolio-enter portfolio-enter-delay-2 mb-8 border-b border-slate-200 pb-6">
         <div className="grid gap-5 lg:grid-cols-[1fr_1fr_0.82fr]">
           <div>
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-500">PLS product families</p>
@@ -586,7 +586,7 @@ export default function ServicesContent() {
                   ? 'md:grid-cols-2 lg:grid-cols-3'
                   : 'md:grid-cols-2'
             }`}>
-              {visibleItems.map((s) => {
+              {visibleItems.map((s, index) => {
                 const c = colorMap[s.color] || colorMap.navy;
                 // General, public-facing specs only. Gene regions and reaction details stay in the datasheet.
                 const chips = [
@@ -600,7 +600,8 @@ export default function ServicesContent() {
                 return (
                   <article
                     key={s.id}
-                    className={`flex h-full flex-col rounded-xl border border-slate-200 border-t-4 ${c.border} bg-white p-5 transition-shadow hover:shadow-[0_8px_30px_rgba(0,32,91,0.06)] sm:p-6`}
+                    style={{ '--motion-index': index }}
+                    className={`portfolio-card-enter flex h-full flex-col rounded-xl border border-slate-200 border-t-4 ${c.border} bg-white p-5 transition-shadow hover:shadow-[0_8px_30px_rgba(0,32,91,0.06)] sm:p-6`}
                   >
                     <h3 className="mb-2 text-lg font-bold text-navy">{s.name}</h3>
                     <p className="mb-4 text-sm leading-relaxed text-gray-600">{s.description}</p>
