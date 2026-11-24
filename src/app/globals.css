@@ -48,6 +48,25 @@ button:not(:disabled), summary { cursor: pointer; }
 }
 .pls-chat-dialog::backdrop { background: #00102f30; }
 .pls-chat-dialog[open] { display: flex; flex-direction: column; }
+.pls-chat-dialog[open] { animation: chat-introduction 360ms cubic-bezier(.2, .8, .2, 1) both; }
+
+@keyframes chat-introduction {
+  from { opacity: 0; transform: translateY(14px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes portfolio-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.portfolio-enter { animation: portfolio-enter 460ms cubic-bezier(.2, .8, .2, 1) both; }
+.portfolio-enter-delay-1 { animation-delay: 80ms; }
+.portfolio-enter-delay-2 { animation-delay: 150ms; }
+.portfolio-card-enter {
+  animation: portfolio-enter 420ms cubic-bezier(.2, .8, .2, 1) both;
+  animation-delay: calc(var(--motion-index, 0) * 55ms);
+}
 @media (max-width: 480px) {
   .pls-chat-dialog { inset: auto .5rem max(.5rem, env(safe-area-inset-bottom)) .5rem; width: calc(100vw - 1rem); }
   input, select, textarea { font-size: 16px; }
