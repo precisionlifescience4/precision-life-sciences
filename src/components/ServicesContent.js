@@ -155,6 +155,13 @@ const ASSAY_DETAIL_PATHS = {
   cchf: '/assays/cchf',
 };
 
+const JANZY_CLINICAL_AREAS = {
+  all: { label: 'All targets', matches: () => true },
+  human: { label: 'Human health', matches: (kit) => kit.category === 'Human health' },
+  gastro: { label: 'Gastro & enteric', matches: (kit) => /Clostridioides|Shigella|Campylobacter|Escherichia coli|Listeria|Vibrio|Bacteroides|Entamoeba|Giardia|Cryptosporidium|Salmonella|Norovirus|Rotavirus|Adenovirus/i.test(kit.name) },
+  livestock: { label: 'Livestock & ruminant', matches: (kit) => kit.category === 'Ruminant health' },
+};
+
 const PORTFOLIO_PATHS = [
   {
     id: 'infectious',
@@ -174,11 +181,11 @@ const PORTFOLIO_PATHS = [
   },
   {
     id: 'janzy-kits',
-    eyebrow: 'Partner products',
-    title: 'Janzy detection-kit catalogue',
-    description: 'Browse authorised Janzy nucleic-acid detection kits across human, bacterial and ruminant targets.',
-    action: 'Browse Janzy products',
-    icon: 'partner',
+    eyebrow: 'Extended PCR kit catalogue',
+    title: 'Find a kit by disease area',
+    description: 'Explore human, gastrointestinal, bacterial and livestock molecular detection kits supplied through PLS.',
+    action: 'Explore disease areas',
+    icon: 'kit',
   },
 ];
 
@@ -251,10 +258,10 @@ export default function ServicesContent() {
     },
     {
       id: 'janzy-kits',
-      tabLabel: 'Janzy catalogue',
-      eyebrow: 'Shanghai Janzy Biotechnology',
-      title: 'Browse authorised Janzy detection kits',
-      description: 'A supplied catalogue of 97 nucleic-acid detection kits for human health, bacterial and ruminant targets. Contact PLS to confirm availability, intended use and documentation for a specific product.',
+      tabLabel: 'Extended PCR kits',
+      eyebrow: 'Human, gastrointestinal & livestock targets',
+      title: 'Browse PCR kits by disease area',
+      description: 'A supplied catalogue of 97 molecular detection kits across human-health, gastrointestinal, bacterial and ruminant targets. These authorised Janzy products are supplied through PLS; confirm availability, intended use and documentation for a specific product.',
       items: JANZY_KITS,
     },
     {
@@ -301,6 +308,7 @@ export default function ServicesContent() {
 
   const [activeJourney, setActiveJourney] = useState('infectious');
   const [activeJanzyCategory, setActiveJanzyCategory] = useState('All targets');
+  const [activeClinicalArea, setActiveClinicalArea] = useState('all');
   const [query, setQuery] = useState('');
   const searchInput = useRef(null);
   const quickSearchInput = useRef(null);
@@ -308,8 +316,10 @@ export default function ServicesContent() {
   useEffect(() => {
     const selectFromHash = () => {
       const requested = window.location.hash.replace('#', '');
+      const requestedArea = new URLSearchParams(window.location.search).get('area');
       setActiveJourney(JOURNEY_IDS.has(requested) ? requested : 'infectious');
       setActiveJanzyCategory('All targets');
+      setActiveClinicalArea(Object.hasOwn(JANZY_CLINICAL_AREAS, requestedArea) ? requestedArea : 'all');
       setQuery('');
     };
     selectFromHash();
@@ -330,15 +340,26 @@ export default function ServicesContent() {
     const matchesJanzyCategory = activeGroup.id !== 'janzy-kits'
       || activeJanzyCategory === 'All targets'
       || service.category === activeJanzyCategory;
-    return matchesSearch && matchesJanzyCategory;
+    const matchesClinicalArea = activeGroup.id !== 'janzy-kits'
+      || JANZY_CLINICAL_AREAS[activeClinicalArea].matches(service);
+    return matchesSearch && matchesJanzyCategory && matchesClinicalArea;
   });
 
   const chooseJourney = (id) => {
     if (id === activeJourney) return;
     setActiveJourney(id);
     setActiveJanzyCategory('All targets');
+    setActiveClinicalArea('all');
     setQuery('');
     window.history.pushState(null, '', `#${id}`);
+  };
+
+  const chooseClinicalArea = (area) => {
+    setActiveJourney('janzy-kits');
+    setActiveJanzyCategory('All targets');
+    setActiveClinicalArea(area);
+    setQuery('');
+    window.history.pushState(null, '', `/services?area=${area}#janzy-kits`);
   };
 
   const clearSearch = () => {
@@ -361,6 +382,7 @@ export default function ServicesContent() {
     if (matchedGroup) {
       setActiveJourney(matchedGroup.id);
       setActiveJanzyCategory('All targets');
+      setActiveClinicalArea('all');
       window.history.pushState(null, '', `#${matchedGroup.id}`);
     }
     requestAnimationFrame(() => document.getElementById('catalogue-results')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
@@ -405,9 +427,10 @@ export default function ServicesContent() {
                 ['emergency-panels', 'Emergency medicine'],
                 ['myeloid', 'Haematology'],
                 ['advanced-services', 'Sequencing & design'],
-                ['janzy-kits', 'Partner catalogue'],
+                ['gastro', 'Gastro & enteric kits'],
+                ['livestock', 'Livestock kits'],
               ].map(([id, label]) => (
-                <button key={id} type="button" onClick={() => chooseJourney(id)} className="min-h-10 rounded-full border border-navy/15 bg-white px-3 py-2 text-sm font-semibold text-navy hover:border-cyan hover:text-cyandark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
+                <button key={id} type="button" onClick={() => Object.hasOwn(JANZY_CLINICAL_AREAS, id) && id !== 'all' ? chooseClinicalArea(id) : chooseJourney(id)} className="min-h-10 rounded-full border border-navy/15 bg-white px-3 py-2 text-sm font-semibold text-navy hover:border-cyan hover:text-cyandark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
                   {label}
                 </button>
               ))}
@@ -430,7 +453,8 @@ export default function ServicesContent() {
               key={path.id}
               type="button"
               onClick={() => chooseJourney(path.id)}
-              className="group flex min-h-56 flex-col rounded-2xl border border-navy/10 bg-white p-6 text-left transition-all hover:-translate-y-0.5 hover:border-cyan hover:shadow-[0_12px_30px_rgba(0,32,91,0.08)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+              className="memory-cue group flex min-h-56 flex-col rounded-2xl border border-navy/10 bg-white p-6 text-left transition-all hover:-translate-y-0.5 hover:border-cyan hover:shadow-[0_12px_30px_rgba(0,32,91,0.08)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+              style={{ '--memory-index': PORTFOLIO_PATHS.indexOf(path) }}
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan/10 text-cyandark"><PathIcon type={path.icon} /></span>
               <p className="mt-5 text-xs font-bold uppercase tracking-[0.16em] text-cyandark">{path.eyebrow}</p>
@@ -489,7 +513,7 @@ export default function ServicesContent() {
             </div>
           </div>
           <div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-500">Partner products</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-500">Extended PCR kit catalogue</p>
             {serviceGroups.filter((group) => group.id === 'janzy-kits').map((group) => (
           <button
             key={group.id}
@@ -507,14 +531,21 @@ export default function ServicesContent() {
             <span aria-hidden="true" className={`rounded px-1.5 py-0.5 text-[11px] ${activeGroup.id === group.id ? 'bg-white/15 text-white' : 'bg-white text-slate-500'}`}>{group.items.length}</span>
           </button>
             ))}
-            <p className="mt-2 text-xs leading-relaxed text-slate-500">Authorised Janzy products; manufacturer documentation and availability are confirmed by PLS.</p>
+            <p className="mt-2 text-xs leading-relaxed text-slate-500">Human, gastrointestinal, bacterial and livestock PCR kits. Authorised Janzy products; manufacturer documentation and availability are confirmed by PLS.</p>
           </div>
         </div>
       </nav>
 
       {activeGroup.id === 'janzy-kits' && (
         <fieldset className="mb-8">
-          <legend className="text-sm font-semibold text-navy">Filter Janzy kits by target group</legend>
+          <legend className="text-sm font-semibold text-navy">Refine PCR kits by target group</legend>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {Object.entries(JANZY_CLINICAL_AREAS).map(([id, area]) => (
+              <button key={id} type="button" aria-pressed={activeClinicalArea === id} onClick={() => setActiveClinicalArea(id)} className={`min-h-10 rounded-full border px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${activeClinicalArea === id ? 'border-navy bg-navy text-white' : 'border-navy/15 bg-graybg text-navy hover:border-cyan'}`}>
+                {area.label}
+              </button>
+            ))}
+          </div>
           <div className="mt-3 flex flex-wrap gap-2">
             {JANZY_KIT_CATEGORIES.map((category) => (
               <button
