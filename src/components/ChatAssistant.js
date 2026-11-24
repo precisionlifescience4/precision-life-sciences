@@ -15,28 +15,44 @@ const GUIDE_STEPS = {
   start: {
     prompt: 'What are you looking for?',
     choices: [
-      { label: 'A PCR or extraction kit', detail: 'Explore PLS assays and nucleic-acid preparation kits', next: 'kits' },
+      { label: 'A PCR kit or panel', detail: 'Choose by disease area, care setting or species', next: 'kits' },
+      { label: 'An extraction kit', detail: 'Explore DNA and RNA preparation kits', href: '/extraction-kits', action: 'Explore extraction kits' },
       { label: 'A laboratory service', detail: 'Plan sequencing, design, cloning or sample-preparation work', next: 'services' },
-      { label: 'A partner product', detail: 'Browse the authorised Janzy product catalogue', href: '/services#janzy-kits', action: 'Open partner catalogue' },
     ],
   },
   kits: {
-    prompt: 'Which product area is closest to your need?',
+    prompt: 'Which disease area or workflow is closest to your need?',
     choices: [
-      { label: 'Infectious disease assay', detail: 'Viral research assays including hepatitis, HIV, dengue and influenza', next: 'infectious' },
-      { label: 'Emergency medicine panel', detail: 'Respiratory or meningitis research panel concepts', href: '/services#emergency-panels', action: 'Explore emergency panels' },
-      { label: 'Haematology assay', detail: 'Myeloid research pipeline and assay concepts', href: '/services#myeloid', action: 'Explore myeloid pipeline' },
-      { label: 'DNA or RNA extraction kit', detail: 'Mugen-Prep column-based extraction kits in development', href: '/extraction-kits', action: 'Explore extraction kits' },
+      { label: 'Human infectious disease', detail: 'Routine, chronic and community infection research', next: 'human' },
+      { label: 'Acute care or ICU', detail: 'Respiratory, arboviral, haemorrhagic-fever and emergency-panel pathways', next: 'acute' },
+      { label: 'Gastrointestinal or enteric disease', detail: 'Bacterial, parasitic and food-borne target kits', href: '/services?area=gastro#janzy-kits', action: 'Explore gastro and enteric kits' },
+      { label: 'Livestock or ruminant health', detail: 'Veterinary and ruminant molecular detection kits', href: '/services?area=livestock#janzy-kits', action: 'Explore livestock kits' },
+      { label: 'Haematology or oncology', detail: 'Myeloid molecular-haematology assay concepts', href: '/services#myeloid', action: 'Explore myeloid pipeline' },
     ],
   },
-  infectious: {
-    prompt: 'Which infectious-disease assay are you looking for?',
+  human: {
+    prompt: 'Which human-health pathway is most relevant?',
+    choices: [
+      { label: 'Hepatitis or HIV', detail: 'HBV, HCV and HIV research assays', next: 'chronic' },
+      { label: 'Acute, emergency or respiratory disease', detail: 'Influenza, dengue, CCHF, respiratory and meningitis pathways', next: 'acute' },
+      { label: 'Other human infectious targets', detail: 'Authorised partner PCR kits across further human-health targets', href: '/services?area=human#janzy-kits', action: 'Explore human-health kits' },
+    ],
+  },
+  chronic: {
+    prompt: 'Which assay are you looking for?',
     choices: [
       { label: 'Hepatitis B virus', href: '/assays/hbv', action: 'View HBV assay' },
       { label: 'Hepatitis C virus', href: '/assays/hcv', action: 'View HCV assay' },
       { label: 'Human immunodeficiency virus', href: '/assays/hiv', action: 'View HIV assay' },
+    ],
+  },
+  acute: {
+    prompt: 'Which acute-care or emergency pathway is closest to your need?',
+    choices: [
       { label: 'Dengue or chikungunya', href: '/assays/dengue-chikungunya', action: 'View Dengue / Chikungunya assay' },
       { label: 'Influenza A / B or CCHF', href: '/services#infectious', action: 'Explore infectious-disease assays' },
+      { label: 'Respiratory or meningitis research panel', href: '/services#emergency-panels', action: 'Explore emergency panels' },
+      { label: 'Other acute human-health targets', href: '/services?area=human#janzy-kits', action: 'Explore human-health kits' },
     ],
   },
   services: {
