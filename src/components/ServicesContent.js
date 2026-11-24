@@ -15,7 +15,6 @@ const FALLBACK_SERVICES = [
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for hepatitis B virus research workflows.',
     sample_type: 'Plasma',
     storage_condition: 'Room-temperature stable (unopened, dry)',
-    catalogueNumbers: 'PLS-MPX-HBV-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'hbv',
   },
@@ -26,7 +25,6 @@ const FALLBACK_SERVICES = [
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for hepatitis C virus research workflows.',
     sample_type: 'Plasma',
     storage_condition: 'Room-temperature stable (unopened, dry)',
-    catalogueNumbers: 'PLS-MPX-HCV-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'hcv',
   },
@@ -37,7 +35,6 @@ const FALLBACK_SERVICES = [
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for human immunodeficiency virus research workflows.',
     sample_type: 'Plasma',
     storage_condition: 'Room-temperature stable (unopened, dry)',
-    catalogueNumbers: 'PLS-MPX-HIV-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'hiv',
   },
@@ -48,7 +45,6 @@ const FALLBACK_SERVICES = [
     description: 'A combined RUO arbovirus assay available in 24-, 48-, and 96-test kit formats.',
     sample_type: 'Plasma',
     storage_condition: 'Room-temperature stable (unopened, dry)',
-    catalogueNumbers: 'PLS-MPX-DENVCHIK-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'dengue',
   },
@@ -59,7 +55,6 @@ const FALLBACK_SERVICES = [
     description: 'An RUO assay available in 24-, 48-, and 96-test kit formats for influenza A and B research workflows.',
     sample_type: 'Nasopharyngeal swab',
     storage_condition: 'Room-temperature stable (unopened, dry)',
-    catalogueNumbers: 'PLS-MPX-FLUAB-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'flu',
   },
@@ -70,7 +65,6 @@ const FALLBACK_SERVICES = [
     description: 'Available in 24-, 48-, and 96-test RUO kit formats for Crimean-Congo haemorrhagic fever virus research.',
     sample_type: 'Plasma',
     storage_condition: 'Confirm with PLS',
-    catalogueNumbers: 'PLS-MPX-CCHF-024 / -048 / -096',
     price: '24/48/96 Tests · RUO',
     color: 'cchf',
   },
@@ -79,7 +73,6 @@ const FALLBACK_SERVICES = [
     slug: 'bcr-abl1',
     name: 'Mugen-Plex Myeloid BCR-ABL1',
     description: 'BCR-ABL1 fusion transcript assay concept for chronic myeloid leukaemia research.',
-    catalogueNumbers: 'PLS-MPX-MY-BCRABL1-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'dengue',
   },
@@ -88,7 +81,6 @@ const FALLBACK_SERVICES = [
     slug: 'jak2',
     name: 'Mugen-Plex Myeloid JAK2',
     description: 'JAK2 mutation assay concept for myeloproliferative neoplasm research.',
-    catalogueNumbers: 'PLS-MPX-MY-JAK2-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'flu',
   },
@@ -97,7 +89,6 @@ const FALLBACK_SERVICES = [
     slug: 'mpl',
     name: 'Mugen-Plex Myeloid MPL',
     description: 'MPL mutation assay concept for myeloproliferative neoplasm research.',
-    catalogueNumbers: 'PLS-MPX-MY-MPL-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'hiv',
   },
@@ -106,7 +97,6 @@ const FALLBACK_SERVICES = [
     slug: 'calr',
     name: 'Mugen-Plex Myeloid CALR',
     description: 'CALR mutation assay concept for myeloproliferative neoplasm research.',
-    catalogueNumbers: 'PLS-MPX-MY-CALR-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'cchf',
   },
@@ -115,7 +105,6 @@ const FALLBACK_SERVICES = [
     slug: 'pml-rara',
     name: 'Mugen-Plex Myeloid PML-RARA',
     description: 'PML-RARA fusion transcript assay concept for acute promyelocytic leukaemia research.',
-    catalogueNumbers: 'PLS-MPX-MY-PMLRARA-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'dengue',
   },
@@ -124,7 +113,6 @@ const FALLBACK_SERVICES = [
     slug: 'mpn panel',
     name: 'Mugen-Plex Myeloid MPN Panel',
     description: 'JAK2, CALR and MPL assay panel concept for myeloproliferative neoplasm research.',
-    catalogueNumbers: 'PLS-MPX-MY-MPN-024 / -048 / -096',
     price: 'In development · 24/48/96 Tests · RUO',
     color: 'flu',
   },
@@ -155,7 +143,6 @@ const EMERGENCY_PANEL_SERVICES = EMERGENCY_PANELS.map((panel) => ({
   slug: panel.id,
   name: panel.name,
   description: panel.description,
-  catalogueNumbers: panel.catalogueNumbers,
   price: 'In development · RUO concept',
   color: panel.color,
 }));
@@ -167,6 +154,40 @@ const ASSAY_DETAIL_PATHS = {
   'influenza a & b': '/assays/influenza-a-b',
   cchf: '/assays/cchf',
 };
+
+const PORTFOLIO_PATHS = [
+  {
+    id: 'infectious',
+    eyebrow: 'PLS products',
+    title: 'PCR & extraction kits',
+    description: 'Explore the Mugen-Plex infectious and pipeline assays, plus Mugen-Prep extraction kits.',
+    action: 'Explore PLS kits',
+    icon: 'kit',
+  },
+  {
+    id: 'laboratory-services',
+    eyebrow: 'PLS services',
+    title: 'Send samples or start a project',
+    description: 'Request extraction, PCR, sequencing, primer design, cloning, cleanup or biobanking support.',
+    action: 'Explore laboratory services',
+    icon: 'service',
+  },
+  {
+    id: 'janzy-kits',
+    eyebrow: 'Partner products',
+    title: 'Janzy detection-kit catalogue',
+    description: 'Browse authorised Janzy nucleic-acid detection kits across human, bacterial and ruminant targets.',
+    action: 'Browse Janzy products',
+    icon: 'partner',
+  },
+];
+
+function PathIcon({ type }) {
+  const common = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.7', className: 'h-6 w-6', 'aria-hidden': true };
+  if (type === 'service') return <svg {...common}><path d="M4 7.5h16M7 4v7m10-7v7M5.5 11.5h13v8.5h-13z" /><path d="M9 15.75h6" /></svg>;
+  if (type === 'partner') return <svg {...common}><circle cx="8" cy="12" r="3.25" /><circle cx="16" cy="7.5" r="2.25" /><circle cx="16" cy="16.5" r="2.25" /><path d="m10.8 10.5 3.1-1.8m-3.1 4.8 3.1 1.8" /></svg>;
+  return <svg {...common}><rect x="4" y="5" width="16" height="14" rx="2" /><path d="M8 9h8M8 13h5M8 16h3" /></svg>;
+}
 
 function SpecChip({ label, value }) {
   return (
@@ -302,7 +323,7 @@ export default function ServicesContent() {
   const activeGroup = serviceGroups.find((group) => group.id === activeJourney) || serviceGroups[0];
   const searchTerms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
   const visibleItems = activeGroup.items.filter((service) => {
-    const searchable = [service.name, service.description, service.category, service.format, service.sample_type, service.storage_condition, service.catalogueNumbers, service.plsReference, service.price]
+    const searchable = [service.name, service.description, service.category, service.format, service.sample_type, service.storage_condition, service.price]
       .filter(Boolean).join(' ').toLowerCase();
     const matchesSearch = searchTerms.every((term) => searchable.includes(term));
     const matchesJanzyCategory = activeGroup.id !== 'janzy-kits'
@@ -334,29 +355,29 @@ export default function ServicesContent() {
         </p>
       </div>
 
-      <section aria-labelledby="janzy-portfolio-heading" className="mb-8 overflow-hidden rounded-2xl border border-navy/10 bg-white">
-        <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
-          <div className="flex min-h-36 items-center justify-center rounded-xl border border-slate-200 bg-[#fbfcfd] p-6">
-            <Image src="/images/partners/janzy-biotechnology.png" alt="Janzy Biotechnology" width={465} height={130} className="h-auto w-full max-w-sm object-contain" />
-          </div>
+      <section aria-labelledby="portfolio-route-heading" className="mb-8">
+        <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Authorised distribution in Pakistan</p>
-            <h2 id="janzy-portfolio-heading" className="mt-2 text-2xl font-extrabold text-navy">Shanghai Janzy Biotechnology portfolio</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
-              Precision Life Sciences is authorised to sell and promote Janzy life-science consumables, instruments, reagents and enzyme raw materials in Pakistan. The current supplied nucleic-acid detection-kit catalogue includes human, bacterial and ruminant targets in 96-test formats.
-            </p>
-            <p className="mt-3 max-w-2xl text-xs leading-relaxed text-slate-500">
-              Janzy products are listed with a PLS distribution reference for local quoting and traceability. The manufacturer catalogue number is confirmed with the product documentation and quotation.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link href="#janzy-kits" className="inline-flex min-h-11 items-center rounded-lg bg-navy px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-navylight">
-                Browse Janzy kits
-              </Link>
-              <Link href="/contact?topic=enquire&product=Shanghai%20Janzy%20Biotechnology%20product%20catalogue" className="inline-flex min-h-11 items-center rounded-lg border border-navy/20 px-5 py-3 text-sm font-semibold text-navy transition-colors hover:border-cyan hover:text-cyandark">
-                Request availability
-              </Link>
-            </div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Start here</p>
+            <h2 id="portfolio-route-heading" className="mt-2 text-2xl font-extrabold text-navy">What do you need today?</h2>
           </div>
+          <p className="max-w-lg text-sm leading-relaxed text-slate-600">Choose a route first. You can then narrow by clinical area, workflow or product family.</p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {PORTFOLIO_PATHS.map((path) => (
+            <button
+              key={path.id}
+              type="button"
+              onClick={() => chooseJourney(path.id)}
+              className="group flex min-h-56 flex-col rounded-2xl border border-navy/10 bg-white p-6 text-left transition-all hover:-translate-y-0.5 hover:border-cyan hover:shadow-[0_12px_30px_rgba(0,32,91,0.08)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan/10 text-cyandark"><PathIcon type={path.icon} /></span>
+              <p className="mt-5 text-xs font-bold uppercase tracking-[0.16em] text-cyandark">{path.eyebrow}</p>
+              <h3 className="mt-2 text-xl font-extrabold text-navy">{path.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">{path.description}</p>
+              <span className="mt-auto pt-5 text-sm font-bold text-navy group-hover:text-cyandark">{path.action}</span>
+            </button>
+          ))}
         </div>
       </section>
 
@@ -365,15 +386,57 @@ export default function ServicesContent() {
         <Link href="/sample-transport" className="inline-flex min-h-11 shrink-0 items-center text-sm font-bold text-cyandark hover:text-navy">Sample transport guide →</Link>
       </div>
 
-      <nav aria-label="Portfolio categories" className="mb-8 flex flex-wrap gap-2 border-b border-slate-200 pb-6">
-        {serviceGroups.map((group) => (
+      <nav aria-label="Portfolio categories" className="mb-8 border-b border-slate-200 pb-6">
+        <div className="grid gap-5 lg:grid-cols-[1fr_1fr_0.82fr]">
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-500">PLS product families</p>
+            <div className="flex flex-wrap gap-2">
+              {serviceGroups.filter((group) => ['infectious', 'emergency-panels', 'myeloid'].includes(group.id)).map((group) => (
+                <button
+                  key={group.id}
+                  type="button"
+                  aria-pressed={activeGroup.id === group.id}
+                  aria-controls="catalogue-results"
+                  onClick={() => chooseJourney(group.id)}
+                  className={`inline-flex min-h-11 items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm font-semibold leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+                    activeGroup.id === group.id ? 'border-navy bg-navy text-white' : 'border-navy/15 bg-graybg text-navy hover:border-cyan'
+                  }`}
+                >
+                  {group.tabLabel}<span aria-hidden="true" className={`rounded px-1.5 py-0.5 text-[11px] ${activeGroup.id === group.id ? 'bg-white/15 text-white' : 'bg-white text-slate-500'}`}>{group.items.length}</span>
+                </button>
+              ))}
+              <Link href="/extraction-kits" className="inline-flex min-h-11 items-center rounded-lg border border-navy/15 bg-graybg px-3 py-2 text-sm font-semibold text-navy hover:border-cyan">Mugen-Prep extraction kits</Link>
+            </div>
+          </div>
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-500">PLS laboratory services</p>
+            <div className="flex flex-wrap gap-2">
+              {serviceGroups.filter((group) => ['laboratory-services', 'advanced-services', 'collaboration'].includes(group.id)).map((group) => (
+                <button
+                  key={group.id}
+                  type="button"
+                  aria-pressed={activeGroup.id === group.id}
+                  aria-controls="catalogue-results"
+                  onClick={() => chooseJourney(group.id)}
+                  className={`inline-flex min-h-11 items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm font-semibold leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+                    activeGroup.id === group.id ? 'border-navy bg-navy text-white' : 'border-navy/15 bg-graybg text-navy hover:border-cyan'
+                  }`}
+                >
+                  {group.tabLabel}<span aria-hidden="true" className={`rounded px-1.5 py-0.5 text-[11px] ${activeGroup.id === group.id ? 'bg-white/15 text-white' : 'bg-white text-slate-500'}`}>{group.items.length}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-500">Partner products</p>
+            {serviceGroups.filter((group) => group.id === 'janzy-kits').map((group) => (
           <button
             key={group.id}
             type="button"
             aria-pressed={activeGroup.id === group.id}
             aria-controls="catalogue-results"
             onClick={() => chooseJourney(group.id)}
-            className={`inline-flex min-h-12 items-center gap-3 rounded-lg border px-4 py-3 text-left text-sm font-semibold leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+            className={`inline-flex min-h-11 items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm font-semibold leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
               activeGroup.id === group.id
                 ? 'border-navy bg-navy text-white'
                 : 'border-navy/15 bg-graybg text-navy hover:border-cyan'
@@ -382,7 +445,10 @@ export default function ServicesContent() {
             {group.tabLabel}
             <span aria-hidden="true" className={`rounded px-1.5 py-0.5 text-[11px] ${activeGroup.id === group.id ? 'bg-white/15 text-white' : 'bg-white text-slate-500'}`}>{group.items.length}</span>
           </button>
-        ))}
+            ))}
+            <p className="mt-2 text-xs leading-relaxed text-slate-500">Authorised Janzy products; manufacturer documentation and availability are confirmed by PLS.</p>
+          </div>
+        </div>
       </nav>
 
       {activeGroup.id === 'janzy-kits' && (
@@ -463,7 +529,6 @@ export default function ServicesContent() {
                 const c = colorMap[s.color] || colorMap.navy;
                 // General, public-facing specs only. Gene regions and reaction details stay in the datasheet.
                 const chips = [
-                  [s.plsReference ? 'PLS reference' : 'Catalogue Nos.', s.plsReference || s.catalogueNumbers],
                   ['Category', s.category],
                   ['Pack size', s.format],
                   ['Sample type', s.sample_type],
