@@ -128,6 +128,21 @@ export default function Home() {
 
       <InfectiousRange />
 
+      <section aria-labelledby="prep-home-title" className="bg-[#eef7fb] px-5 py-14 sm:px-6 md:py-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyandark">Mugen-Prep · In development</p>
+            <h2 id="prep-home-title" className="mt-3 text-3xl font-bold text-navy md:text-4xl">A clear start for DNA and RNA.</h2>
+            <p className="mt-4 max-w-xl leading-relaxed text-slate-600">Explore our column-based extraction kit concepts, designed for molecular research workflows and planned for room-temperature storage when unopened.</p>
+            <Link href="/extraction-kits" className="mt-6 inline-flex min-h-12 items-center rounded-lg bg-navy px-5 py-3 text-sm font-bold text-white hover:bg-navylight">Explore Mugen-Prep</Link>
+            <p className="mt-3 text-xs text-slate-600">In development · Research use only</p>
+          </div>
+          <div aria-label="DNA and RNA extraction pathways" className="grid grid-cols-2 gap-4">
+            {['DNA', 'RNA'].map((molecule, index) => <Link key={molecule} href="/extraction-kits" className="prep-home-tile rounded-2xl border border-cyan/30 bg-white p-6 text-navy sm:p-8" style={{ '--prep-delay': `${index * 180}ms` }}><span aria-hidden="true" className="prep-home-orbit mb-7 flex h-16 w-16 items-center justify-center rounded-full border-2 border-cyan text-xl font-bold text-cyandark">{molecule === 'DNA' ? 'D' : 'R'}</span><span className="block text-2xl font-bold">{molecule}</span><span className="mt-2 block text-sm text-slate-600">Extraction kit</span></Link>)}
+          </div>
+        </div>
+      </section>
+
       <section aria-labelledby="research-workflow-heading" className="bg-white px-5 py-14 sm:px-6 md:py-20">
         <div className="mx-auto grid max-w-6xl gap-9 lg:grid-cols-2 lg:gap-16">
           <div>
