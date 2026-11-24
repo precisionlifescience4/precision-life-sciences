@@ -60,12 +60,22 @@ button:not(:disabled), summary { cursor: pointer; }
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes memory-cue {
+  from { opacity: 0; transform: translateY(10px); }
+  70% { opacity: 1; }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .portfolio-enter { animation: portfolio-enter 460ms cubic-bezier(.2, .8, .2, 1) both; }
 .portfolio-enter-delay-1 { animation-delay: 80ms; }
 .portfolio-enter-delay-2 { animation-delay: 150ms; }
 .portfolio-card-enter {
   animation: portfolio-enter 420ms cubic-bezier(.2, .8, .2, 1) both;
   animation-delay: calc(var(--motion-index, 0) * 55ms);
+}
+.memory-cue {
+  animation: memory-cue 520ms cubic-bezier(.2, .8, .2, 1) both;
+  animation-delay: calc(var(--memory-index, 0) * 95ms);
 }
 @media (max-width: 480px) {
   .pls-chat-dialog { inset: auto .5rem max(.5rem, env(safe-area-inset-bottom)) .5rem; width: calc(100vw - 1rem); }
