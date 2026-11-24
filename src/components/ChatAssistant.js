@@ -118,29 +118,29 @@ export default function ChatAssistant() {
             <span className="flex h-11 w-11 shrink-0 overflow-hidden rounded-full ring-1 ring-cyan/60 shadow-inner"><DiaNAAvatar size={44} /></span>
             <div><h2 id="pls-assistant-title" className="text-base font-semibold">DiaNA</h2><p className="mt-1 text-xs text-slate-300">PLS information & enquiries assistant</p></div>
           </div>
-          <button type="button" onClick={close} aria-label="Close DiaNA" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xl hover:bg-white/10">Ã</button>
+          <button type="button" onClick={close} aria-label="Close DiaNA" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-bold hover:bg-white/10">Close</button>
         </div>
         <div ref={log} role="log" aria-label="Conversation with DiaNA" aria-live="polite" aria-relevant="additions text" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5">
-          <p id="pls-assistant-description" className="text-sm leading-relaxed text-slate-600">I can help you find PLS assays, laboratory services and sample information. I canât confirm availability or accept a shipment.</p>
-          {availability === 'checking' && <p role="status" className="mt-4 text-sm text-slate-500">Checking assistant availabilityâ¦</p>}
+          <p id="pls-assistant-description" className="text-sm leading-relaxed text-slate-600">I can help you find PLS assays, laboratory services and sample information. I can&apos;t confirm availability or accept a shipment.</p>
+          {availability === 'checking' && <p role="status" className="mt-4 text-sm text-slate-500">Checking assistant availability...</p>}
           {availability === 'unavailable' && <div role="status" className="mt-4 rounded-lg border border-slate-200 bg-graybg p-4 text-sm leading-relaxed text-slate-600">AI chat is currently unavailable. You can use the links below or contact the PLS team for help.</div>}
-          {availability === 'available' && messages.length === 0 && <div className="mt-5 space-y-2">{STARTERS.map(text => <button type="button" key={text} onClick={() => ask(text)} disabled={sending} className="block w-full rounded-lg border border-navy/15 bg-graybg px-3 py-3 text-left text-sm text-navy transition-colors hover:border-cyandark disabled:opacity-50">{text} <span aria-hidden="true">â</span></button>)}</div>}
+          {availability === 'available' && messages.length === 0 && <div className="mt-5 space-y-2">{STARTERS.map(text => <button type="button" key={text} onClick={() => ask(text)} disabled={sending} className="block w-full rounded-lg border border-navy/15 bg-graybg px-3 py-3 text-left text-sm text-navy transition-colors hover:border-cyandark disabled:opacity-50">{text}</button>)}</div>}
           <div className="mt-5 space-y-4">
             {messages.map((message, index) => <div key={index} className={`rounded-xl px-4 py-3 text-sm leading-relaxed ${message.role === 'user' ? 'ml-7 bg-navy text-white' : 'mr-3 border border-slate-200 bg-graybg text-slate-700'}`}>
               <p className={`mb-1 text-[10px] font-bold uppercase tracking-wider ${message.role === 'user' ? 'text-slate-300' : 'text-cyandark'}`}>{message.role === 'user' ? 'You' : 'DiaNA'}</p>
               <p className="whitespace-pre-wrap break-words">{message.content}</p>
-              {message.sources?.length > 0 && <ul aria-label="Related PLS pages" className="mt-3 space-y-2 border-t border-navy/10 pt-3">{message.sources.map(source => <li key={source.href}><Link href={source.href} onClick={close} className="font-semibold text-cyandark underline underline-offset-4">{source.title} â</Link></li>)}</ul>}
+              {message.sources?.length > 0 && <ul aria-label="Related PLS pages" className="mt-3 space-y-2 border-t border-navy/10 pt-3">{message.sources.map(source => <li key={source.href}><Link href={source.href} onClick={close} className="font-semibold text-cyandark underline underline-offset-4">{source.title}</Link></li>)}</ul>}
             </div>)}
           </div>
-          {sending && <p role="status" className="mt-4 text-sm text-slate-500">Preparing a replyâ¦</p>}
+          {sending && <p role="status" className="mt-4 text-sm text-slate-500">Preparing a reply...</p>}
           {error && <p role="alert" className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-800">{error}</p>}
         </div>
         <div className="shrink-0 border-t border-slate-200 bg-white px-5 pb-4 pt-3">
           <div className="mb-3 flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-cyandark">{QUICK_LINKS.map(([label, href]) => <Link key={href} href={href} onClick={close} className="py-1 underline underline-offset-4">{label}</Link>)}</div>
           {availability === 'available' && <form onSubmit={event => { event.preventDefault(); ask(question); }}>
             <label htmlFor="pls-chat-question" className="sr-only">Your question about PLS</label>
-            <div className="flex gap-2"><input ref={input} id="pls-chat-question" value={question} onChange={event => setQuestion(event.target.value)} maxLength={1200} autoComplete="off" placeholder="Ask about PLSâ¦" disabled={sending} className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-3 text-base disabled:bg-slate-50" /><button type="submit" disabled={sending || !question.trim()} className="rounded-lg bg-navy px-4 text-sm font-semibold text-white disabled:opacity-40">Send</button></div>
-            <p className="mt-2 text-[11px] leading-relaxed text-slate-500">Messages are processed by AI providers through OpenAI or Vercel AI Gateway. Donât include patient data or confidential information. AI can make mistakes; confirm details with PLS.</p>
+            <div className="flex gap-2"><input ref={input} id="pls-chat-question" value={question} onChange={event => setQuestion(event.target.value)} maxLength={1200} autoComplete="off" placeholder="Ask about PLS" disabled={sending} className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-3 text-base disabled:bg-slate-50" /><button type="submit" disabled={sending || !question.trim()} className="rounded-lg bg-navy px-4 text-sm font-semibold text-white disabled:opacity-40">Send</button></div>
+            <p className="mt-2 text-[11px] leading-relaxed text-slate-500">Messages are processed by AI providers through OpenAI or Vercel AI Gateway. Don&apos;t include patient data or confidential information. AI can make mistakes; confirm details with PLS.</p>
           </form>}
           {messages.length > 0 && <button type="button" disabled={sending} onClick={() => { setMessages([]); setError(''); setQuestion(''); input.current?.focus(); }} className="mt-2 min-h-8 text-xs font-semibold text-slate-500 underline underline-offset-4 disabled:opacity-40">Clear conversation</button>}
         </div>
