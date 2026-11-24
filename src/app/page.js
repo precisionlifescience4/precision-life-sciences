@@ -137,9 +137,7 @@ export default function Home() {
             <Link href="/extraction-kits" className="mt-6 inline-flex min-h-12 items-center rounded-lg bg-navy px-5 py-3 text-sm font-bold text-white hover:bg-navylight">Explore Mugen-Prep</Link>
             <p className="mt-3 text-xs text-slate-600">In development · Research use only</p>
           </div>
-          <div aria-label="DNA and RNA extraction pathways" className="grid grid-cols-2 gap-4">
-            {['DNA', 'RNA'].map((molecule, index) => <Link key={molecule} href="/extraction-kits" className="prep-home-tile rounded-2xl border border-cyan/30 bg-white p-6 text-navy sm:p-8" style={{ '--prep-delay': `${index * 180}ms` }}><span aria-hidden="true" className="prep-home-orbit mb-7 flex h-16 w-16 items-center justify-center rounded-full border-2 border-cyan text-xl font-bold text-cyandark">{molecule === 'DNA' ? 'D' : 'R'}</span><span className="block text-2xl font-bold">{molecule}</span><span className="mt-2 block text-sm text-slate-600">Extraction kit</span></Link>)}
-          </div>
+          <Link href="/extraction-kits" className="block overflow-hidden rounded-2xl border border-cyan/20 bg-white"><Image src="/images/mugen-prep-concept.jpg" alt="Mugen-Prep DNA and RNA extraction kit packaging concepts" width={1000} height={667} className="h-auto w-full" /><span className="block px-5 pb-4 text-xs text-slate-500">Packaging concepts · In development</span></Link>
         </div>
       </section>
 
