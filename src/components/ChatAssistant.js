@@ -5,12 +5,77 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const STARTERS = ['Which assays can I explore?', 'How do I request a sample kit?', 'What should I confirm before sending samples?'];
 const QUICK_LINKS = [
   ['Request a sample kit', '/request-sample'],
   ['Sample transport', '/sample-transport'],
   ['Contact the team', '/contact'],
 ];
+
+const GUIDE_STEPS = {
+  start: {
+    prompt: 'What are you looking for?',
+    choices: [
+      { label: 'A PCR or extraction kit', detail: 'Explore PLS assays and nucleic-acid preparation kits', next: 'kits' },
+      { label: 'A laboratory service', detail: 'Plan sequencing, design, cloning or sample-preparation work', next: 'services' },
+      { label: 'A partner product', detail: 'Browse the authorised Janzy product catalogue', href: '/services#janzy-kits', action: 'Open partner catalogue' },
+    ],
+  },
+  kits: {
+    prompt: 'Which product area is closest to your need?',
+    choices: [
+      { label: 'Infectious disease assay', detail: 'Viral research assays including hepatitis, HIV, dengue and influenza', next: 'infectious' },
+      { label: 'Emergency medicine panel', detail: 'Respiratory or meningitis research panel concepts', href: '/services#emergency-panels', action: 'Explore emergency panels' },
+      { label: 'Haematology assay', detail: 'Myeloid research pipeline and assay concepts', href: '/services#myeloid', action: 'Explore myeloid pipeline' },
+      { label: 'DNA or RNA extraction kit', detail: 'Mugen-Prep column-based extraction kits in development', href: '/extraction-kits', action: 'Explore extraction kits' },
+    ],
+  },
+  infectious: {
+    prompt: 'Which infectious-disease assay are you looking for?',
+    choices: [
+      { label: 'Hepatitis B virus', href: '/assays/hbv', action: 'View HBV assay' },
+      { label: 'Hepatitis C virus', href: '/assays/hcv', action: 'View HCV assay' },
+      { label: 'Human immunodeficiency virus', href: '/assays/hiv', action: 'View HIV assay' },
+      { label: 'Dengue or chikungunya', href: '/assays/dengue-chikungunya', action: 'View Dengue / Chikungunya assay' },
+      { label: 'Influenza A / B or CCHF', href: '/services#infectious', action: 'Explore infectious-disease assays' },
+    ],
+  },
+  services: {
+    prompt: 'Which laboratory service do you need?',
+    choices: [
+      { label: 'NGS or Sanger sequencing', detail: 'Sequence planning and research workflows', href: '/molecular-services', action: 'Explore sequencing services' },
+      { label: 'Primer, probe design or synthesis', detail: 'Design support and oligonucleotide sourcing', href: '/molecular-services/primer-design', action: 'Explore primer design' },
+      { label: 'Cloning or molecular biology', detail: 'Construct planning and molecular workflow support', href: '/molecular-services/cloning-constructs', action: 'Explore cloning services' },
+      { label: 'PCR cleanup or sample preparation', detail: 'Prepare, clean up or assess nucleic-acid material', href: '/molecular-services/pcr-cleanup', action: 'Explore PCR cleanup' },
+      { label: 'Biobanking or storage', detail: 'Plan research sample storage and management', href: '/molecular-services/biobanking-storage', action: 'Explore biobanking' },
+    ],
+  },
+};
+
+function GuidedFinder({ step, onChoose, onStartOver, onComplete }) {
+  const current = GUIDE_STEPS[step];
+  return (
+    <section aria-label="Guided PLS finder" className="mt-5 rounded-xl border border-cyan/25 bg-cyan/5 p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div><p className="text-[10px] font-bold uppercase tracking-[0.16em] text-cyandark">Guided finder</p><h3 className="mt-1 text-base font-bold text-navy">{current.prompt}</h3></div>
+        {step !== 'start' && <button type="button" onClick={onStartOver} className="min-h-9 shrink-0 text-xs font-semibold text-cyandark underline underline-offset-4">Start over</button>}
+      </div>
+      <div className="mt-4 space-y-2">
+        {current.choices.map(choice => choice.href ? (
+          <Link key={choice.label} href={choice.href} onClick={onComplete} className="block rounded-lg border border-navy/15 bg-white px-3 py-3 text-left transition-colors hover:border-cyandark hover:bg-cyan/5">
+            <span className="block text-sm font-bold text-navy">{choice.label}</span>
+            {choice.detail && <span className="mt-1 block text-xs leading-relaxed text-slate-600">{choice.detail}</span>}
+            <span className="mt-2 block text-xs font-semibold text-cyandark">{choice.action}</span>
+          </Link>
+        ) : (
+          <button type="button" key={choice.label} onClick={() => onChoose(choice.next)} className="block w-full rounded-lg border border-navy/15 bg-white px-3 py-3 text-left transition-colors hover:border-cyandark hover:bg-cyan/5">
+            <span className="block text-sm font-bold text-navy">{choice.label}</span>
+            <span className="mt-1 block text-xs leading-relaxed text-slate-600">{choice.detail}</span>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function DiaNAAvatar({ size = 36 }) {
   return <Image src="/images/diana-avatar.png" alt="" width={size} height={size} className="h-full w-full object-cover" />;
@@ -31,6 +96,7 @@ export default function ChatAssistant() {
   const [question, setQuestion] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
+  const [guideStep, setGuideStep] = useState('start');
 
   useEffect(() => {
     if (!open) return;
@@ -121,10 +187,10 @@ export default function ChatAssistant() {
           <button type="button" onClick={close} aria-label="Close DiaNA" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-bold hover:bg-white/10">Close</button>
         </div>
         <div ref={log} role="log" aria-label="Conversation with DiaNA" aria-live="polite" aria-relevant="additions text" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5">
-          <p id="pls-assistant-description" className="text-sm leading-relaxed text-slate-600">I can help you find PLS assays, laboratory services and sample information. I can&apos;t confirm availability or accept a shipment.</p>
+          <p id="pls-assistant-description" className="text-sm leading-relaxed text-slate-600">Start with a few clear choices to find the right PLS product or service. You can also ask DiaNA a question below.</p>
+          <GuidedFinder step={guideStep} onChoose={setGuideStep} onStartOver={() => setGuideStep('start')} onComplete={close} />
           {availability === 'checking' && <p role="status" className="mt-4 text-sm text-slate-500">Checking assistant availability...</p>}
           {availability === 'unavailable' && <div role="status" className="mt-4 rounded-lg border border-slate-200 bg-graybg p-4 text-sm leading-relaxed text-slate-600">AI chat is currently unavailable. You can use the links below or contact the PLS team for help.</div>}
-          {availability === 'available' && messages.length === 0 && <div className="mt-5 space-y-2">{STARTERS.map(text => <button type="button" key={text} onClick={() => ask(text)} disabled={sending} className="block w-full rounded-lg border border-navy/15 bg-graybg px-3 py-3 text-left text-sm text-navy transition-colors hover:border-cyandark disabled:opacity-50">{text}</button>)}</div>}
           <div className="mt-5 space-y-4">
             {messages.map((message, index) => <div key={index} className={`rounded-xl px-4 py-3 text-sm leading-relaxed ${message.role === 'user' ? 'ml-7 bg-navy text-white' : 'mr-3 border border-slate-200 bg-graybg text-slate-700'}`}>
               <p className={`mb-1 text-[10px] font-bold uppercase tracking-wider ${message.role === 'user' ? 'text-slate-300' : 'text-cyandark'}`}>{message.role === 'user' ? 'You' : 'DiaNA'}</p>
