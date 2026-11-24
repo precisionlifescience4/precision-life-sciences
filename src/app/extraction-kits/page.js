@@ -23,15 +23,15 @@ export default function ExtractionKitsPage() {
             <span aria-hidden="true" className="mx-2">/</span>
             <span aria-current="page" className="font-semibold text-navy">Extraction kits</span>
           </nav>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Precision Life Sciences · research pipeline</p>
-          <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-navy md:text-5xl">Mugen-Prep</h1>
-          <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-600">
+          <p className="memory-cue text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Precision Life Sciences · research pipeline</p>
+          <h1 className="memory-cue mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-navy md:text-5xl" style={{ '--memory-index': 1 }}>Mugen-Prep</h1>
+          <p className="memory-cue mt-5 max-w-3xl text-lg leading-relaxed text-slate-600" style={{ '--memory-index': 2 }}>
             Column-based DNA and RNA extraction kits for molecular research—room-temperature stable when unopened, and an upstream companion to the Mugen-Plex real-time PCR portfolio.
           </p>
           <div className="mt-6 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
-            <span className="rounded-full border border-navy/15 bg-white px-4 py-2 text-navy">In development</span>
-            <span className="rounded-full border border-navy/15 bg-white px-4 py-2 text-navy">Research use only</span>
-            <span className="rounded-full border border-cyan/40 bg-white px-4 py-2 text-navy">Room-temperature stable · unopened</span>
+            <span className="memory-cue rounded-full border border-navy/15 bg-white px-4 py-2 text-navy" style={{ '--memory-index': 3 }}>In development</span>
+            <span className="memory-cue rounded-full border border-navy/15 bg-white px-4 py-2 text-navy" style={{ '--memory-index': 4 }}>Research use only</span>
+            <span className="memory-cue rounded-full border border-cyan/40 bg-white px-4 py-2 text-navy" style={{ '--memory-index': 5 }}>Room-temperature stable · unopened</span>
           </div>
         </div>
       </section>
@@ -43,9 +43,12 @@ export default function ExtractionKitsPage() {
             DNA and RNA are planned as separate kits within the Mugen-Prep line. We are defining their sample scope, components and specifications before release.
           </p>
           <div className="mt-8 grid gap-5 md:grid-cols-2">
-            {EXTRACTION_KITS.map((kit) => (
-              <article key={kit.id} className="flex flex-col rounded-2xl border border-slate-200 bg-graybg p-7">
-                <span aria-hidden="true" className="mb-5 block h-1 w-14 rounded-full" style={{ backgroundColor: kit.accent }} />
+            {EXTRACTION_KITS.map((kit, index) => (
+              <article key={kit.id} className="memory-cue prep-card flex flex-col rounded-2xl border border-slate-200 bg-graybg p-7" style={{ '--memory-index': index + 1 }}>
+                <div className="mb-5 flex items-center justify-between gap-4">
+                  <span aria-hidden="true" className="prep-accent block h-1 w-14 rounded-full" style={{ backgroundColor: kit.accent }} />
+                  <span className="text-xs font-bold tabular-nums text-slate-400">0{index + 1}</span>
+                </div>
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">In development · RUO</p>
                 <h3 className="mt-2 text-2xl font-extrabold text-navy">{kit.molecule} Extraction Kit</h3>
                 <p className="mt-4 leading-relaxed text-slate-600">{kit.description}</p>
