@@ -51,9 +51,9 @@ export default function ChatAssistant() {
 
   useEffect(() => {
     dialog.current?.close();
-    // The Services page is where visitors most often need help choosing a product.
-    // Use a non-modal introduction so the portfolio remains usable behind DiaNA.
-    if (pathname === '/services' && !hasIntroducedDiaNA.current) {
+    // Introduce DiaNA on the homepage and portfolio without blocking the page behind it.
+    // These are the two places where visitors most often need help finding their next step.
+    if ((pathname === '/' || pathname === '/services') && !hasIntroducedDiaNA.current) {
       hasIntroducedDiaNA.current = true;
       const timer = window.setTimeout(() => {
         dialog.current?.show();
