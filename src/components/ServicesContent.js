@@ -345,13 +345,17 @@ export default function ServicesContent() {
     return matchesSearch && matchesJanzyCategory && matchesClinicalArea;
   });
 
+  const scrollToResults = () => {
+    requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById('catalogue-results')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })));
+  };
+
   const chooseJourney = (id) => {
-    if (id === activeJourney) return;
     setActiveJourney(id);
     setActiveJanzyCategory('All targets');
     setActiveClinicalArea('all');
     setQuery('');
-    window.history.pushState(null, '', `#${id}`);
+    window.history.pushState(null, '', `/services#${id}`);
+    scrollToResults();
   };
 
   const chooseClinicalArea = (area) => {
@@ -360,6 +364,7 @@ export default function ServicesContent() {
     setActiveClinicalArea(area);
     setQuery('');
     window.history.pushState(null, '', `/services?area=${area}#janzy-kits`);
+    scrollToResults();
   };
 
   const clearSearch = () => {
