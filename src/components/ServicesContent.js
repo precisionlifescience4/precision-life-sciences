@@ -620,7 +620,9 @@ export default function ServicesContent() {
             <div className={`grid gap-5 ${
               group.id === 'collaboration'
                 ? 'md:grid-cols-1'
-                : group.id === 'janzy-kits' || group.id === 'laboratory-services' || group.id === 'advanced-services'
+                : group.id === 'janzy-kits'
+                  ? 'grid-cols-1'
+                  : group.id === 'laboratory-services' || group.id === 'advanced-services'
                   ? 'md:grid-cols-2 lg:grid-cols-3'
                   : 'md:grid-cols-2'
             }`}>
@@ -643,6 +645,7 @@ export default function ServicesContent() {
                     style={{ '--motion-index': index }}
                     className={`portfolio-card-enter flex h-full flex-col rounded-xl border border-slate-200 border-t-4 ${c.border} bg-white p-5 transition-shadow hover:shadow-[0_8px_30px_rgba(0,32,91,0.06)] sm:p-6`}
                   >
+                    {s.kind === 'janzy-kit' && <p className="mb-2 text-xs font-bold uppercase tracking-[0.15em] text-cyandark">Janzy Biotechnology · PCR kit</p>}
                     <h3 className="mb-2 text-lg font-bold text-navy">{s.name}</h3>
                     <p className="mb-4 text-sm leading-relaxed text-gray-600">{s.description}</p>
 
