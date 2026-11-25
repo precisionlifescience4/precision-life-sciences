@@ -607,6 +607,8 @@ export default function ServicesContent() {
               <p className="mt-3 leading-relaxed text-slate-600">{group.description}</p>
             </div>
 
+            {group.id === 'janzy-kits' && <div className="mb-6 rounded-xl border border-cyan/25 bg-graybg p-5 text-sm leading-relaxed text-slate-600"><p className="font-bold text-navy">Information for customers</p><p className="mt-2">Janzy Biotechnology products are supplied through PLS. Ask us for the product-specific instructions for use, compatible instruments, sample requirements, storage, pricing and availability before ordering. Manufacturer item numbers are shown where the catalogue match is confirmed; PLS references are separate identifiers.</p><Link href="/contact?topic=datasheet" className="mt-3 inline-block font-semibold text-cyandark underline underline-offset-4">Request product information</Link></div>}
+
             {visibleItems.length === 0 && (
               <div className="rounded-xl border border-dashed border-slate-300 bg-graybg px-6 py-10 text-center">
                 <h3 className="text-xl font-bold text-navy">No matching results</h3>
@@ -626,6 +628,8 @@ export default function ServicesContent() {
                 const c = colorMap[s.color] || colorMap.navy;
                 // General, public-facing specs only. Gene regions and reaction details stay in the datasheet.
                 const chips = [
+                  ['Manufacturer item no.', s.manufacturerReference],
+                  ['PLS reference', s.plsReference],
                   ['Category', s.category],
                   ['Pack size', s.format],
                   ['Sample type', s.sample_type],
