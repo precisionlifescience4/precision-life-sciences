@@ -84,11 +84,11 @@ export default function Home() {
                 Explore assays <span aria-hidden="true">↗</span>
               </Link>
               <Link href="/request-sample" className="inline-flex min-h-12 items-center justify-center rounded-lg border border-navy/25 bg-white px-6 py-3.5 text-sm font-semibold text-navy transition-colors hover:border-navy hover:bg-graybg">
-                Request a sample kit
+                Request an evaluation sample
               </Link>
             </div>
             <div className="mt-7 max-w-lg border-l-2 border-cyan/50 pl-4">
-              <p className="text-xs font-semibold text-navy">Pre-launch · Research use only (RUO)</p>
+              <p className="text-xs font-semibold text-navy">Research use only (RUO)</p>
               <p className="mt-1.5 text-xs leading-relaxed text-slate-600">Products are in development or validation and are not currently available for order. Not for diagnostic use.</p>
             </div>
           </div>
