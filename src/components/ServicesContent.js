@@ -162,6 +162,18 @@ const JANZY_CLINICAL_AREAS = {
   livestock: { label: 'Livestock & ruminant', matches: (kit) => kit.category === 'Ruminant health' },
 };
 
+function AreaIcon({ area }) {
+  const paths = {
+    infectious: <><circle cx="12" cy="12" r="5" /><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M19 5l-2 2M7 17l-2 2" /></>,
+    'emergency-panels': <><path d="M4 12h4l2-5 3 10 2-5h5" /><path d="M12 3v2M12 19v2" /></>,
+    myeloid: <><path d="M12 3C9 7 6 10 6 14a6 6 0 0 0 12 0c0-4-3-7-6-11Z" /><path d="M9 15c.3 1.5 1.3 2.3 3 2.5" /></>,
+    'advanced-services': <><path d="M7 3c0 8 10 10 10 18M17 3C17 11 7 13 7 21M8 6h8M8 18h8M9 12h6" /></>,
+    gastro: <><path d="M9 3v6c0 2-2 2-2 5 0 4 3 7 7 7 3 0 5-2 5-5s-2-5-5-5h-2V3" /></>,
+    livestock: <><path d="M5 10 3 6l5 2a8 8 0 0 1 8 0l5-2-2 4v4c0 4-3 7-7 7s-7-3-7-7Z" /><path d="M9 13h.01M15 13h.01M10 17h4" /></>,
+  };
+  return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 shrink-0">{paths[area] || paths.infectious}</svg>;
+}
+
 function SpecChip({ label, value }) {
   return (
     <div className="bg-graybg rounded-lg px-3 py-2">
@@ -401,8 +413,8 @@ export default function ServicesContent() {
                 ['gastro', 'Gastro & enteric kits'],
                 ['livestock', 'Livestock kits'],
               ].map(([id, label]) => (
-                <button key={id} type="button" onClick={() => Object.hasOwn(JANZY_CLINICAL_AREAS, id) && id !== 'all' ? chooseClinicalArea(id) : chooseJourney(id)} className="min-h-10 rounded-full border border-navy/15 bg-white px-3 py-2 text-sm font-semibold text-navy hover:border-cyan hover:text-cyandark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
-                  {label}
+                <button key={id} type="button" onClick={() => Object.hasOwn(JANZY_CLINICAL_AREAS, id) && id !== 'all' ? chooseClinicalArea(id) : chooseJourney(id)} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-navy/15 bg-white px-3 py-2 text-sm font-semibold text-navy hover:border-cyan hover:text-cyandark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
+                  <AreaIcon area={id} />{label}
                 </button>
               ))}
             </div>
