@@ -40,7 +40,7 @@ const MARKS = [
   },
   {
     role: 'Quality management',
-    name: 'ISO 9001:2015 Â· KMU Project R&D Laboratory',
+    name: 'ISO 9001:2015 · KMU Project R&D Laboratory',
     image: '/images/partners/iso-9001-kmu-project-lab.svg',
     alt: 'ISO 9001:2015 certification of the KMU Project R and D Laboratory',
     width: 280,
@@ -49,7 +49,7 @@ const MARKS = [
   },
   {
     role: 'Incorporated with',
-    name: `SECP Â· CUIN ${SECP_CUIN}`,
+    name: `SECP · CUIN ${SECP_CUIN}`,
     image: '/images/partners/secp-registered.svg',
     alt: 'SECP incorporation credential',
     width: 280,

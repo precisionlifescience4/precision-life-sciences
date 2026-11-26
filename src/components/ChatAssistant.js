@@ -135,7 +135,7 @@ export default function ChatAssistant() {
     dialog.current?.close();
     // Introduce DiaNA on the homepage and portfolio without blocking the page behind it.
     // These are the two places where visitors most often need help finding their next step.
-    if ((pathname === '/' || pathname === '/services') && !hasIntroducedDiaNA.current) {
+    if ((pathname === '/' || pathname === '/services') && !hasIntroducedDiaNA.current && !window.matchMedia('(max-width: 640px)').matches) {
       hasIntroducedDiaNA.current = true;
       const timer = window.setTimeout(() => {
         dialog.current?.show();

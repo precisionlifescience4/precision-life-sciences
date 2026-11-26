@@ -162,40 +162,6 @@ const JANZY_CLINICAL_AREAS = {
   livestock: { label: 'Livestock & ruminant', matches: (kit) => kit.category === 'Ruminant health' },
 };
 
-const PORTFOLIO_PATHS = [
-  {
-    id: 'infectious',
-    eyebrow: 'PLS products',
-    title: 'PCR & extraction kits',
-    description: 'Explore the Mugen-Plex infectious and pipeline assays, plus Mugen-Prep extraction kits.',
-    action: 'Explore PLS kits',
-    icon: 'kit',
-  },
-  {
-    id: 'laboratory-services',
-    eyebrow: 'PLS services',
-    title: 'Send samples or start a project',
-    description: 'Request extraction, PCR, sequencing, primer design, cloning, cleanup or biobanking support.',
-    action: 'Explore laboratory services',
-    icon: 'service',
-  },
-  {
-    id: 'janzy-kits',
-    eyebrow: 'Extended PCR kit catalogue',
-    title: 'Find a kit by disease area',
-    description: 'Explore human, gastrointestinal, bacterial and livestock molecular detection kits supplied through PLS.',
-    action: 'Explore disease areas',
-    icon: 'kit',
-  },
-];
-
-function PathIcon({ type }) {
-  const common = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.7', className: 'h-6 w-6', 'aria-hidden': true };
-  if (type === 'service') return <svg {...common}><path d="M4 7.5h16M7 4v7m10-7v7M5.5 11.5h13v8.5h-13z" /><path d="M9 15.75h6" /></svg>;
-  if (type === 'partner') return <svg {...common}><circle cx="8" cy="12" r="3.25" /><circle cx="16" cy="7.5" r="2.25" /><circle cx="16" cy="16.5" r="2.25" /><path d="m10.8 10.5 3.1-1.8m-3.1 4.8 3.1 1.8" /></svg>;
-  return <svg {...common}><rect x="4" y="5" width="16" height="14" rx="2" /><path d="M8 9h8M8 13h5M8 16h3" /></svg>;
-}
-
 function SpecChip({ label, value }) {
   return (
     <div className="bg-graybg rounded-lg px-3 py-2">
@@ -444,33 +410,6 @@ export default function ServicesContent() {
         </div>
       </section>
 
-      <section aria-labelledby="portfolio-route-heading" className="portfolio-enter portfolio-enter-delay-1 mb-8">
-        <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyandark">Start here</p>
-            <h2 id="portfolio-route-heading" className="mt-2 text-2xl font-extrabold text-navy">What do you need today?</h2>
-          </div>
-          <p className="max-w-lg text-sm leading-relaxed text-slate-600">Choose a route first. You can then narrow by clinical area, workflow or product family.</p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {PORTFOLIO_PATHS.map((path) => (
-            <button
-              key={path.id}
-              type="button"
-              onClick={() => chooseJourney(path.id)}
-              className="memory-cue group flex min-h-56 flex-col rounded-2xl border border-navy/10 bg-white p-6 text-left transition-all hover:-translate-y-0.5 hover:border-cyan hover:shadow-[0_12px_30px_rgba(0,32,91,0.08)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-              style={{ '--memory-index': PORTFOLIO_PATHS.indexOf(path) }}
-            >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan/10 text-cyandark"><PathIcon type={path.icon} /></span>
-              <p className="mt-5 text-xs font-bold uppercase tracking-[0.16em] text-cyandark">{path.eyebrow}</p>
-              <h3 className="mt-2 text-xl font-extrabold text-navy">{path.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">{path.description}</p>
-              <span className="mt-auto pt-5 text-sm font-bold text-navy group-hover:text-cyandark">{path.action}</span>
-            </button>
-          ))}
-        </div>
-      </section>
-
       <div className="mb-8 flex flex-col items-start justify-between gap-3 rounded-lg border border-cyan/20 bg-graybg px-5 py-4 sm:flex-row sm:items-center">
         <p className="text-sm text-slate-600"><span className="font-semibold text-navy">Planning to send samples?</span> Confirm acceptance and transport requirements first.</p>
         <Link href="/sample-transport" className="inline-flex min-h-11 shrink-0 items-center text-sm font-bold text-cyandark hover:text-navy">Sample transport guide →</Link>
@@ -621,7 +560,7 @@ export default function ServicesContent() {
               group.id === 'collaboration'
                 ? 'md:grid-cols-1'
                 : group.id === 'janzy-kits'
-                  ? 'grid-cols-1'
+                  ? 'md:grid-cols-2'
                   : group.id === 'laboratory-services' || group.id === 'advanced-services'
                   ? 'md:grid-cols-2 lg:grid-cols-3'
                   : 'md:grid-cols-2'
